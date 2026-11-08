@@ -225,7 +225,7 @@ labelled as (
         end as issue,
         case
             when rule = 'duplicate' and earlier_date is not null
-                then 'Same invoice number as an invoice received on ' || to_char(earlier_date, 'YYYY-MM-DD')
+                then 'Same invoice number as an invoice dated ' || to_char(earlier_date, 'YYYY-MM-DD')
             when rule = 'duplicate'
                 then 'Same invoice number as an earlier invoice from this vendor'
             when rule = 'required_fields'
