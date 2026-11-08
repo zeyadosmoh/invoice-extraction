@@ -8,11 +8,17 @@
       "name": "Every 30 seconds",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [0, 300],
+      "position": [
+        0,
+        300
+      ],
       "parameters": {
         "rule": {
           "interval": [
-            { "field": "seconds", "secondsInterval": 30 }
+            {
+              "field": "seconds",
+              "secondsInterval": 30
+            }
           ]
         }
       }
@@ -22,7 +28,10 @@
       "name": "Read inbox files",
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
-      "position": [220, 300],
+      "position": [
+        220,
+        300
+      ],
       "notes": "Every PDF/PNG still in data/inbox/ (mounted read-only at /data/inbox). Processed files are moved out by the API, so anything here is new. An empty inbox outputs nothing and the run stops.",
       "parameters": {
         "operation": "read",
@@ -35,7 +44,10 @@
       "name": "Process invoice",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [440, 300],
+      "position": [
+        440,
+        300
+      ],
       "onError": "continueErrorOutput",
       "notes": "POST /process: extract (cached), validate against all invoices in Postgres, upsert. Token from the 'Invoice pipeline API' Header Auth credential.",
       "parameters": {
@@ -47,13 +59,22 @@
         "contentType": "multipart-form-data",
         "bodyParameters": {
           "parameters": [
-            { "parameterType": "formBinaryData", "name": "file", "inputDataFieldName": "data" }
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            }
           ]
         },
-        "options": { "timeout": 300000 }
+        "options": {
+          "timeout": 300000
+        }
       },
       "credentials": {
-        "httpHeaderAuth": { "id": "InvPipelineApi01", "name": "Invoice pipeline API" }
+        "httpHeaderAuth": {
+          "id": "InvPipelineApi01",
+          "name": "Invoice pipeline API"
+        }
       }
     },
     {
@@ -61,16 +82,27 @@
       "name": "Auto-approved?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
-      "position": [680, 200],
+      "position": [
+        680,
+        200
+      ],
       "parameters": {
         "conditions": {
-          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2 },
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
           "conditions": [
             {
               "id": "6f1c2a10-0004-4c00-8000-0000000000a1",
               "leftValue": "={{ $json.status }}",
               "rightValue": "auto_approved",
-              "operator": { "type": "string", "operation": "equals" }
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
             }
           ],
           "combinator": "and"
@@ -83,7 +115,10 @@
       "name": "Move to processed",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [920, 100],
+      "position": [
+        920,
+        100
+      ],
       "parameters": {
         "method": "POST",
         "url": "http://host.docker.internal:8765/move",
@@ -95,7 +130,10 @@
         "options": {}
       },
       "credentials": {
-        "httpHeaderAuth": { "id": "InvPipelineApi01", "name": "Invoice pipeline API" }
+        "httpHeaderAuth": {
+          "id": "InvPipelineApi01",
+          "name": "Invoice pipeline API"
+        }
       }
     },
     {
@@ -103,7 +141,10 @@
       "name": "Move to needs_review + log",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [920, 300],
+      "position": [
+        920,
+        300
+      ],
       "notes": "POST /move with the /process result: moves the file to data/needs_review/ and appends a row with the reasons to data/needs_review/review_log.csv.",
       "parameters": {
         "method": "POST",
@@ -116,7 +157,10 @@
         "options": {}
       },
       "credentials": {
-        "httpHeaderAuth": { "id": "InvPipelineApi01", "name": "Invoice pipeline API" }
+        "httpHeaderAuth": {
+          "id": "InvPipelineApi01",
+          "name": "Invoice pipeline API"
+        }
       }
     },
     {
@@ -124,7 +168,10 @@
       "name": "Processing failed: to needs_review",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [680, 480],
+      "position": [
+        680,
+        480
+      ],
       "notes": "/process returned an error (e.g. extraction failed, quota, or a file that is not cached in cache-only mode). The file goes to needs_review with the error as the reason, so it is not retried every poll. If the API is down this call fails too and the file stays in the inbox.",
       "parameters": {
         "method": "POST",
@@ -133,35 +180,80 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ filename: $('Read inbox files').item.binary.data.fileName, status: 'error', failed_reasons: [{ rule: 'processing', issue: 'Processing failed', detail: String($json.error?.message ?? $json.error ?? 'unknown error').slice(0, 500) }] }) }}",
+        "jsonBody": "={{ JSON.stringify({ filename: $('Read inbox files').item.binary.data.fileName, status: 'error', failed_reasons: [{ issue: 'Processing failed', detail: (() => { const m = String($json.error?.message ?? ''); const i = m.indexOf(' - '); const rest = /^\\d{3} - /.test(m) ? m.slice(i + 3) : m; let v = rest; try { v = JSON.parse(rest); } catch (e) {} if (typeof v === 'string') { try { v = JSON.parse(v); } catch (e) {} } if (v && typeof v === 'object' && v.detail) return String(v.detail); return (typeof v === 'string' && v ? v : 'Unknown error').slice(0, 300); })() }] }) }}",
         "options": {}
       },
       "credentials": {
-        "httpHeaderAuth": { "id": "InvPipelineApi01", "name": "Invoice pipeline API" }
+        "httpHeaderAuth": {
+          "id": "InvPipelineApi01",
+          "name": "Invoice pipeline API"
+        }
       }
     }
   ],
   "connections": {
     "Every 30 seconds": {
-      "main": [[{ "node": "Read inbox files", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Read inbox files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Read inbox files": {
-      "main": [[{ "node": "Process invoice", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Process invoice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Process invoice": {
       "main": [
-        [{ "node": "Auto-approved?", "type": "main", "index": 0 }],
-        [{ "node": "Processing failed: to needs_review", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Auto-approved?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Processing failed: to needs_review",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Auto-approved?": {
       "main": [
-        [{ "node": "Move to processed", "type": "main", "index": 0 }],
-        [{ "node": "Move to needs_review + log", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Move to processed",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Move to needs_review + log",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
-  "settings": { "executionOrder": "v1" },
+  "settings": {
+    "executionOrder": "v1"
+  },
   "pinData": {},
   "tags": []
 }

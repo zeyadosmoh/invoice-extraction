@@ -46,9 +46,9 @@ from validate import (  # noqa: E402
     AUTO_APPROVED,
     FAIL,
     ROOT,
-    RULE_LABELS,
     Record,
     load_record,
+    plain_english,
     queue_status,
     validate_against,
 )
@@ -92,9 +92,8 @@ class PostgresStore:
 
 
 class Reason(BaseModel):
-    rule: str
-    issue: str
-    detail: str
+    issue: str  # short label, e.g. "Duplicate invoice number"
+    detail: str  # plain English, e.g. "Same invoice number as an invoice dated 2025-02-07"
 
 
 class ProcessResult(BaseModel):
@@ -178,21 +177,23 @@ def create_app(
             with doc.open("wb") as fh:
                 shutil.copyfileobj(file.file, fh)
             if doc.stat().st_size == 0:
-                raise HTTPException(422, "empty file")
+                raise HTTPException(422, "The file is empty")
 
             ex = extractor()
             out_dir = cache_root / safe_dirname(ex.model)
             cache = cache_path(out_dir, doc)
             cached = cache.exists() and cached_result_is_valid(cache, sha256_file(doc))
             if cache_only and not cached:
-                raise HTTPException(409, f"{filename} has no cached extraction and PIPELINE_CACHE_ONLY is on")
+                raise HTTPException(409, "This file has not been read before, and reading new files is "
+                                         "switched off (cache-only mode)")
 
             log: list[str] = []
             summary = run(ex, Path(tmp), cache_root, delay_s=0, log=log.append)
-            if summary.stopped_reason:
-                raise HTTPException(503, summary.stopped_reason)
+            if summary.stopped_reason:  # quota / rate limit; details are in runs.csv
+                raise HTTPException(503, "The extraction service is busy or its daily quota is used up; "
+                                         "try again later")
             if summary.failed:
-                raise HTTPException(502, f"extraction failed for {filename}: {log[-1].strip() if log else ''}")
+                raise HTTPException(502, "The invoice could not be read by the extraction model")
 
         rec = load_record(cache)
         results = validate_against(rec, store.existing_records(), today())
@@ -206,8 +207,8 @@ def create_app(
             filename=filename,
             doc_id=rec.doc_id,
             status=queue_status(results),
-            failed_reasons=[Reason(rule=r.rule, issue=RULE_LABELS.get(r.rule, r.rule), detail=r.reason)
-                            for r in results if r.status == FAIL],
+            failed_reasons=[Reason(issue=issue, detail=detail)
+                            for issue, detail in (plain_english(r) for r in results if r.status == FAIL)],
             vendor=inv.vendor_name,
             invoice_number=inv.invoice_number,
             invoice_date=inv.invoice_date.isoformat() if inv.invoice_date else None,

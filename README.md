@@ -62,9 +62,13 @@ flowchart LR
     D -->|"needs_review<br/>or error"| F["data/needs_review/<br/>+ review_log.csv"]
 ```
 
+![n8n workflow](docs/img/n8n-workflow.png)
+The workflow in n8n: poll the inbox, process each file, then route it by status; API errors take their own path to review.
+
 - **Checks against everything loaded.** For a single file, the duplicate and date-sequence rules compare it with every invoice already in Postgres, not just a batch. A re-sent file keeps its original place in the arrival order, so it is never a duplicate of itself.
 - **One invoice at a time.** Loading upserts by `doc_id` (header, lines and review rows in one transaction); other invoices are untouched.
 - **Secrets stay out of the workflow.** The API listens on 127.0.0.1 only and requires a bearer token from `.env`; in n8n the token is a Header Auth credential, so `n8n/workflows/invoice_pipeline.json` contains none.
+- **Reasons a person can read.** The API and `review_log.csv` use the same wording as the dashboard, e.g. "Duplicate invoice number: Same invoice number as an invoice dated 2025-02-07", with no internal ids or field names.
 - **Nothing loops.** A file the API cannot process (extraction error, quota, or not cached when `PIPELINE_CACHE_ONLY=1`) goes to `needs_review/` with the error as its reason instead of being retried every poll.
 
 Setup and import steps: [n8n/README.md](n8n/README.md).

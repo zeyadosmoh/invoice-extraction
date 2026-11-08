@@ -156,9 +156,8 @@ def test_duplicate_is_checked_against_every_stored_invoice(env):
     client, _, _ = env(store=store)
     body = upload(client).json()
     assert body["status"] == "needs_review"
-    [reason] = body["failed_reasons"]
-    assert reason["rule"] == "duplicate" and reason["issue"] == "Duplicate invoice number"
-    assert "already received (doc_0005)" in reason["detail"]
+    assert body["failed_reasons"] == [
+        {"issue": "Duplicate invoice number", "detail": "Same invoice number as an invoice dated 2026-01-10"}]
     _, _, review = store.upserts[0]
     assert [r[1] for r in review] == ["duplicate"]
 
@@ -177,7 +176,8 @@ def test_date_sequence_is_checked_against_stored_invoices(env):
     client, _, _ = env(store=store, extractor=extractor)
     body = upload(client).json()
     assert body["status"] == "needs_review"
-    assert [r["rule"] for r in body["failed_reasons"]] == ["date_sequence"]
+    assert body["failed_reasons"] == [{"issue": "Invoice date out of sequence",
+                                       "detail": "Invoice date is out of order with this vendor's other invoices"}]
 
 
 @pytest.mark.parametrize("name", ["../doc_0200.pdf", "notes.txt", "doc 0200.pdf", ".hidden.pdf", "doc.pdf.exe"])
@@ -191,6 +191,8 @@ def test_cache_only_mode_refuses_uncached_files(env):
     client, store, extractor = env(cache_only=True)
     r = upload(client)
     assert r.status_code == 409
+    assert r.json()["detail"] == ("This file has not been read before, and reading new files is switched off "
+                                  "(cache-only mode)")
     assert extractor.calls == [] and store.upserts == []
 
 
@@ -216,9 +218,8 @@ def test_move_approved_file_to_processed(env, tmp_path):
 
 def test_move_flagged_file_appends_review_log(env, tmp_path):
     client, _, _ = env()
-    reasons = [{"rule": "tax", "issue": "Tax amount wrong", "detail": "15% of 122.00 = 18.30, tax printed 21.96"},
-               {"rule": "duplicate", "issue": "Duplicate invoice number",
-                "detail": 'invoice "SHF-1" from حلول الواحة was already received (doc_0005)'}]
+    reasons = [{"issue": "Tax amount wrong", "detail": "Tax should be 18.30 (15% of 122.00) but 21.96 is printed"},
+               {"issue": "Duplicate invoice number", "detail": 'Same invoice "SHF-1" from حلول الواحة, dated 2025-02-07'}]
     for name in ("doc_0050.pdf", "doc_0051.png"):
         drop(tmp_path, name)
         body = {"filename": name, "doc_id": name.split(".")[0], "status": "needs_review",
@@ -232,8 +233,24 @@ def test_move_flagged_file_appends_review_log(env, tmp_path):
     assert [r["filename"] for r in rows] == ["doc_0050.pdf", "doc_0051.png"]  # one header, two rows
     assert rows[0]["vendor"] == "Wahat, Digital"
     assert rows[0]["reasons"] == (
-        "Tax amount wrong: 15% of 122.00 = 18.30, tax printed 21.96; "
-        'Duplicate invoice number: invoice "SHF-1" from حلول الواحة was already received (doc_0005)')
+        "Tax amount wrong: Tax should be 18.30 (15% of 122.00) but 21.96 is printed; "
+        'Duplicate invoice number: Same invoice "SHF-1" from حلول الواحة, dated 2025-02-07')
+
+
+def test_reasons_never_show_ids_or_field_names(env):
+    """Every failure the API can report is in plain English: no doc ids, no snake_case field names."""
+    import re
+
+    store = FakeStore([stored("doc_0005", "EV-0100", "2026-01-10")])
+    bad = invoice_json(invoice_date=None, total="999.00", tax_amount="9.00", subtotal="130.00",
+                       line_items=[{"description": "A", "quantity": "2", "unit_price": "50.00", "line_total": "90.00"}])
+    client, _, _ = env(store=store, extractor=FakeExtractor({"doc_0200": bad}))
+    body = upload(client).json()
+    assert body["status"] == "needs_review" and len(body["failed_reasons"]) >= 4
+    for r in body["failed_reasons"]:
+        assert set(r) == {"issue", "detail"}
+        text = r["issue"] + " " + r["detail"]
+        assert not re.search(r"doc_\d+|[a-z]+_[a-z]+", text), text
 
 
 def test_move_does_not_overwrite_an_earlier_file(env, tmp_path):

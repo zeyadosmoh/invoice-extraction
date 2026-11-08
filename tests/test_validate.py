@@ -368,3 +368,40 @@ def test_validate_against_keeps_a_resent_invoice_in_its_original_place():
     later = {r.rule: r for r in validate_against(rec("doc_0009"), existing, TODAY)}
     assert first["duplicate"].status == PASS
     assert later["duplicate"].status == FAIL
+
+
+# ---------------------------------------------------------------- plain-English reasons (dashboard wording)
+
+def test_plain_english_matches_dashboard_wording():
+    from validate import check_date_sequence as _seq, plain_english
+
+    cases = [
+        (check_tax(make_invoice(tax_amount="9.99")),
+         ("Tax amount wrong", "Tax should be 5.50 (5% of 110.00) but 9.99 is printed")),
+        (check_total(make_invoice(total="1234.00")),
+         ("Total doesn't add up", "Total should be 115.50 (subtotal - discount + tax) but 1,234.00 is printed")),
+        (check_subtotal(make_invoice(subtotal="1500.00")),
+         ("Subtotal doesn't add up", "Subtotal should be 120.00 (sum of the lines) but 1,500.00 is printed")),
+        (check_required_fields(make_invoice(invoice_date=None)),
+         ("Missing invoice date", "Invoice date is not printed on the document")),
+        (check_required_fields(make_invoice(invoice_date=None, invoice_number=None)),
+         ("Missing invoice number, invoice date", "Invoice number, invoice date are not printed on the document")),
+        (check_due_date(make_invoice(due_date="2026-01-01")),
+         ("Due date before invoice date", "Due date 2026-01-01 is before invoice date 2026-01-10")),
+        (check_not_future(make_invoice(invoice_date="2027-01-01", due_date="2027-02-01"), TODAY),
+         ("Invoice date in the future", "Invoice date 2027-01-01 is in the future")),
+        (check_line_totals(make_invoice(line_items=[{"quantity": "2", "unit_price": "5", "line_total": "11"}])),
+         ("Line total wrong", "One or more lines: quantity x unit price does not match the line amount")),
+    ]
+    dups = check_duplicates([rec("doc_0001", invoice_date="2025-02-07"), rec("doc_0002")])
+    cases.append((dups["doc_0002.pdf"],
+                  ("Duplicate invoice number", "Same invoice number as an invoice dated 2025-02-07")))
+    seq = _seq([rec("doc_0001", invoice_number="EV-1", invoice_date="2026-01-01"),
+                rec("doc_0002", invoice_number="EV-2", invoice_date="2026-09-01"),
+                rec("doc_0003", invoice_number="EV-3", invoice_date="2026-01-03"),
+                rec("doc_0004", invoice_number="EV-4", invoice_date="2026-01-04")])
+    cases.append((seq["doc_0002.pdf"],
+                  ("Invoice date out of sequence", "Invoice date is out of order with this vendor's other invoices")))
+    for result, expected in cases:
+        assert result.status == FAIL, result
+        assert plain_english(result) == expected

@@ -45,19 +45,6 @@ PASS, FAIL, SKIP = "pass", "fail", "skip"
 AUTO_APPROVED, NEEDS_REVIEW = "auto_approved", "needs_review"
 REQUIRED_FIELDS = ("invoice_number", "vendor_name", "invoice_date", "total", "currency")
 
-# Short plain-English label per rule (same wording as the dashboard's review queue).
-RULE_LABELS = {
-    "duplicate": "Duplicate invoice number",
-    "total": "Total doesn't add up",
-    "tax": "Tax amount wrong",
-    "subtotal": "Subtotal doesn't add up",
-    "line_totals": "Line total wrong",
-    "required_fields": "Required field missing",
-    "due_date": "Due date before invoice date",
-    "future_date": "Invoice date in the future",
-    "date_sequence": "Invoice date out of sequence",
-}
-
 QUEUE_COLUMNS = (
     "doc_key", "doc_id", "file_type", "vendor_name", "invoice_number", "invoice_date", "total",
     "currency", "status", "n_failed", "failed_reasons", "skipped_rules",
@@ -68,7 +55,8 @@ QUEUE_COLUMNS = (
 class RuleResult:
     rule: str
     status: str  # pass / fail / skip
-    reason: str = ""
+    reason: str = ""  # technical reason, stored in raw.review_queue
+    data: dict = field(default_factory=dict, compare=False, hash=False)  # values for plain_english()
 
 
 @dataclass
@@ -118,7 +106,8 @@ def check_subtotal(inv: ExtractedInvoice) -> RuleResult:
         return RuleResult(rule, SKIP, "a line total is missing")
     lines_sum = sum(totals, Decimal("0"))
     if abs(lines_sum - inv.subtotal) > TOL:
-        return RuleResult(rule, FAIL, f"lines sum to {_money(lines_sum)}, subtotal printed {inv.subtotal}")
+        return RuleResult(rule, FAIL, f"lines sum to {_money(lines_sum)}, subtotal printed {inv.subtotal}",
+                          {"expected": lines_sum, "printed": inv.subtotal})
     return RuleResult(rule, PASS)
 
 
@@ -133,7 +122,8 @@ def check_tax(inv: ExtractedInvoice) -> RuleResult:
     expected = base * inv.tax_rate / 100
     if abs(expected - inv.tax_amount) > TOL:
         return RuleResult(rule, FAIL, f"{inv.tax_rate.normalize():f}% of {_money(base)} = {_money(expected)}, "
-                                      f"tax printed {inv.tax_amount}")
+                                      f"tax printed {inv.tax_amount}",
+                          {"rate": inv.tax_rate, "base": base, "expected": expected, "printed": inv.tax_amount})
     return RuleResult(rule, PASS)
 
 
@@ -145,7 +135,8 @@ def check_total(inv: ExtractedInvoice) -> RuleResult:
         return RuleResult(rule, SKIP, "tax rate printed but tax amount missing")
     expected = inv.subtotal - (inv.discount or 0) + (inv.tax_amount or 0)
     if abs(expected - inv.total) > TOL:
-        return RuleResult(rule, FAIL, f"subtotal - discount + tax = {_money(expected)}, total printed {inv.total}")
+        return RuleResult(rule, FAIL, f"subtotal - discount + tax = {_money(expected)}, total printed {inv.total}",
+                          {"expected": expected, "printed": inv.total})
     return RuleResult(rule, PASS)
 
 
@@ -153,7 +144,7 @@ def check_required_fields(inv: ExtractedInvoice) -> RuleResult:
     rule = "required_fields"
     missing = [f for f in REQUIRED_FIELDS if getattr(inv, f) in (None, "")]
     if missing:
-        return RuleResult(rule, FAIL, f"missing: {', '.join(missing)}")
+        return RuleResult(rule, FAIL, f"missing: {', '.join(missing)}", {"missing": missing})
     return RuleResult(rule, PASS)
 
 
@@ -162,7 +153,8 @@ def check_due_date(inv: ExtractedInvoice) -> RuleResult:
     if inv.invoice_date is None or inv.due_date is None:
         return RuleResult(rule, SKIP, "invoice date or due date missing")
     if inv.due_date < inv.invoice_date:
-        return RuleResult(rule, FAIL, f"due date {inv.due_date} is before invoice date {inv.invoice_date}")
+        return RuleResult(rule, FAIL, f"due date {inv.due_date} is before invoice date {inv.invoice_date}",
+                          {"due_date": inv.due_date, "invoice_date": inv.invoice_date})
     return RuleResult(rule, PASS)
 
 
@@ -171,7 +163,8 @@ def check_not_future(inv: ExtractedInvoice, today: date) -> RuleResult:
     if inv.invoice_date is None:
         return RuleResult(rule, SKIP, "invoice date missing")
     if inv.invoice_date > today:
-        return RuleResult(rule, FAIL, f"invoice date {inv.invoice_date} is in the future (today {today})")
+        return RuleResult(rule, FAIL, f"invoice date {inv.invoice_date} is in the future (today {today})",
+                          {"invoice_date": inv.invoice_date})
     return RuleResult(rule, PASS)
 
 
@@ -222,7 +215,8 @@ def check_duplicates(records: list[Record]) -> dict[str, RuleResult]:
         first = seen.get((vk, num))
         if first is not None:
             out[r.doc_key] = RuleResult(
-                rule, FAIL, f"invoice number {num} from {r.invoice.vendor_name} was already received ({first.doc_id})")
+                rule, FAIL, f"invoice number {num} from {r.invoice.vendor_name} was already received ({first.doc_id})",
+                {"earlier_date": first.invoice.invoice_date})
         else:
             seen[(vk, num)] = r
             out[r.doc_key] = RuleResult(rule, PASS)
@@ -297,6 +291,59 @@ def validate_against(new: Record, existing: list[Record], today: date) -> list[R
     if not any(r.doc_id == new.doc_id for r in existing):
         inbox.append(new)
     return validate_inbox(inbox, today)[new.doc_key]
+
+
+# --------------------------------------------------------------------------------------
+# Plain-English reasons (same wording as the dashboard's review queue, see
+# scripts/metabase/build_spend_dashboard.py): no document ids, no field names.
+# --------------------------------------------------------------------------------------
+
+_ISSUES = {
+    "duplicate": "Duplicate invoice number",
+    "total": "Total doesn't add up",
+    "tax": "Tax amount wrong",
+    "subtotal": "Subtotal doesn't add up",
+    "line_totals": "Line total wrong",
+    "due_date": "Due date before invoice date",
+    "future_date": "Invoice date in the future",
+    "date_sequence": "Invoice date out of sequence",
+}
+
+
+def _amount(d) -> str:
+    return f"{Decimal(d):,.2f}"
+
+
+def plain_english(r: RuleResult) -> tuple[str, str]:
+    """(issue, detail) for a failed rule, written for a non-technical reader."""
+    d = r.data
+    if r.rule == "required_fields":
+        fields = ", ".join(f.replace("_", " ") for f in d.get("missing", [])) or "a required field"
+        verb = "are" if "," in fields else "is"
+        return f"Missing {fields}", f"{fields[0].upper()}{fields[1:]} {verb} not printed on the document"
+    issue = _ISSUES.get(r.rule, r.rule.replace("_", " ").capitalize())
+    if r.rule == "duplicate":
+        if d.get("earlier_date"):
+            return issue, f"Same invoice number as an invoice dated {d['earlier_date']}"
+        return issue, "Same invoice number as an earlier invoice from this vendor"
+    if r.rule == "tax" and d:
+        return issue, (f"Tax should be {_amount(d['expected'])} ({Decimal(d['rate']).normalize():f}% of "
+                       f"{_amount(d['base'])}) but {_amount(d['printed'])} is printed")
+    if r.rule == "total" and d:
+        return issue, (f"Total should be {_amount(d['expected'])} (subtotal - discount + tax) but "
+                       f"{_amount(d['printed'])} is printed")
+    if r.rule == "subtotal" and d:
+        return issue, (f"Subtotal should be {_amount(d['expected'])} (sum of the lines) but "
+                       f"{_amount(d['printed'])} is printed")
+    if r.rule == "line_totals":
+        return issue, "One or more lines: quantity x unit price does not match the line amount"
+    if r.rule == "due_date" and d:
+        return issue, f"Due date {d['due_date']} is before invoice date {d['invoice_date']}"
+    if r.rule == "future_date" and d:
+        return issue, f"Invoice date {d['invoice_date']} is in the future"
+    if r.rule == "date_sequence":
+        return issue, "Invoice date is out of order with this vendor's other invoices"
+    return issue, re.sub(r"\s*\(doc_[0-9]+\)", "", r.reason)
 
 
 # --------------------------------------------------------------------------------------
