@@ -206,13 +206,13 @@ The script is idempotent: it creates or updates the database connection "Invoice
 
 Layout (for a non-technical reader):
 - a two-line note: synthetic data, USD at fixed illustrative rates
-- 5 number cards: Invoices processed, Auto-approved (with its share in the title, recomputed on every run), Approved spend, Open review items, At stake in review
+- 5 number cards: Invoices, Auto-approved · 90% (share recomputed on every run), Approved spend, In review, At stake (USD)
 - Spend by currency and Tax by currency, side by side: Currency, Invoices, Amount (original), Amount (USD)
 - Approved spend by month (USD)
 - Top 10 vendors by approved spend (USD)
-- Review queue: Issue (plain-English label per failed rule, e.g. "Duplicate invoice number", "Tax amount wrong"), Vendor, Invoice, Invoice date, Amount, Currency, Amount (USD), Details (the validator's full reason); doc id hidden
+- Review queue: Issue (plain-English label per failed rule, e.g. "Duplicate invoice number", "Tax amount wrong"), Vendor, Invoice, Invoice date, Amount (e.g. "57,707.04 AED"), Amount (USD), Details (the validator's full reason); doc id hidden
 
-All bar charts use one color.
+All bar charts use one color; dates are ISO (`2025-05-13`, months `2025-05`).
 
 "Spend" = invoice total incl. tax, approved invoices only.
 

@@ -150,8 +150,10 @@ def col(name: str) -> str:
 
 # One color for every bar chart.
 BAR_COLOR = "#2F6DB5"
-USD = {"number_style": "currency", "currency": "USD", "currency_style": "symbol"}
-USD_CODE = {"number_style": "currency", "currency": "USD", "currency_style": "code"}  # "USD 1,234"
+USD = {"number_style": "currency", "currency": "USD", "currency_style": "symbol",
+       "currency_in_header": False}
+USD_CODE = {"number_style": "currency", "currency": "USD", "currency_style": "code",
+            "currency_in_header": False}  # "USD 1,234"
 MONEY = {"number_style": "decimal", "decimals": 2}
 KPI = {"scalar.compact_primary_number": False}
 
@@ -194,9 +196,8 @@ select
     string_agg(issue, ', ' order by ord)                as issue,
     vendor_name                                         as vendor,
     invoice_number                                      as invoice,
-    invoice_date,
-    amount_at_stake                                     as amount,
-    currency,
+    to_char(invoice_date, 'YYYY-MM-DD')                 as invoice_date,
+    to_char(amount_at_stake, 'FM999,999,999,990.00') || ' ' || currency as amount,
     amount_at_stake_usd                                 as amount_usd,
     string_agg(detail, '; ' order by ord)               as details,
     doc_id
@@ -207,7 +208,7 @@ order by min(issue), amount_at_stake_usd desc"""
 CARDS = [
     # ---- KPI row ---------------------------------------------------------
     dict(
-        key="kpi_invoices", name="Invoices processed", display="scalar",
+        key="kpi_invoices", name="Invoices", aliases=["Invoices processed"], display="scalar",
         description="Invoices read by the pipeline (one per invoice: the scan where one exists, else the PDF).",
         sql="select count(*) as invoices from marts.fct_invoices",
         viz=KPI,
@@ -226,13 +227,13 @@ CARDS = [
         viz={**KPI, "column_settings": {col("approved_spend_usd"): {**USD_CODE, "decimals": 0}}},
     ),
     dict(
-        key="review_count", name="Open review items", display="scalar",
+        key="review_count", name="In review", aliases=["Open review items"], display="scalar",
         description="Invoices that failed at least one validation rule and wait for a human reviewer.",
         sql="select count(*) as open_items from marts.mart_review_queue",
         viz=KPI,
     ),
     dict(
-        key="review_amount", name="At stake in review", aliases=["Amount at stake in review (USD)"],
+        key="review_amount", name="At stake", aliases=["At stake in review", "Amount at stake in review (USD)"],
         display="scalar",
         description=f"Total of the invoices waiting for review, in USD. {FX_NOTE}",
         sql="select coalesce(sum(amount_at_stake_usd), 0) as amount_at_stake_usd from marts.mart_review_queue",
@@ -272,7 +273,8 @@ order by amount_usd desc""",
     dict(
         key="spend_month", name="Approved spend by month (USD)", display="bar",
         description=f"Sum of invoice totals (incl. tax) of approved invoices, by invoice month. {FX_NOTE}",
-        sql="""select invoice_month as month, sum(spend_usd) as spend_usd, sum(n_invoices) as invoices
+        sql="""select to_char(invoice_month, 'YYYY-MM') as month, sum(spend_usd) as spend_usd,
+       sum(n_invoices) as invoices
 from marts.mart_spend_monthly
 group by invoice_month
 order by invoice_month""",
@@ -284,7 +286,7 @@ order by invoice_month""",
             "graph.y_axis.title_text": "Approved spend (USD)",
             "series_settings": {"spend_usd": {"color": BAR_COLOR}},
             "column_settings": {col("spend_usd"): {**USD, "decimals": 0, "column_title": "Spend (USD)"},
-                                col("month"): {"date_style": "MMMM, YYYY", "date_abbreviate": True}},
+                                col("month"): {"column_title": "Month"}},
         },
     ),
     dict(
@@ -316,16 +318,17 @@ limit 10""",
         viz={
             "table.columns": [
                 {"name": n, "enabled": n != "doc_id"}
-                for n in ("issue", "vendor", "invoice", "invoice_date", "amount", "currency",
-                          "amount_usd", "details", "doc_id")
+                for n in ("issue", "vendor", "invoice", "invoice_date", "amount", "amount_usd",
+                          "details", "doc_id")
             ],
+            # Pixel widths of the visible columns, in order: narrow fixed columns, Details gets the rest.
+            "table.column_widths": [190, 200, 125, 105, 130, 115, 430],
             "column_settings": {
                 col("issue"): {"column_title": "Issue"},
                 col("vendor"): {"column_title": "Vendor"},
                 col("invoice"): {"column_title": "Invoice"},
-                col("invoice_date"): {"column_title": "Invoice date", "date_style": "YYYY/M/D"},
-                col("amount"): {**MONEY, "column_title": "Amount"},
-                col("currency"): {"column_title": "Currency"},
+                col("invoice_date"): {"column_title": "Invoice date"},
+                col("amount"): {"column_title": "Amount"},
                 col("amount_usd"): {**USD, "decimals": 2, "column_title": "Amount (USD)"},
                 col("details"): {"column_title": "Details", "text_wrapping": True},
                 col("doc_id"): {"column_title": "Doc"},
@@ -342,17 +345,20 @@ TEXT_KEY = "intro_text"
 # Grid is 24 columns wide. (card key, row, col, width, height)
 LAYOUT = [
     (TEXT_KEY, 0, 0, 24, 2),
-    # 5 KPIs over 24 columns: the shortest title ("Approved spend") gets 4.
-    ("kpi_invoices", 2, 0, 5, 3),
-    ("kpi_approved", 2, 5, 5, 3),
-    ("kpi_spend", 2, 10, 4, 3),
-    ("review_count", 2, 14, 5, 3),
-    ("review_amount", 2, 19, 5, 3),
-    ("spend_currency", 5, 0, 12, 5),
-    ("tax_currency", 5, 12, 12, 5),
-    ("spend_month", 10, 0, 24, 7),
-    ("top_vendors", 17, 0, 24, 8),
-    ("review_table", 25, 0, 24, 9),
+    # 5 KPIs over 24 columns; the longest title ("Auto-approved · 90%") gets the widest card.
+    # Height 4 leaves room for a title to wrap instead of being cut off.
+    ("kpi_invoices", 2, 0, 4, 4),
+    ("kpi_approved", 2, 4, 6, 4),
+    ("kpi_spend", 2, 10, 5, 4),
+    ("review_count", 2, 15, 4, 4),
+    ("review_amount", 2, 19, 5, 4),
+    # 5 currency rows + header with no scrollbar.
+    ("spend_currency", 6, 0, 12, 7),
+    ("tax_currency", 6, 12, 12, 7),
+    ("spend_month", 13, 0, 24, 7),
+    ("top_vendors", 20, 0, 24, 8),
+    # 12 review rows (Details may wrap to 2 lines) + header with no scrollbar.
+    ("review_table", 28, 0, 24, 18),
 ]
 
 
@@ -390,10 +396,10 @@ def upsert_cards(mb: Metabase, db_id: int, coll_id: int) -> dict[str, int]:
 
 
 def approved_title(mb: Metabase, card_ids: dict[str, int]) -> str:
-    """'Auto-approved (90%)': the share is computed from live data each time the script runs."""
+    """'Auto-approved · 90%': the share is computed from live data each time the script runs."""
     approved = mb.post(f"/card/{card_ids['kpi_approved']}/query", json={})["data"]["rows"][0][0]
     total = mb.post(f"/card/{card_ids['kpi_invoices']}/query", json={})["data"]["rows"][0][0]
-    return f"Auto-approved ({approved / total:.0%})" if total else "Auto-approved"
+    return f"Auto-approved · {approved / total:.0%}" if total else "Auto-approved"
 
 
 def upsert_dashboard(mb: Metabase, coll_id: int, card_ids: dict[str, int],
