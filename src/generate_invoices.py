@@ -989,10 +989,12 @@ def money_str(d: Decimal | None) -> str | None:
 def ground_truth(doc: dict, seed: int) -> dict:
     v = doc["vendor"]
     is_t5 = doc["template"] == "T5_bilingual_ar_en"
+    # Ground truth is "as printed": the T3 receipt prints the vendor name in upper case (draw_t3_receipt).
+    printed_name = v.name.upper() if doc["template"] == "T3_receipt" else v.name
     return {
         "doc_id": doc["doc_id"],
         "invoice": {
-            "vendor_name": v.name,
+            "vendor_name": printed_name,
             "vendor_name_ar": v.name_ar if is_t5 else None,
             "vendor_tax_id": v.tax_id,
             "buyer_name": doc["buyer"][0],

@@ -13,6 +13,9 @@ __pycache__/
 data/synthetic/pdf/
 data/synthetic/scans/
 
+# LLM extraction outputs (cache + run logs)
+data/extracted/
+
 # Editors / OS
 .vscode/
 .idea/

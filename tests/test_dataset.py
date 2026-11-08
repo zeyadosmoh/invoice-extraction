@@ -145,7 +145,8 @@ def test_normal_invoices_have_dates(normal):
 def test_normal_invoice_numbers_unique_per_vendor(gts):
     seen: dict[tuple[str, str], str] = {}
     for g in gts:  # doc ids are chronological
-        key = (g["invoice"]["vendor_name"], g["invoice"]["invoice_number"])
+        # Key on vendor identity: the printed name differs by template (T3 prints it in upper case).
+        key = (g["meta"]["vendor_id"], g["invoice"]["invoice_number"])
         if g["anomaly"] and g["anomaly"]["type"] == "duplicate_invoice_number":
             continue
         assert key not in seen, f"{g['doc_id']} unexpectedly duplicates {seen[key]}"
@@ -196,7 +197,7 @@ def test_duplicate_invoice_number_is_real(gts):
     for g in anomalies_of(gts, "duplicate_invoice_number"):
         inv = g["invoice"]
         earlier = [x for x in gts if x["doc_id"] < g["doc_id"]
-                   and x["invoice"]["vendor_name"] == inv["vendor_name"]
+                   and x["meta"]["vendor_id"] == g["meta"]["vendor_id"]
                    and x["invoice"]["invoice_number"] == inv["invoice_number"]]
         assert earlier, g["doc_id"]
         assert g["anomaly"]["duplicate_of"] in by_id

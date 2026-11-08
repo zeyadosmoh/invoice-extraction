@@ -17,7 +17,7 @@ PDF / scanned image
  accuracy report: extracted JSON vs. ground truth          n8n workflow wraps the whole flow
 ```
 
-Only the first building block exists so far: a **reproducible synthetic dataset with ground truth**. See [Status](#status).
+So far: a **reproducible synthetic dataset with ground truth** and a provider-agnostic **LLM extraction module** (Gemini), tested on the samples. See [Status](#status).
 
 ## Sample invoices
 
@@ -103,13 +103,34 @@ This takes about 15 s. It writes `data/synthetic/{pdf,scans,ground_truth}/` and 
 pytest -q
 ```
 
-The tests check that:
+The tests run offline (no API calls). They check that:
+- the extraction runner caches, throttles, retries, and stops on quota (using a fake extractor)
+- digit and number normalisation works, and a sample response parses into the schema
 - normal invoices add up
 - every anomaly really breaks its rule
 - every PDF has a ground-truth file (and vice versa)
 - the ratios and coverage are as expected
 - the samples are complete
 - the generator is byte-for-byte reproducible
+
+### LLM extraction
+
+Set `GEMINI_API_KEY` in `.env` (a free key from Google AI Studio). `LLM_PROVIDER` and `LLM_MODEL` pick the provider and model; the default is `gemini` / `gemini-3.5-flash-lite`, which is on the free tier and accepts PDF and image input with structured JSON output. Claude and OpenAI extractors exist only as stubs.
+
+```bash
+python src/run_extraction.py                 # extracts data/samples/ (7 docs)
+python src/run_extraction.py --force         # ignore the cache and re-run
+python src/run_extraction.py --input data/synthetic/pdf --delay 15
+python src/compare_samples.py                # field-by-field diff vs ground truth (console only)
+```
+
+How it works:
+- PDFs are sent to the model as PDFs and PNGs as images, with the versioned prompt in [`src/prompts/extract_invoice.md`](src/prompts/extract_invoice.md) and a JSON schema. Amounts and dates come back as strings, so nothing is rounded through floats.
+- The response is passed through a normalisation safety net (`src/extract/normalize.py`: Arabic-Indic digits, Arabic separators, `1.234,56`-style numbers, printed dates to ISO) and validated into the Pydantic model in `src/extract/schema.py`. Money is `Decimal`, dates are `date`, a missing field is `null`, and `uncertain_fields` lists what the model could not read clearly.
+- Results are cached in `data/extracted/<model>/<doc_id>.json`; documents with a result are skipped unless `--force`. Each run appends one row per document to `data/extracted/<model>/runs.csv` (file type, template, latency, tokens, status, error). `data/extracted/` is gitignored.
+- Free tier: requests are spaced by `LLM_REQUEST_DELAY_S` (default 10 s). Rate-limit errors are retried with jittered exponential backoff that honours the server's retry hint. On a daily-quota error (or a rate limit that persists through all retries) the run stops with a message and exit code 2; finished documents stay cached.
+- Names are returned **as printed**. The T3 receipt prints the vendor name in upper case, so extraction (and the ground truth) gives `ATELIER SOLENNE SARL` where other templates give `Atelier Solenne SARL`. Mapping printed vendor names to one canonical vendor happens later, in dbt, not in extraction.
+- The API key is read from `.env` by python-dotenv and is never printed or logged. Error messages are scrubbed before they reach the console or `runs.csv`.
 
 ### Database (for later phases)
 
@@ -125,8 +146,11 @@ docker compose up -d
 assets/fonts/        Amiri (SIL Open Font License, see OFL.txt)
 data/samples/        curated, committed examples
 data/synthetic/      generated dataset (pdf/ and scans/ are gitignored)
+data/extracted/      LLM extraction results + runs.csv per model (gitignored)
 docs/                design notes (upcoming)
-src/                 code
+src/                 code: generate_invoices.py, run_extraction.py, compare_samples.py
+src/extract/         extractor interface, Gemini implementation, schema, normalisation
+src/prompts/         versioned prompts
 tests/               pytest suite
 ```
 
@@ -135,7 +159,7 @@ tests/               pytest suite
 - [x] Project scaffold (venv, pinned deps, docker-compose for Postgres, `.env.example`)
 - [x] Synthetic invoice generator: 5 templates incl. bilingual AR/EN, scans, anomalies, ground truth
 - [x] Dataset tests
-- [ ] LLM extraction to structured JSON
+- [x] LLM extraction to structured JSON (Gemini, provider-agnostic interface; tested on the 7 samples, full 120-doc run pending)
 - [ ] Validation rules and human review queue
 - [ ] Load to PostgreSQL
 - [ ] dbt models

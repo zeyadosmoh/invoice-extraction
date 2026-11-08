@@ -5,6 +5,9 @@ python-bidi==0.6.12
 pypdfium2==5.15.1
 pillow==13.0.0
 numpy==2.5.4
+google-genai==3.0.0
+pydantic==2.14.3
+python-dotenv==1.2.4
 
 # Dev / test
 pytest==9.2.0
