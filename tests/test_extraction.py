@@ -18,9 +18,11 @@ from extract import get_extractor  # noqa: E402
 from extract.base import (  # noqa: E402
     ExtractionResult,
     Extractor,
+    ExtractionError,
     QuotaExhaustedError,
     RateLimitError,
     ResponseParseError,
+    TransientError,
     load_prompt,
     redact,
 )
@@ -28,7 +30,7 @@ from extract.gemini import _is_daily_quota, _retry_delay_s  # noqa: E402
 from extract.normalize import normalize_date, normalize_digits, normalize_number  # noqa: E402
 from extract.schema import ExtractedInvoice, parse_invoice  # noqa: E402
 from compare_samples import compare_value  # noqa: E402
-from run_extraction import run  # noqa: E402
+from run_extraction import RUNS_COLUMNS, run  # noqa: E402
 
 SAMPLES = ROOT / "data" / "samples"
 
@@ -235,10 +237,11 @@ def test_runner_caches_and_logs(docs, tmp_path):
     out, sleeps = tmp_path / "out", []
     ex = FakeExtractor()
     s = run(ex, docs, out, delay_s=7, sleep=sleeps.append, log=lambda m: None)
-    assert s.ok == ["doc_a", "doc_b", "doc_c"] and s.exit_code == 0
+    assert s.ok == ["doc_a.pdf", "doc_b.png", "doc_c.pdf"] and s.exit_code == 0
     assert sleeps == [7, 7]  # throttle between requests, not before the first
-    saved = json.loads((out / "fake-model_v1" / "doc_a.json").read_text(encoding="utf-8"))
+    saved = json.loads((out / "fake-model_v1" / "doc_a.pdf.json").read_text(encoding="utf-8"))
     assert saved["invoice"]["total"] == "1113.71" and saved["input_tokens"] == 100
+    assert len(saved["source_sha256"]) == 64
     rows = _rows(out)
     assert [r["file_type"] for r in rows] == ["pdf", "png", "pdf"]
     assert all(r["status"] == "ok" for r in rows)
@@ -246,7 +249,7 @@ def test_runner_caches_and_logs(docs, tmp_path):
     # Second run: everything cached, no calls.
     ex2 = FakeExtractor()
     s2 = run(ex2, docs, out, sleep=lambda _: None, log=lambda m: None)
-    assert ex2.calls == [] and s2.cached == ["doc_a", "doc_b", "doc_c"]
+    assert ex2.calls == [] and s2.cached == ["doc_a.pdf", "doc_b.png", "doc_c.pdf"]
 
     # --force re-runs.
     ex3 = FakeExtractor()
@@ -259,7 +262,7 @@ def test_runner_retries_rate_limit_with_backoff(docs, tmp_path):
     ex = FakeExtractor({"doc_a": [RateLimitError("429"), RateLimitError("429", retry_after_s=30)]})
     s = run(ex, docs, tmp_path / "out", delay_s=1, backoff_base_s=2, backoff_cap_s=60,
             sleep=sleeps.append, log=lambda m: None)
-    assert s.ok == ["doc_a", "doc_b", "doc_c"]
+    assert s.ok == ["doc_a.pdf", "doc_b.png", "doc_c.pdf"]
     assert ex.calls[:3] == ["doc_a", "doc_a", "doc_a"]
     backoffs = [x for x in sleeps if x != 1]
     assert 1 <= backoffs[0] <= 2 and backoffs[1] >= 30  # jittered exponential, honours retry hint
@@ -269,14 +272,14 @@ def test_runner_retries_rate_limit_with_backoff(docs, tmp_path):
 def test_runner_stops_when_rate_limit_persists(docs, tmp_path):
     ex = FakeExtractor({"doc_b": [RateLimitError("429")] * 10})
     s = run(ex, docs, tmp_path / "out", max_retries=2, sleep=lambda _: None, log=lambda m: None)
-    assert s.ok == ["doc_a"] and s.exit_code == 2 and "daily quota" in s.stopped_reason
+    assert s.ok == ["doc_a.pdf"] and s.exit_code == 2 and "daily quota" in s.stopped_reason
     assert "doc_c" not in ex.calls
 
 
 def test_runner_stops_on_daily_quota(docs, tmp_path):
     ex = FakeExtractor({"doc_b": [QuotaExhaustedError("429 RESOURCE_EXHAUSTED")]})
     s = run(ex, docs, tmp_path / "out", sleep=lambda _: None, log=lambda m: None)
-    assert s.ok == ["doc_a"] and s.exit_code == 2
+    assert s.ok == ["doc_a.pdf"] and s.exit_code == 2
     assert ex.calls == ["doc_a", "doc_b"]
     assert _rows(tmp_path / "out")[-1]["status"] == "quota_exhausted"
 
@@ -285,9 +288,88 @@ def test_runner_continues_after_parse_error(docs, tmp_path):
     out = tmp_path / "out"
     ex = FakeExtractor({"doc_a": [ResponseParseError("bad json", raw_response="{oops")]})
     s = run(ex, docs, out, sleep=lambda _: None, log=lambda m: None)
-    assert s.failed == ["doc_a"] and s.ok == ["doc_b", "doc_c"] and s.exit_code == 1
-    assert (out / "fake-model_v1" / "doc_a.raw.txt").read_text() == "{oops"
-    assert not (out / "fake-model_v1" / "doc_a.json").exists()
+    assert s.failed == ["doc_a.pdf"] and s.ok == ["doc_b.png", "doc_c.pdf"] and s.exit_code == 1
+    assert (out / "fake-model_v1" / "doc_a.pdf.raw.txt").read_text() == "{oops"
+    assert not (out / "fake-model_v1" / "doc_a.pdf.json").exists()
+
+
+def _quiet(**kw):
+    return dict(sleep=lambda _: None, log=lambda m: None, **kw)
+
+
+def test_pdf_and_scan_of_same_doc_are_cached_separately(tmp_path):
+    """doc_0001.pdf and doc_0001.png must never overwrite or skip each other, same folder or not."""
+    out = tmp_path / "out"
+    pdfs, scans = tmp_path / "pdf", tmp_path / "scans"
+    pdfs.mkdir(); scans.mkdir()
+    (pdfs / "doc_0001.pdf").write_bytes(b"pdf bytes")
+    (scans / "doc_0001.png").write_bytes(b"png bytes")
+
+    ex = FakeExtractor()
+    assert run(ex, pdfs, out, **_quiet()).ok == ["doc_0001.pdf"]
+    s = run(ex, scans, out, **_quiet())
+    assert s.ok == ["doc_0001.png"] and s.cached == []  # the PDF result did not cause a skip
+    model_dir = out / "fake-model_v1"
+    a = json.loads((model_dir / "doc_0001.pdf.json").read_text(encoding="utf-8"))
+    b = json.loads((model_dir / "doc_0001.png.json").read_text(encoding="utf-8"))
+    assert a["source_file"] == "doc_0001.pdf" and b["source_file"] == "doc_0001.png"
+
+    # Both in one folder: two keys, no duplicate-id error; both now cached.
+    both = tmp_path / "both"
+    both.mkdir()
+    (both / "doc_0001.pdf").write_bytes(b"pdf bytes")
+    (both / "doc_0001.png").write_bytes(b"png bytes")
+    assert run(FakeExtractor(), both, out, **_quiet()).cached == ["doc_0001.pdf", "doc_0001.png"]
+
+    rows = list(csv.DictReader((model_dir / "runs.csv").open(encoding="utf-8")))
+    assert [r["doc_key"] for r in rows[:2]] == ["doc_0001.pdf", "doc_0001.png"]
+
+
+def test_cache_is_invalidated_when_source_file_changes(tmp_path):
+    d, out = tmp_path / "in", tmp_path / "out"
+    d.mkdir()
+    (d / "doc_x.pdf").write_bytes(b"v1")
+    run(FakeExtractor(), d, out, **_quiet())
+    (d / "doc_x.pdf").write_bytes(b"v2")
+    ex = FakeExtractor()
+    assert run(ex, d, out, **_quiet()).ok == ["doc_x.pdf"] and ex.calls == ["doc_x"]
+
+
+def test_legacy_cache_and_runs_csv_are_migrated(tmp_path):
+    d, out = tmp_path / "in", tmp_path / "out"
+    model_dir = out / "fake-model_v1"
+    d.mkdir(); model_dir.mkdir(parents=True)
+    (d / "doc_0001.png").write_bytes(b"scan")
+    (d / "doc_0002.pdf").write_bytes(b"pdf")
+    # Pre-v2 layout: <doc_id>.json, no hash; old runs.csv header without doc_key / input_dir.
+    (model_dir / "doc_0001.json").write_text(json.dumps({"source_file": "doc_0001.png", "invoice": {}}))
+    (model_dir / "doc_0002.json").write_text(json.dumps({"source_file": "doc_0002.png", "invoice": {}}))
+    (model_dir / "runs.csv").write_text("run_at,doc_id,file_type,status\n2026-01-01,doc_0001,png,ok\n")
+
+    ex = FakeExtractor()
+    s = run(ex, d, out, **_quiet())
+    assert s.cached == ["doc_0001.png"]  # legacy result reused for the matching file type
+    assert s.ok == ["doc_0002.pdf"]      # legacy result from a *png* must not count for the pdf
+    assert (model_dir / "doc_0001.png.json").exists() and not (model_dir / "doc_0001.json").exists()
+    assert (model_dir / "doc_0002.json").exists()  # left alone: it belongs to a png not in this folder
+
+    rows = list(csv.DictReader((model_dir / "runs.csv").open(encoding="utf-8")))
+    assert list(rows[0].keys()) == RUNS_COLUMNS
+    assert rows[0]["doc_key"] == "doc_0001.png" and rows[0]["status"] == "ok"
+
+
+def test_transient_errors_retry_then_skip_doc(docs, tmp_path):
+    ex = FakeExtractor({"doc_a": [TransientError("503")] * 10})
+    s = run(ex, docs, tmp_path / "out", max_retries=2, **_quiet())
+    assert s.failed == ["doc_a.pdf"] and s.ok == ["doc_b.png", "doc_c.pdf"] and s.stopped_reason is None
+    assert ex.calls.count("doc_a") == 3
+
+
+def test_stops_after_consecutive_errors(docs, tmp_path):
+    ex = FakeExtractor({k: [ExtractionError("400 INVALID_ARGUMENT")] for k in ("doc_a", "doc_b", "doc_c")})
+    s = run(ex, docs, tmp_path / "out", max_consecutive_errors=2, **_quiet())
+    assert s.failed == ["doc_a.pdf", "doc_b.png"] and s.exit_code == 2 and "in a row" in s.stopped_reason
+    assert "doc_c" not in ex.calls
 
 
 # ---------------------------------------------------------------- comparison rules

@@ -80,12 +80,16 @@ class ResponseParseError(ExtractionError):
         self.raw_response = raw_response
 
 
-class RateLimitError(ExtractionError):
-    """Transient (per-minute) rate limit; worth retrying after a backoff."""
+class TransientError(ExtractionError):
+    """Temporary server-side failure (5xx, overloaded); worth a bounded retry, then skip the doc."""
 
     def __init__(self, message: str, retry_after_s: float | None = None):
         super().__init__(message)
         self.retry_after_s = retry_after_s
+
+
+class RateLimitError(TransientError):
+    """Per-minute rate limit; retried with backoff. If it persists, the run stops (likely quota)."""
 
 
 class QuotaExhaustedError(ExtractionError):

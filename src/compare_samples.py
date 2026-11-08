@@ -22,7 +22,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from extract.gemini import DEFAULT_MODEL  # noqa: E402
 from extract.schema import DATE_FIELDS, HEADER_FIELDS, LINE_NUMBER_FIELDS, MONEY_FIELDS  # noqa: E402
-from run_extraction import ROOT, safe_dirname  # noqa: E402
+from run_extraction import MIME_TYPES, ROOT, cache_path, safe_dirname  # noqa: E402
 
 NUMERIC = set(MONEY_FIELDS) | set(LINE_NUMBER_FIELDS)
 
@@ -80,7 +80,8 @@ def main() -> int:
     latencies = []
     for gt_path in sorted(args.input.glob("doc_*.json")):
         gt_doc = json.loads(gt_path.read_text(encoding="utf-8"))
-        res_path = out_dir / gt_path.name
+        docs = [d for d in args.input.glob(f"{gt_path.stem}.*") if d.suffix.lower() in MIME_TYPES]
+        res_path = cache_path(out_dir, docs[0]) if docs else out_dir / "missing"
         meta = gt_doc["meta"]
         res = json.loads(res_path.read_text(encoding="utf-8")) if res_path.exists() else None
         kind = Path(res["source_file"]).suffix.lstrip(".") if res else "?"

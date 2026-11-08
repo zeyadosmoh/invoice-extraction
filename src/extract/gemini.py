@@ -23,6 +23,7 @@ from .base import (
     QuotaExhaustedError,
     RateLimitError,
     ResponseParseError,
+    TransientError,
     load_prompt,
     mime_type_for,
     redact,
@@ -108,6 +109,8 @@ class GeminiExtractor(Extractor):
                 if _is_daily_quota(e.details):
                     raise QuotaExhaustedError(msg) from None
                 raise RateLimitError(msg, _retry_delay_s(e.details)) from None
+            if e.code in (500, 502, 503, 504):
+                raise TransientError(msg, _retry_delay_s(e.details)) from None
             raise ExtractionError(msg) from None
         except Exception as e:  # network errors etc.; never chain (tracebacks could carry request data)
             raise ExtractionError(self._safe(f"{type(e).__name__}: {e}")) from None
