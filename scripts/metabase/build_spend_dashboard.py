@@ -148,10 +148,127 @@ def col(name: str) -> str:
     return f'["name","{name}"]'
 
 
+# One color for every bar chart.
+BAR_COLOR = "#2F6DB5"
 USD = {"number_style": "currency", "currency": "USD", "currency_style": "symbol"}
+USD_CODE = {"number_style": "currency", "currency": "USD", "currency_style": "code"}  # "USD 1,234"
 MONEY = {"number_style": "decimal", "decimals": 2}
+KPI = {"scalar.compact_primary_number": False}
+
+# Per-currency tables: same four columns for spend and tax.
+CURRENCY_COLUMNS = {
+    col("currency"): {"column_title": "Currency"},
+    col("invoices"): {"column_title": "Invoices"},
+    col("amount_original"): {**MONEY, "column_title": "Amount (original)"},
+    col("amount_usd"): {**USD, "decimals": 2, "column_title": "Amount (USD)"},
+}
+
+# Review queue: plain-English issue label per failed rule; Details = the validator's reason.
+REVIEW_SQL = """with items as (
+    select
+        q.*,
+        split_part(r.item, ': ', 1)                                  as rule,
+        substr(r.item, length(split_part(r.item, ': ', 1)) + 3)       as detail,
+        r.ord
+    from marts.mart_review_queue q
+    cross join lateral unnest(string_to_array(q.reasons, '; ')) with ordinality as r(item, ord)
+),
+labelled as (
+    select
+        *,
+        case rule
+            when 'duplicate'       then 'Duplicate invoice number'
+            when 'total'           then 'Total doesn''t add up'
+            when 'tax'             then 'Tax amount wrong'
+            when 'subtotal'        then 'Subtotal doesn''t add up'
+            when 'line_totals'     then 'Line total wrong'
+            when 'required_fields' then 'Missing ' || replace(replace(detail, 'missing: ', ''), '_', ' ')
+            when 'due_date'        then 'Due date before invoice date'
+            when 'future_date'     then 'Invoice date in the future'
+            when 'date_sequence'   then 'Invoice date out of sequence'
+            else rule
+        end as issue
+    from items
+)
+select
+    string_agg(issue, ', ' order by ord)                as issue,
+    vendor_name                                         as vendor,
+    invoice_number                                      as invoice,
+    invoice_date,
+    amount_at_stake                                     as amount,
+    currency,
+    amount_at_stake_usd                                 as amount_usd,
+    string_agg(detail, '; ' order by ord)               as details,
+    doc_id
+from labelled
+group by doc_id, vendor_name, invoice_number, invoice_date, amount_at_stake, currency, amount_at_stake_usd
+order by min(issue), amount_at_stake_usd desc"""
 
 CARDS = [
+    # ---- KPI row ---------------------------------------------------------
+    dict(
+        key="kpi_invoices", name="Invoices processed", display="scalar",
+        description="Invoices read by the pipeline (one per invoice: the scan where one exists, else the PDF).",
+        sql="select count(*) as invoices from marts.fct_invoices",
+        viz=KPI,
+    ),
+    dict(
+        key="kpi_approved", name="Auto-approved", display="scalar",
+        description="Invoices that passed every validation rule. The share is shown in the dashboard title "
+                    "of this card and refreshed each time the build script runs.",
+        sql="select count(*) filter (where is_approved) as auto_approved from marts.fct_invoices",
+        viz=KPI,
+    ),
+    dict(
+        key="kpi_spend", name="Approved spend", display="scalar",
+        description=f"Total of approved invoices incl. tax, in USD. {FX_NOTE}",
+        sql="select coalesce(sum(spend_usd), 0) as approved_spend_usd from marts.mart_spend_monthly",
+        viz={**KPI, "column_settings": {col("approved_spend_usd"): {**USD_CODE, "decimals": 0}}},
+    ),
+    dict(
+        key="review_count", name="Open review items", display="scalar",
+        description="Invoices that failed at least one validation rule and wait for a human reviewer.",
+        sql="select count(*) as open_items from marts.mart_review_queue",
+        viz=KPI,
+    ),
+    dict(
+        key="review_amount", name="At stake in review", aliases=["Amount at stake in review (USD)"],
+        display="scalar",
+        description=f"Total of the invoices waiting for review, in USD. {FX_NOTE}",
+        sql="select coalesce(sum(amount_at_stake_usd), 0) as amount_at_stake_usd from marts.mart_review_queue",
+        viz={**KPI, "column_settings": {col("amount_at_stake_usd"): {**USD_CODE, "decimals": 0}}},
+    ),
+    # ---- Currency tables -------------------------------------------------
+    dict(
+        key="spend_currency", name="Spend by currency", aliases=["Spend by currency (original currency)"],
+        display="table",
+        description="Approved invoices only, in the currency printed on the invoice, with the USD "
+                    f"equivalent for comparison. {FX_NOTE}",
+        sql="""select
+    currency,
+    sum(n_invoices)     as invoices,
+    sum(spend_original) as amount_original,
+    sum(spend_usd)      as amount_usd
+from marts.mart_spend_monthly
+group by currency
+order by amount_usd desc""",
+        viz={"column_settings": CURRENCY_COLUMNS},
+    ),
+    dict(
+        key="tax_currency", name="Tax by currency", aliases=["Tax collected by currency"], display="table",
+        description="Tax (VAT) charged on approved invoices, in the invoice currency, with the USD "
+                    f"equivalent. {FX_NOTE}",
+        sql="""select
+    currency,
+    sum(n_invoices)   as invoices,
+    sum(tax_original) as amount_original,
+    sum(tax_usd)      as amount_usd
+from marts.mart_spend_monthly
+group by currency
+order by amount_usd desc""",
+        viz={"column_settings": CURRENCY_COLUMNS},
+    ),
+    # ---- Charts ----------------------------------------------------------
     dict(
         key="spend_month", name="Approved spend by month (USD)", display="bar",
         description=f"Sum of invoice totals (incl. tax) of approved invoices, by invoice month. {FX_NOTE}",
@@ -165,14 +282,15 @@ order by invoice_month""",
             "graph.tooltip_columns": [col("invoices")],
             "graph.x_axis.title_text": "Invoice month",
             "graph.y_axis.title_text": "Approved spend (USD)",
+            "series_settings": {"spend_usd": {"color": BAR_COLOR}},
             "column_settings": {col("spend_usd"): {**USD, "decimals": 0, "column_title": "Spend (USD)"},
                                 col("month"): {"date_style": "MMMM, YYYY", "date_abbreviate": True}},
         },
     ),
     dict(
         key="top_vendors", name="Top 10 vendors by approved spend (USD)", display="row",
-        description="Approved invoices only; vendors under their canonical name "
-                    f"(dbt/seeds/vendor_aliases.csv). {FX_NOTE}",
+        description="Approved invoices only; each vendor under one canonical name, even when invoices "
+                    f"print it differently (e.g. in capitals). {FX_NOTE}",
         sql="""select vendor_name as vendor, sum(spend_usd) as spend_usd
 from marts.mart_spend_monthly
 group by vendor_name
@@ -182,112 +300,59 @@ limit 10""",
             "graph.dimensions": ["vendor"],
             "graph.metrics": ["spend_usd"],
             "graph.show_values": True,
-            "column_settings": {col("spend_usd"): {**USD, "decimals": 0, "column_title": "Spend (USD)"}},
+            "graph.x_axis.labels_enabled": False,          # no "vendor" axis label
+            "graph.y_axis.labels_enabled": True,
+            "graph.y_axis.title_text": "Approved spend (USD)",
+            "series_settings": {"spend_usd": {"color": BAR_COLOR}},
+            "column_settings": {col("spend_usd"): {**USD, "decimals": 0, "column_title": "Approved spend (USD)"}},
         },
     ),
-    dict(
-        key="spend_currency", name="Spend by currency (original currency)", display="table",
-        description="Approved invoices only, in the currency printed on the invoice. Amounts in "
-                    f"different currencies are not summed together; the USD column is for comparison. {FX_NOTE}",
-        sql="""select
-    currency,
-    sum(n_invoices)     as invoices,
-    sum(spend_original) as spend_original,
-    sum(spend_usd)      as spend_usd
-from marts.mart_spend_monthly
-group by currency
-order by spend_usd desc""",
-        viz={
-            "column_settings": {
-                col("currency"): {"column_title": "Currency"},
-                col("invoices"): {"column_title": "Invoices"},
-                col("spend_original"): {**MONEY, "column_title": "Spend (original currency)"},
-                col("spend_usd"): {**USD, "decimals": 2, "column_title": "Spend (USD, illustrative)"},
-            },
-        },
-    ),
-    dict(
-        key="review_count", name="Open review items", display="scalar",
-        description="Invoices that failed at least one validation rule and wait for a human reviewer.",
-        sql="select count(*) as open_items from marts.mart_review_queue",
-        viz={},
-    ),
-    dict(
-        key="review_amount", name="Amount at stake in review (USD)", display="scalar",
-        description=f"Sum of the totals of the invoices waiting for review. {FX_NOTE}",
-        sql="select coalesce(sum(amount_at_stake_usd), 0) as amount_at_stake_usd from marts.mart_review_queue",
-        viz={"scalar.compact_primary_number": False,
-             "column_settings": {col("amount_at_stake_usd"): {**USD, "decimals": 0}}},
-    ),
+    # ---- Review queue ----------------------------------------------------
     dict(
         key="review_table", name="Review queue", display="table",
-        description="One row per invoice waiting for review, with every failed rule and its reason.",
-        sql="""select
-    doc_id,
-    invoice_number,
-    vendor_name,
-    invoice_date,
-    currency,
-    amount_at_stake,
-    amount_at_stake_usd,
-    reasons,
-    source_file
-from marts.mart_review_queue
-order by amount_at_stake_usd desc""",
+        description="Invoices waiting for a human reviewer: what is wrong, and the full reason from the "
+                    "validation rule.",
+        sql=REVIEW_SQL,
         viz={
-            "table.cell_column": "amount_at_stake_usd",
+            "table.columns": [
+                {"name": n, "enabled": n != "doc_id"}
+                for n in ("issue", "vendor", "invoice", "invoice_date", "amount", "currency",
+                          "amount_usd", "details", "doc_id")
+            ],
             "column_settings": {
+                col("issue"): {"column_title": "Issue"},
+                col("vendor"): {"column_title": "Vendor"},
+                col("invoice"): {"column_title": "Invoice"},
+                col("invoice_date"): {"column_title": "Invoice date", "date_style": "YYYY/M/D"},
+                col("amount"): {**MONEY, "column_title": "Amount"},
+                col("currency"): {"column_title": "Currency"},
+                col("amount_usd"): {**USD, "decimals": 2, "column_title": "Amount (USD)"},
+                col("details"): {"column_title": "Details", "text_wrapping": True},
                 col("doc_id"): {"column_title": "Doc"},
-                col("invoice_number"): {"column_title": "Invoice"},
-                col("vendor_name"): {"column_title": "Vendor"},
-                col("invoice_date"): {"column_title": "Invoice date"},
-                col("currency"): {"column_title": "Currency"},
-                col("amount_at_stake"): {**MONEY, "column_title": "Amount"},
-                col("amount_at_stake_usd"): {**USD, "decimals": 2, "column_title": "Amount (USD)"},
-                col("reasons"): {"column_title": "Reasons"},
-                col("source_file"): {"column_title": "File"},
-            },
-        },
-    ),
-    dict(
-        key="tax_currency", name="Tax collected by currency", display="table",
-        description="Tax (VAT) charged on approved invoices, in the invoice currency. "
-                    f"{FX_NOTE}",
-        sql="""select
-    currency,
-    sum(n_invoices)   as invoices,
-    sum(tax_original) as tax_original,
-    sum(tax_usd)      as tax_usd
-from marts.mart_spend_monthly
-group by currency
-order by tax_usd desc""",
-        viz={
-            "column_settings": {
-                col("currency"): {"column_title": "Currency"},
-                col("invoices"): {"column_title": "Invoices"},
-                col("tax_original"): {**MONEY, "column_title": "Tax (original currency)"},
-                col("tax_usd"): {**USD, "decimals": 2, "column_title": "Tax (USD, illustrative)"},
             },
         },
     ),
 ]
 
-INTRO_TEXT = f"""**About this dashboard** (synthetic data: every vendor, buyer and amount is fictional)
-- Invoices extracted by an LLM from PDFs and scans, validated by rules, loaded to Postgres and modeled with dbt (`marts` schema).
-- **Spend** = invoice total incl. tax, **approved invoices only** (no failed validation rule). Invoices that failed a rule are in the review queue.
-- {FX_NOTE}"""
+INTRO_TEXT = ("**Synthetic data:** every vendor and amount is fictional. "
+              "Spend = approved invoices, incl. tax.  \n"
+              "USD at fixed illustrative rates (as of 2025-12-31), not market rates.")
 TEXT_KEY = "intro_text"
 
 # Grid is 24 columns wide. (card key, row, col, width, height)
 LAYOUT = [
-    (TEXT_KEY, 0, 0, 24, 3),
-    ("review_count", 3, 0, 6, 3),
-    ("review_amount", 3, 6, 6, 3),
-    ("spend_currency", 3, 12, 12, 5),
-    ("spend_month", 8, 0, 24, 7),
-    ("top_vendors", 15, 0, 12, 8),
-    ("tax_currency", 15, 12, 12, 5),
-    ("review_table", 23, 0, 24, 8),
+    (TEXT_KEY, 0, 0, 24, 2),
+    # 5 KPIs over 24 columns: the shortest title ("Approved spend") gets 4.
+    ("kpi_invoices", 2, 0, 5, 3),
+    ("kpi_approved", 2, 5, 5, 3),
+    ("kpi_spend", 2, 10, 4, 3),
+    ("review_count", 2, 14, 5, 3),
+    ("review_amount", 2, 19, 5, 3),
+    ("spend_currency", 5, 0, 12, 5),
+    ("tax_currency", 5, 12, 12, 5),
+    ("spend_month", 10, 0, 24, 7),
+    ("top_vendors", 17, 0, 24, 8),
+    ("review_table", 25, 0, 24, 9),
 ]
 
 
@@ -310,10 +375,13 @@ def upsert_cards(mb: Metabase, db_id: int, coll_id: int) -> dict[str, int]:
                 "native": {"query": card["sql"].strip(), "template-tags": {}},
             },
         }
-        if card["name"] in existing:
-            cid = existing[card["name"]]
+        # Match by current name first, then by old names (renamed cards).
+        match = next((n for n in [card["name"], *card.get("aliases", [])] if n in existing), None)
+        if match:
+            cid = existing[match]
             mb.put(f"/card/{cid}", json=body)
-            print(f"  updated card {cid:>4}  {card['name']}")
+            renamed = f"  (was '{match}')" if match != card["name"] else ""
+            print(f"  updated card {cid:>4}  {card['name']}{renamed}")
         else:
             cid = mb.post("/card", json=body)["id"]
             print(f"  created card {cid:>4}  {card['name']}")
@@ -321,7 +389,17 @@ def upsert_cards(mb: Metabase, db_id: int, coll_id: int) -> dict[str, int]:
     return ids
 
 
-def upsert_dashboard(mb: Metabase, coll_id: int, card_ids: dict[str, int]) -> int:
+def approved_title(mb: Metabase, card_ids: dict[str, int]) -> str:
+    """'Auto-approved (90%)': the share is computed from live data each time the script runs."""
+    approved = mb.post(f"/card/{card_ids['kpi_approved']}/query", json={})["data"]["rows"][0][0]
+    total = mb.post(f"/card/{card_ids['kpi_invoices']}/query", json={})["data"]["rows"][0][0]
+    return f"Auto-approved ({approved / total:.0%})" if total else "Auto-approved"
+
+
+def upsert_dashboard(mb: Metabase, coll_id: int, card_ids: dict[str, int],
+                     titles: dict[str, str] | None = None) -> int:
+    """titles: per-card dashboard title overrides (card key -> title)."""
+    titles = titles or {}
     existing = collection_items(mb, coll_id, "dashboard")
     desc = ("Approved spend, tax and the human review queue for the synthetic invoice dataset. "
             "Built by scripts/metabase/build_spend_dashboard.py from the dbt marts schema - "
@@ -361,7 +439,7 @@ def upsert_dashboard(mb: Metabase, coll_id: int, card_ids: dict[str, int]) -> in
             "card_id": cid,
             "row": row, "col": column, "size_x": width, "size_y": height,
             "parameter_mappings": [],
-            "visualization_settings": {},
+            "visualization_settings": {"card.title": titles[key]} if key in titles else {},
         })
 
     mb.put(f"/dashboard/{dash_id}", json={
@@ -379,14 +457,15 @@ def check_dashboard(mb: Metabase, dash_id: int) -> bool:
     for dc in sorted(dash["dashcards"], key=lambda d: (d["row"], d["col"])):
         if not dc.get("card_id"):
             continue
-        cid, name = dc["card_id"], dc["card"]["name"]
+        cid = dc["card_id"]
+        name = dc.get("visualization_settings", {}).get("card.title") or dc["card"]["name"]
         res = mb.post(f"/dashboard/{dash_id}/dashcard/{dc['id']}/card/{cid}/query", json={"parameters": []})
         if res.get("status") != "completed" or res.get("error"):
             ok = False
             print(f"  ! {name}: {res.get('error')}")
             continue
         rows = res["data"]["rows"]
-        print(f"  {name:<42} {res['row_count']:>4} rows   first: {rows[0] if rows else None}")
+        print(f"  {name:<40} {res['row_count']:>4} rows   first: {rows[0] if rows else None}")
     return ok
 
 
@@ -409,7 +488,7 @@ def main() -> None:
     card_ids = upsert_cards(mb, db_id, coll_id)
 
     print("4) Dashboard")
-    dash_id = upsert_dashboard(mb, coll_id, card_ids)
+    dash_id = upsert_dashboard(mb, coll_id, card_ids, {"kpi_approved": approved_title(mb, card_ids)})
 
     print("5) Check")
     ok = check_dashboard(mb, dash_id)

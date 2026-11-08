@@ -202,17 +202,17 @@ docker start olist_metabase
 python scripts/metabase/build_spend_dashboard.py
 ```
 
-The script is idempotent: it creates or updates the database connection "Invoice Extraction (invoices)", the collection "Invoice Extraction", 7 native-SQL cards and the dashboard **Invoice Spend**. It then runs every card as a check. It needs `MB_API_KEY` (Metabase admin API key) and `METABASE_RO_PASSWORD` in `.env`; neither is ever printed. Edit the script, not the UI.
+The script is idempotent: it creates or updates the database connection "Invoice Extraction (invoices)", the collection "Invoice Extraction", 10 native-SQL cards and the dashboard **Invoice Spend**. Cards are matched by name, and renamed cards by their old names. It then runs every card as a check. It needs `MB_API_KEY` (Metabase admin API key) and `METABASE_RO_PASSWORD` in `.env`; neither is ever printed. Edit the script, not the UI.
 
-Cards:
-- intro text
-- open review items
-- amount at stake in review (USD)
-- spend by currency (original currency)
-- approved spend by month (USD)
-- top 10 vendors by approved spend (USD)
-- tax collected by currency
-- review queue table (invoice, vendor, amount, reasons)
+Layout (for a non-technical reader):
+- a two-line note: synthetic data, USD at fixed illustrative rates
+- 5 number cards: Invoices processed, Auto-approved (with its share in the title, recomputed on every run), Approved spend, Open review items, At stake in review
+- Spend by currency and Tax by currency, side by side: Currency, Invoices, Amount (original), Amount (USD)
+- Approved spend by month (USD)
+- Top 10 vendors by approved spend (USD)
+- Review queue: Issue (plain-English label per failed rule, e.g. "Duplicate invoice number", "Tax amount wrong"), Vendor, Invoice, Invoice date, Amount, Currency, Amount (USD), Details (the validator's full reason); doc id hidden
+
+All bar charts use one color.
 
 "Spend" = invoice total incl. tax, approved invoices only.
 
