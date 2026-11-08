@@ -165,45 +165,108 @@ CURRENCY_COLUMNS = {
     col("amount_usd"): {**USD, "decimals": 2, "column_title": "Amount (USD)"},
 }
 
-# Review queue: plain-English issue label per failed rule; Details = the validator's reason.
-REVIEW_SQL = """with items as (
+# Review queue for a non-technical reader: a short Issue label and plain-English Details per failed
+# rule, numbers with thousands separators, no internal ids or field names. Built from
+# mart_review_queue.reasons (the validator's text) because metabase_ro can only read marts.
+REVIEW_SQL = r"""with pieces as (
+    -- mart_review_queue.reasons = "rule: reason; rule: reason". A reason can itself contain "; "
+    -- (line totals), so a piece that does not start with a known rule continues the previous one.
     select
-        q.*,
-        split_part(r.item, ': ', 1)                                  as rule,
-        substr(r.item, length(split_part(r.item, ': ', 1)) + 3)       as detail,
-        r.ord
+        q.doc_id,
+        r.item,
+        r.ord,
+        split_part(r.item, ': ', 1) in ('line_totals', 'subtotal', 'tax', 'total', 'required_fields',
+                                        'due_date', 'future_date', 'duplicate', 'date_sequence') as is_start
     from marts.mart_review_queue q
     cross join lateral unnest(string_to_array(q.reasons, '; ')) with ordinality as r(item, ord)
 ),
+grouped as (
+    select *, sum(case when is_start then 1 else 0 end) over (partition by doc_id order by ord) as grp
+    from pieces
+),
+items as (
+    select
+        doc_id,
+        grp,
+        split_part(string_agg(item, '; ' order by ord), ': ', 1) as rule,
+        substr(string_agg(item, '; ' order by ord),
+               length(split_part(string_agg(item, '; ' order by ord), ': ', 1)) + 3) as detail
+    from grouped
+    group by doc_id, grp
+),
+parsed as (
+    select
+        i.*,
+        regexp_match(detail, '^([0-9.]+)% of (-?[0-9.]+) = (-?[0-9.]+), tax printed (-?[0-9.]+)$')  as tax_m,
+        regexp_match(detail, '= (-?[0-9.]+), total printed (-?[0-9.]+)$')                          as total_m,
+        regexp_match(detail, '^lines sum to (-?[0-9.]+), subtotal printed (-?[0-9.]+)$')           as sub_m,
+        regexp_replace(replace(detail, 'missing: ', ''), '_', ' ', 'g')                            as missing_fields,
+        prev.invoice_date                                                                          as earlier_date
+    from items i
+    left join marts.fct_invoices prev
+        on i.rule = 'duplicate'
+       and prev.doc_id = (regexp_match(i.detail, '\((doc_[0-9]+)\)'))[1]
+),
 labelled as (
     select
-        *,
+        doc_id,
+        grp,
         case rule
             when 'duplicate'       then 'Duplicate invoice number'
             when 'total'           then 'Total doesn''t add up'
             when 'tax'             then 'Tax amount wrong'
             when 'subtotal'        then 'Subtotal doesn''t add up'
             when 'line_totals'     then 'Line total wrong'
-            when 'required_fields' then 'Missing ' || replace(replace(detail, 'missing: ', ''), '_', ' ')
+            when 'required_fields' then 'Missing ' || missing_fields
             when 'due_date'        then 'Due date before invoice date'
             when 'future_date'     then 'Invoice date in the future'
             when 'date_sequence'   then 'Invoice date out of sequence'
             else rule
-        end as issue
-    from items
+        end as issue,
+        case
+            when rule = 'duplicate' and earlier_date is not null
+                then 'Same invoice number as an invoice received on ' || to_char(earlier_date, 'YYYY-MM-DD')
+            when rule = 'duplicate'
+                then 'Same invoice number as an earlier invoice from this vendor'
+            when rule = 'required_fields'
+                then upper(left(missing_fields, 1)) || substr(missing_fields, 2)
+                     || case when missing_fields like '%,%' then ' are' else ' is' end
+                     || ' not printed on the document'
+            when rule = 'tax' and tax_m is not null
+                then 'Tax should be ' || to_char(tax_m[3]::numeric, 'FM999,999,999,990.00') || ' (' || tax_m[1] || '% of ' || to_char(tax_m[2]::numeric, 'FM999,999,999,990.00')
+                     || ') but ' || to_char(tax_m[4]::numeric, 'FM999,999,999,990.00') || ' is printed'
+            when rule = 'total' and total_m is not null
+                then 'Total should be ' || to_char(total_m[1]::numeric, 'FM999,999,999,990.00') || ' (subtotal - discount + tax) but '
+                     || to_char(total_m[2]::numeric, 'FM999,999,999,990.00') || ' is printed'
+            when rule = 'subtotal' and sub_m is not null
+                then 'Subtotal should be ' || to_char(sub_m[1]::numeric, 'FM999,999,999,990.00') || ' (sum of the lines) but '
+                     || to_char(sub_m[2]::numeric, 'FM999,999,999,990.00') || ' is printed'
+            when rule = 'line_totals'
+                then 'One or more lines: quantity x unit price does not match the line amount'
+            when rule = 'due_date'
+                then initcap(left(detail, 1)) || substr(detail, 2)
+            when rule = 'future_date'
+                then 'Invoice date ' || split_part(split_part(detail, 'invoice date ', 2), ' ', 1) || ' is in the future'
+            when rule = 'date_sequence'
+                then 'Invoice date is out of order with this vendor''s other invoices'
+            else regexp_replace(detail, '\s*\(doc_[0-9]+\)', '', 'g')
+        end as detail
+    from parsed
 )
 select
-    string_agg(issue, ', ' order by ord)                as issue,
-    vendor_name                                         as vendor,
-    invoice_number                                      as invoice,
-    to_char(invoice_date, 'YYYY-MM-DD')                 as invoice_date,
-    to_char(amount_at_stake, 'FM999,999,999,990.00') || ' ' || currency as amount,
-    amount_at_stake_usd                                 as amount_usd,
-    string_agg(detail, '; ' order by ord)               as details,
-    doc_id
-from labelled
-group by doc_id, vendor_name, invoice_number, invoice_date, amount_at_stake, currency, amount_at_stake_usd
-order by min(issue), amount_at_stake_usd desc"""
+    string_agg(l.issue, ', ' order by l.grp)             as issue,
+    q.vendor_name                                        as vendor,
+    q.invoice_number                                     as invoice,
+    to_char(q.invoice_date, 'YYYY-MM-DD')                as invoice_date,
+    to_char(q.amount_at_stake, 'FM999,999,999,990.00') || ' ' || q.currency as amount,
+    q.amount_at_stake_usd                                as amount_usd,
+    string_agg(l.detail, '. ' order by l.grp)            as details,
+    q.doc_id
+from marts.mart_review_queue q
+join labelled l using (doc_id)
+group by q.doc_id, q.vendor_name, q.invoice_number, q.invoice_date, q.amount_at_stake, q.currency,
+         q.amount_at_stake_usd
+order by min(l.issue), q.amount_at_stake_usd desc"""
 
 CARDS = [
     # ---- KPI row ---------------------------------------------------------
@@ -322,14 +385,14 @@ limit 10""",
                           "details", "doc_id")
             ],
             # Pixel widths of the visible columns, in order: narrow fixed columns, Details gets the rest.
-            "table.column_widths": [190, 200, 125, 105, 130, 115, 430],
+            "table.column_widths": [185, 210, 120, 90, 115, 95, 430],
             "column_settings": {
                 col("issue"): {"column_title": "Issue"},
                 col("vendor"): {"column_title": "Vendor"},
                 col("invoice"): {"column_title": "Invoice"},
-                col("invoice_date"): {"column_title": "Invoice date"},
+                col("invoice_date"): {"column_title": "Date"},
                 col("amount"): {"column_title": "Amount"},
-                col("amount_usd"): {**USD, "decimals": 2, "column_title": "Amount (USD)"},
+                col("amount_usd"): {**USD, "decimals": 2, "column_title": "USD"},
                 col("details"): {"column_title": "Details", "text_wrapping": True},
                 col("doc_id"): {"column_title": "Doc"},
             },
@@ -357,8 +420,8 @@ LAYOUT = [
     ("tax_currency", 6, 12, 12, 7),
     ("spend_month", 13, 0, 24, 7),
     ("top_vendors", 20, 0, 24, 8),
-    # 12 review rows (Details may wrap to 2 lines) + header with no scrollbar.
-    ("review_table", 28, 0, 24, 18),
+    # 12 review rows + header; most Details wrap to 2 lines at a laptop width.
+    ("review_table", 28, 0, 24, 16),
 ]
 
 
