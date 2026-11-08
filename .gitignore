@@ -16,6 +16,9 @@ data/synthetic/scans/
 # LLM extraction outputs (cache + run logs)
 data/extracted/
 
+# Review queue (rebuilt by src/validate.py)
+data/review/
+
 # Editors / OS
 .vscode/
 .idea/

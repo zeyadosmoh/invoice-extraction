@@ -65,6 +65,16 @@ def normalize_number(value: Any) -> str | None:
     return f"-{s}" if neg else s
 
 
+def normalize_discount(value: Any) -> str | None:
+    """Discounts are always stored as a positive amount.
+
+    Invoices print discounts as "-95.00", "(95.00)" or "95.00", and the model copies whichever
+    it sees. The sign is implied by the field (total = subtotal - discount + tax), so we drop it.
+    """
+    s = normalize_number(value)
+    return s.strip("-") if s is not None else None  # both ends: RTL text may put the minus last
+
+
 _DATE_FORMATS = (
     "%Y-%m-%d", "%Y/%m/%d", "%d.%m.%Y", "%d-%m-%Y",
     "%B %d, %Y", "%b %d, %Y", "%d %B %Y", "%d %b %Y", "%B %d %Y", "%b %d %Y",

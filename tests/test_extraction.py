@@ -27,7 +27,7 @@ from extract.base import (  # noqa: E402
     redact,
 )
 from extract.gemini import _is_daily_quota, _retry_delay_s  # noqa: E402
-from extract.normalize import normalize_date, normalize_digits, normalize_number  # noqa: E402
+from extract.normalize import normalize_date, normalize_digits, normalize_discount, normalize_number  # noqa: E402
 from extract.schema import ExtractedInvoice, parse_invoice  # noqa: E402
 from compare_samples import compare_value  # noqa: E402
 from run_extraction import RUNS_COLUMNS, run  # noqa: E402
@@ -93,6 +93,25 @@ def test_normalize_digits(raw, expected):
 ])
 def test_normalize_number(raw, expected):
     assert normalize_number(raw) == expected
+
+
+@pytest.mark.parametrize("raw, expected", [
+    ("-95.00", "95.00"),
+    ("(95.00)", "95.00"),
+    ("95.00", "95.00"),
+    ("- 1,234.50", "1234.50"),
+    ("٩٥٫٠٠-", "95.00"),
+    (None, None),
+])
+def test_normalize_discount_always_positive(raw, expected):
+    assert normalize_discount(raw) == expected
+
+
+def test_parse_invoice_stores_discount_positive():
+    # doc_0116.pdf: the model copied the printed "-95.00"; the pipeline stores 95.00.
+    inv = parse_invoice({"discount": "-95.00", "total": "-10.00"})
+    assert inv.discount == Decimal("95.00")
+    assert inv.total == Decimal("-10.00")  # only the discount sign is normalised
 
 
 @pytest.mark.parametrize("raw, expected", [

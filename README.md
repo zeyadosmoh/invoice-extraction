@@ -105,7 +105,8 @@ pytest -q
 
 The tests run offline (no API calls). They check that:
 - the extraction runner caches, throttles, retries, and stops on quota (using a fake extractor)
-- digit and number normalisation works, and a sample response parses into the schema
+- digit and number normalisation works (discounts always stored positive), and a sample response parses into the schema
+- every validation rule passes clean invoices and fails broken ones with a reason; skipped rules don't block approval
 - normal invoices add up
 - every anomaly really breaks its rule
 - every PDF has a ground-truth file (and vice versa)
@@ -132,6 +133,21 @@ How it works:
 - Names are returned **as printed**. The T3 receipt prints the vendor name in upper case, so extraction (and the ground truth) gives `ATELIER SOLENNE SARL` where other templates give `Atelier Solenne SARL`. Mapping printed vendor names to one canonical vendor happens later, in dbt, not in extraction.
 - The API key is read from `.env` by python-dotenv and is never printed or logged. Error messages are scrubbed before they reach the console or `runs.csv`.
 
+### Validation, review queue and accuracy report
+
+Both scripts work only from cached extraction results: no API calls.
+
+```bash
+python src/validate.py      # rules on every cached result -> data/review/queue.csv (gitignored)
+python src/report.py        # docs/accuracy_report.md (committed)
+```
+
+- Each cached result is re-parsed from the model's `raw_response` with the current normalisation, so a new normalisation rule applies without re-running the model.
+- Rules (`src/validate.py`), tolerance 0.01: line total = qty x unit price; subtotal = sum of lines; tax = (subtotal - discount) x rate; total = subtotal - discount + tax; required fields (invoice number, vendor, invoice date, total, currency); due date >= invoice date; invoice date not in the future; duplicate (same vendor + invoice number already received); date sequence (per vendor, a higher invoice number must not have an earlier date; catches day/month swaps that move a date past its neighbours).
+- Each rule returns pass, fail or skip (couldn't run, e.g. no tax printed). Any fail -> `needs_review` with all reasons; skips count as pass but are listed in the `skipped_rules` column.
+- Duplicate and sequence rules compare a document with the rest of its batch in doc_id order. Scans are checked in a batch where those invoices arrive as scans, so a scan is never compared with its own PDF. Invoices that fail the duplicate rule are left out of the sequence comparison.
+- [`docs/accuracy_report.md`](docs/accuracy_report.md): field accuracy (before/after normalisation fixes, per field, template, PDF vs scan, digits), review-queue recall and false alarms, cost per 1,000 invoices from the official price page, latency, limitations.
+
 ### Database (for later phases)
 
 `docker-compose.yml` defines PostgreSQL 16 as the container `invoice_pg`, bound to `127.0.0.1:5434`, with credentials from `.env`:
@@ -147,8 +163,9 @@ assets/fonts/        Amiri (SIL Open Font License, see OFL.txt)
 data/samples/        curated, committed examples
 data/synthetic/      generated dataset (pdf/ and scans/ are gitignored)
 data/extracted/      LLM extraction results + runs.csv per model (gitignored)
-docs/                design notes (upcoming)
-src/                 code: generate_invoices.py, run_extraction.py, compare_samples.py
+data/review/         review queue, queue.csv (gitignored, rebuilt by src/validate.py)
+docs/                accuracy_report.md (generated), run_notes.md
+src/                 code: generate_invoices.py, run_extraction.py, compare_samples.py, validate.py, report.py
 src/extract/         extractor interface, Gemini implementation, schema, normalisation
 src/prompts/         versioned prompts
 tests/               pytest suite
@@ -159,12 +176,12 @@ tests/               pytest suite
 - [x] Project scaffold (venv, pinned deps, docker-compose for Postgres, `.env.example`)
 - [x] Synthetic invoice generator: 5 templates incl. bilingual AR/EN, scans, anomalies, ground truth
 - [x] Dataset tests
-- [x] LLM extraction to structured JSON (Gemini, provider-agnostic interface; tested on the 7 samples, full 120-doc run pending)
-- [ ] Validation rules and human review queue
+- [x] LLM extraction to structured JSON (Gemini, provider-agnostic interface; full run done: 120 PDFs + 36 scans)
+- [x] Validation rules and human review queue (`data/review/queue.csv`)
+- [x] Accuracy report against ground truth ([`docs/accuracy_report.md`](docs/accuracy_report.md))
 - [ ] Load to PostgreSQL
 - [ ] dbt models
 - [ ] Metabase spend dashboard
-- [ ] Accuracy report against ground truth
 - [ ] n8n workflow wrapping the pipeline
 
 ## Licences

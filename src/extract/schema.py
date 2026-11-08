@@ -15,7 +15,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
-from .normalize import normalize_date, normalize_digits, normalize_number
+from .normalize import normalize_date, normalize_digits, normalize_discount, normalize_number
 
 MONEY_FIELDS = ("subtotal", "discount", "tax_rate", "tax_amount", "total")
 LINE_NUMBER_FIELDS = ("quantity", "unit_price", "line_total")
@@ -128,6 +128,8 @@ def normalize_payload(data: dict[str, Any]) -> dict[str, Any]:
     for f in MONEY_FIELDS:
         if f in out:
             out[f] = normalize_number(out[f])
+    if "discount" in out:  # always stored positive, whatever sign was printed
+        out["discount"] = normalize_discount(out["discount"])
     for f in DATE_FIELDS:
         if f in out:
             out[f] = normalize_date(out[f])
