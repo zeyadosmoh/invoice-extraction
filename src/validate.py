@@ -45,6 +45,19 @@ PASS, FAIL, SKIP = "pass", "fail", "skip"
 AUTO_APPROVED, NEEDS_REVIEW = "auto_approved", "needs_review"
 REQUIRED_FIELDS = ("invoice_number", "vendor_name", "invoice_date", "total", "currency")
 
+# Short plain-English label per rule (same wording as the dashboard's review queue).
+RULE_LABELS = {
+    "duplicate": "Duplicate invoice number",
+    "total": "Total doesn't add up",
+    "tax": "Tax amount wrong",
+    "subtotal": "Subtotal doesn't add up",
+    "line_totals": "Line total wrong",
+    "required_fields": "Required field missing",
+    "due_date": "Due date before invoice date",
+    "future_date": "Invoice date in the future",
+    "date_sequence": "Invoice date out of sequence",
+}
+
 QUEUE_COLUMNS = (
     "doc_key", "doc_id", "file_type", "vendor_name", "invoice_number", "invoice_date", "total",
     "currency", "status", "n_failed", "failed_reasons", "skipped_rules",
@@ -272,6 +285,20 @@ def validate_inbox(records: list[Record], today: date) -> dict[str, list[RuleRes
     return {r.doc_key: validate_single(r.invoice, today) + [dups[r.doc_key], seq[r.doc_key]] for r in records}
 
 
+def validate_against(new: Record, existing: list[Record], today: date) -> list[RuleResult]:
+    """Validate one received file against every invoice already processed (e.g. all rows in
+    Postgres), not just a batch. Only the new record's results are returned.
+
+    `existing` is in arrival order. A new doc_id is the latest arrival and goes last. A doc_id that
+    is already stored (a re-sent or re-processed file) keeps its original place, replacing the
+    stored copy, so it is never a duplicate of itself and re-processing gives the same result.
+    """
+    inbox = [new if r.doc_id == new.doc_id else r for r in existing]
+    if not any(r.doc_id == new.doc_id for r in existing):
+        inbox.append(new)
+    return validate_inbox(inbox, today)[new.doc_key]
+
+
 # --------------------------------------------------------------------------------------
 # Queue
 # --------------------------------------------------------------------------------------
@@ -300,17 +327,24 @@ def queue_row(record: Record, results: list[RuleResult]) -> dict:
     }
 
 
+def load_record(path: Path) -> Record:
+    """Load one cached result (<doc_key>.json), re-parsing the raw model response with the current
+    normalisation."""
+    res = json.loads(path.read_text(encoding="utf-8"))
+    key = path.name.removesuffix(".json")
+    raw = res.get("raw_response")
+    inv = parse_invoice(raw) if raw else ExtractedInvoice.model_validate(res["invoice"])
+    extra = {k: res.get(k) for k in ("input_tokens", "output_tokens", "latency_s", "model", "source_file")}
+    extra["cached_invoice"] = res["invoice"]  # as stored at extraction time (before later fixes)
+    return Record(key, res["doc_id"], key.rsplit(".", 1)[1], inv, extra)
+
+
 def load_records(model_dir: Path) -> dict[str, Record]:
-    """Load every cached result, re-parsing the raw model response with the current normalisation."""
+    """Load every cached result for one model."""
     records = {}
     for path in sorted(model_dir.glob("doc_*.json")):
-        res = json.loads(path.read_text(encoding="utf-8"))
-        key = path.name.removesuffix(".json")
-        raw = res.get("raw_response")
-        inv = parse_invoice(raw) if raw else ExtractedInvoice.model_validate(res["invoice"])
-        extra = {k: res.get(k) for k in ("input_tokens", "output_tokens", "latency_s", "model", "source_file")}
-        extra["cached_invoice"] = res["invoice"]  # as stored at extraction time (before later fixes)
-        records[key] = Record(key, res["doc_id"], key.rsplit(".", 1)[1], inv, extra)
+        rec = load_record(path)
+        records[rec.doc_key] = rec
     return records
 
 

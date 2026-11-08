@@ -18,6 +18,10 @@ Connection settings come from .env: POSTGRES_USER / POSTGRES_PASSWORD / POSTGRES
 
 After changing the table definitions below, run once with --recreate: it drops the raw tables
 CASCADE (including dbt's staging views; `dbt build` recreates them).
+
+Single files (used by src/api.py): `upsert_invoice` replaces one invoice's rows by doc_id and leaves
+every other invoice alone; `fetch_existing_records` reads the stored invoices back so the duplicate
+and date-sequence rules can compare a new file against everything already loaded.
 """
 
 from __future__ import annotations
@@ -34,10 +38,13 @@ import psycopg
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from extract.gemini import DEFAULT_MODEL  # noqa: E402
+from extract.schema import ExtractedInvoice  # noqa: E402
 from validate import (  # noqa: E402
     FAIL,
     ROOT,
     SKIP,
+    Record,
+    RuleResult,
     build_queue,
     inbox_views,
     load_records,
@@ -115,25 +122,34 @@ def build_rows(model: str, today: date, loaded_at: datetime) -> tuple[list, list
     invoices, lines, review = [], [], []
     for rec in inbox_views(records)["scan"]:
         cache = json.loads((model_dir / f"{rec.doc_key}.json").read_text(encoding="utf-8"))
-        inv, res = rec.invoice, results[rec.doc_key]
-        failed = [r for r in res if r.status == FAIL]
-        skipped = [r for r in res if r.status == SKIP]
-        invoices.append((
-            rec.doc_id, cache.get("source_file") or rec.doc_key, rec.file_type,
-            inv.vendor_name, inv.vendor_name_ar, inv.vendor_tax_id, inv.buyer_name,
-            inv.invoice_number, inv.invoice_date, inv.due_date, inv.currency,
-            inv.subtotal, inv.discount, inv.tax_rate, inv.tax_amount, inv.total,
-            len(inv.line_items), queue_status(res), len(failed),
-            _str("; ".join(f"{r.rule}: {r.reason}" for r in failed)),
-            _str("; ".join(f"{r.rule}: {r.reason}" for r in skipped)),
-            cache.get("provider"), cache.get("model") or model, cache.get("prompt_version"),
-            today, loaded_at,
-        ))
-        for i, li in enumerate(inv.line_items, start=1):
-            lines.append((rec.doc_id, i, li.description, li.quantity, li.unit_price, li.line_total, loaded_at))
-        for r in failed:
-            review.append((rec.doc_id, r.rule, r.reason, loaded_at))
+        inv_row, line_rows, review_rows = rows_for_record(rec, results[rec.doc_key], cache, model, today, loaded_at)
+        invoices.append(inv_row)
+        lines.extend(line_rows)
+        review.extend(review_rows)
     return invoices, lines, review
+
+
+def rows_for_record(rec: Record, res: list[RuleResult], cache: dict, model: str, today: date,
+                    loaded_at: datetime) -> tuple[tuple, list[tuple], list[tuple]]:
+    """(invoice row, line rows, review rows) for one validated file. `cache` is its cached result."""
+    inv = rec.invoice
+    failed = [r for r in res if r.status == FAIL]
+    skipped = [r for r in res if r.status == SKIP]
+    invoice = (
+        rec.doc_id, cache.get("source_file") or rec.doc_key, rec.file_type,
+        inv.vendor_name, inv.vendor_name_ar, inv.vendor_tax_id, inv.buyer_name,
+        inv.invoice_number, inv.invoice_date, inv.due_date, inv.currency,
+        inv.subtotal, inv.discount, inv.tax_rate, inv.tax_amount, inv.total,
+        len(inv.line_items), queue_status(res), len(failed),
+        _str("; ".join(f"{r.rule}: {r.reason}" for r in failed)),
+        _str("; ".join(f"{r.rule}: {r.reason}" for r in skipped)),
+        cache.get("provider"), cache.get("model") or model, cache.get("prompt_version"),
+        today, loaded_at,
+    )
+    lines = [(rec.doc_id, i, li.description, li.quantity, li.unit_price, li.line_total, loaded_at)
+             for i, li in enumerate(inv.line_items, start=1)]
+    review = [(rec.doc_id, r.rule, r.reason, loaded_at) for r in failed]
+    return invoice, lines, review
 
 
 def load(conn: psycopg.Connection, invoices: list, lines: list, review: list, recreate: bool = False) -> None:
@@ -147,6 +163,48 @@ def load(conn: psycopg.Connection, invoices: list, lines: list, review: list, re
             "INSERT INTO raw.invoices VALUES (" + ", ".join(["%s"] * 26) + ")", invoices)
         cur.executemany("INSERT INTO raw.invoice_lines VALUES (%s, %s, %s, %s, %s, %s, %s)", lines)
         cur.executemany("INSERT INTO raw.review_queue VALUES (%s, %s, %s, %s)", review)
+
+
+INVOICE_COLUMNS = (
+    "doc_id", "source_file", "file_type", "vendor_name", "vendor_name_ar", "vendor_tax_id", "buyer_name",
+    "invoice_number", "invoice_date", "due_date", "currency", "subtotal", "discount", "tax_rate",
+    "tax_amount", "total", "n_line_items", "status", "n_failed", "failed_reasons", "skipped_rules",
+    "provider", "model", "prompt_version", "validated_as_of", "loaded_at",
+)
+
+
+def upsert_invoice(conn: psycopg.Connection, invoice: tuple, lines: list, review: list) -> None:
+    """Insert or replace one invoice (by doc_id) and its lines and review rows, in one transaction.
+    Other invoices are not touched."""
+    doc_id = invoice[0]
+    cols = ", ".join(INVOICE_COLUMNS)
+    updates = ", ".join(f"{c} = EXCLUDED.{c}" for c in INVOICE_COLUMNS[1:])
+    with conn.transaction(), conn.cursor() as cur:
+        cur.execute(DDL)
+        cur.execute(
+            f"INSERT INTO raw.invoices ({cols}) VALUES ({', '.join(['%s'] * len(INVOICE_COLUMNS))}) "
+            f"ON CONFLICT (doc_id) DO UPDATE SET {updates}", invoice)
+        cur.execute("DELETE FROM raw.invoice_lines WHERE doc_id = %s", (doc_id,))
+        cur.execute("DELETE FROM raw.review_queue WHERE doc_id = %s", (doc_id,))
+        cur.executemany("INSERT INTO raw.invoice_lines VALUES (%s, %s, %s, %s, %s, %s, %s)", lines)
+        cur.executemany("INSERT INTO raw.review_queue VALUES (%s, %s, %s, %s)", review)
+
+
+def fetch_existing_records(conn: psycopg.Connection) -> list[Record]:
+    """Every stored invoice as a Record (only the fields the cross-document rules use), in doc_id
+    order, which is the arrival order the batch validator uses."""
+    with conn.cursor() as cur:
+        cur.execute("SELECT to_regclass('raw.invoices')")
+        if cur.fetchone()[0] is None:
+            return []
+        cur.execute("SELECT doc_id, source_file, file_type, vendor_name, invoice_number, invoice_date "
+                    "FROM raw.invoices ORDER BY doc_id")
+        return [
+            Record(doc_key=f"db:{doc_id}", doc_id=doc_id, file_type=file_type,
+                   invoice=ExtractedInvoice(vendor_name=vendor, invoice_number=number, invoice_date=inv_date),
+                   extra={"source_file": source_file})
+            for doc_id, source_file, file_type, vendor, number, inv_date in cur.fetchall()
+        ]
 
 
 def connect() -> psycopg.Connection:

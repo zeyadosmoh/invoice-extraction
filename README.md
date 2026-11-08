@@ -49,6 +49,26 @@ flowchart LR
 
 Every invoice is loaded to Postgres with its status (`auto_approved` or `needs_review`) and the reasons it failed. Spend marts count approved invoices only; the review queue mart holds the rest.
 
+## Automation (n8n)
+
+Drop a PDF or PNG into `data/inbox/` and it is processed without running any script: an n8n workflow polls the folder every 30 seconds and calls a small local API (`src/api.py`, FastAPI) that runs the same extractor, normalisation, validation and loader as the batch pipeline.
+
+```mermaid
+flowchart LR
+    A["data/inbox/<br/>new PDF / PNG"] --> B["n8n<br/>poll every 30 s"]
+    B -->|"POST /process"| C["Pipeline API<br/>extract, validate vs all<br/>invoices in Postgres, upsert"]
+    C --> D{"status"}
+    D -->|"auto_approved"| E["data/processed/"]
+    D -->|"needs_review<br/>or error"| F["data/needs_review/<br/>+ review_log.csv"]
+```
+
+- **Checks against everything loaded.** For a single file, the duplicate and date-sequence rules compare it with every invoice already in Postgres, not just a batch. A re-sent file keeps its original place in the arrival order, so it is never a duplicate of itself.
+- **One invoice at a time.** Loading upserts by `doc_id` (header, lines and review rows in one transaction); other invoices are untouched.
+- **Secrets stay out of the workflow.** The API listens on 127.0.0.1 only and requires a bearer token from `.env`; in n8n the token is a Header Auth credential, so `n8n/workflows/invoice_pipeline.json` contains none.
+- **Nothing loops.** A file the API cannot process (extraction error, quota, or not cached when `PIPELINE_CACHE_ONLY=1`) goes to `needs_review/` with the error as its reason instead of being retried every poll.
+
+Setup and import steps: [n8n/README.md](n8n/README.md).
+
 ## What makes it reliable
 
 - **Normalization.** Arabic-Indic digits, `1.234,56` vs `1,234.56`, and printed dates are converted to one form in code (`src/extract/normalize.py`). Money is `Decimal`, never float.
@@ -66,7 +86,7 @@ More samples (one per layout, plus two scans): [data/samples/](data/samples/).
 
 ## Tech stack
 
-Python 3.14, Gemini API (`google-genai`), Pydantic, ReportLab + Pillow (synthetic invoices and scans), PostgreSQL 16 (Docker), dbt-core + dbt-postgres, Metabase, pytest.
+Python 3.14, Gemini API (`google-genai`), Pydantic, ReportLab + Pillow (synthetic invoices and scans), PostgreSQL 16 (Docker), dbt-core + dbt-postgres, Metabase, FastAPI + uvicorn, n8n (Docker), pytest.
 
 ## Quick start
 
@@ -92,6 +112,9 @@ set -a; source .env; set +a
 (cd dbt && ../.venv-dbt/bin/dbt build --profiles-dir .)
 
 python scripts/metabase/build_spend_dashboard.py   # needs a running Metabase at MB_URL and MB_API_KEY
+
+python src/api.py                        # pipeline API on 127.0.0.1:8765 (needs PIPELINE_API_TOKEN)
+docker compose up -d n8n                 # n8n on 127.0.0.1:5678, then import the workflow: n8n/README.md
 ```
 
 Extraction works on the free tier of Google AI Studio (requests are spaced to stay under the rate limit). Details for every step: [docs/technical_notes.md](docs/technical_notes.md).
@@ -99,13 +122,15 @@ Extraction works on the free tier of Google AI Studio (requests are spaced to st
 ## Repository layout
 
 ```
-src/                 generator, extraction runner, validate, report, load
+src/                 generator, extraction runner, validate, report, load, pipeline API
 src/extract/         extractor interface, Gemini implementation, schema, normalization
 src/prompts/         versioned extraction prompt
 dbt/                 seeds (vendor aliases, FX), staging, marts, reconciliation tests
 scripts/             Metabase role and dashboard builder
+n8n/                 folder-watch workflow (no credentials inside) and how to import it
 data/samples/        committed example invoices with ground truth
 data/synthetic/      ground truth + manifest (generated PDFs and scans are gitignored)
+data/inbox/          drop files here for the n8n workflow; it moves them to data/processed/ or data/needs_review/
 docs/                accuracy report, technical notes, screenshots
 tests/               pytest suite
 assets/fonts/        Amiri font (SIL Open Font License)
@@ -115,8 +140,9 @@ assets/fonts/        Amiri font (SIL Open Font License)
 
 - **Synthetic data.** Five clean layouts and invented vendors. Real invoices (handwriting, stamps, multi-page tables, phone photos) will score lower; the numbers above are indicative.
 - **One error got through.** On the scan `doc_0071.png` the printed `03/01/2026` (DD/MM) was read as 1 March instead of 3 January, for both invoice and due date. The swapped date still fell between the vendor's neighbouring invoices, so no rule fired ([details](docs/accuracy_report.md#2-review-queue)). Planned fix: learn each vendor's date format (DD/MM or MM/DD) from its unambiguous dates (day > 12) and flag or correct dates that contradict it.
-- **Batch-scoped checks.** Duplicate and date-order rules compare within a batch; in production they would query all previously processed invoices.
-- **Next:** an n8n workflow that watches a folder and runs extraction, validation and load on new files; a model comparison with `gemini-3.8-flash` on the same dataset and report.
+- **New invoices don't re-check older ones.** A file dropped in the inbox is checked against every stored invoice, but stored invoices are not re-validated against it: if a new invoice shows that an older one was out of sequence, the older one keeps its status until the next batch `python src/load.py` (which re-validates everything, but replaces the tables from the extraction cache).
+- **Simple automation.** The workflow polls every 30 seconds and the API processes one file at a time, which suits a single mailbox-sized inbox, not high volume. The API and n8n are local only (127.0.0.1); there is no user management beyond one shared token.
+- **Next:** a model comparison with `gemini-3.8-flash` on the same dataset and report.
 
 ## Status
 
@@ -124,7 +150,7 @@ assets/fonts/        Amiri font (SIL Open Font License)
 - [x] LLM extraction (Gemini, provider-agnostic interface): 120 PDFs + 36 scans
 - [x] Validation rules, review queue, accuracy report
 - [x] PostgreSQL load, dbt models (66 tests incl. reconciliation), Metabase spend dashboard
-- [ ] n8n folder-watch workflow
+- [x] n8n folder-watch workflow and pipeline API (single-file checks against all stored invoices)
 - [ ] Model comparison (`gemini-3.8-flash`)
 
 ## Licences

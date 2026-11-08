@@ -20,6 +20,14 @@ data/extracted/
 # Review queue (rebuilt by src/validate.py)
 data/review/
 
+# n8n pipeline folders: contents are local, folders are kept
+data/inbox/*
+data/processed/*
+data/needs_review/*
+!data/inbox/.gitkeep
+!data/processed/.gitkeep
+!data/needs_review/.gitkeep
+
 # Editors / OS
 .vscode/
 .idea/

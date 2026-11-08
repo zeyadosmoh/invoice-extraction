@@ -345,3 +345,26 @@ def test_pct_never_rounds_up_to_100():
 def test_field_group():
     assert field_group("line_items[3].unit_price") == "line_items.unit_price"
     assert field_group("total") == "total"
+
+
+# ---------------------------------------------------------------- single file vs everything stored
+
+def test_validate_against_flags_a_new_duplicate_of_a_stored_invoice():
+    from validate import validate_against
+
+    existing = [rec("doc_0001"), rec("doc_0002", invoice_number="EV-0101", invoice_date="2026-01-20")]
+    res = {r.rule: r for r in validate_against(rec("doc_0300"), existing, TODAY)}
+    assert res["duplicate"].status == FAIL and "(doc_0001)" in res["duplicate"].reason
+    assert res["date_sequence"].status == SKIP  # a duplicate is not compared for order
+
+
+def test_validate_against_keeps_a_resent_invoice_in_its_original_place():
+    """Re-processing the first copy of a duplicate pair must not flag it against the later copy."""
+    from validate import validate_against
+
+    existing = [rec("doc_0001"), rec("doc_0002", invoice_number="EV-0101", invoice_date="2026-01-20"),
+                rec("doc_0009")]  # doc_0009 reuses EV-0100: the later copy
+    first = {r.rule: r for r in validate_against(rec("doc_0001", "png"), existing, TODAY)}
+    later = {r.rule: r for r in validate_against(rec("doc_0009"), existing, TODAY)}
+    assert first["duplicate"].status == PASS
+    assert later["duplicate"].status == FAIL
