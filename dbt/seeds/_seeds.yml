@@ -1,0 +1,27 @@
+version: 2
+
+seeds:
+  - name: vendor_aliases
+    description: >
+      Maps every vendor name as printed (e.g. upper-case on T3 receipts) to the real vendor
+      (vendor_id from the synthetic ground truth) and one canonical display name.
+    columns:
+      - name: printed_name
+        data_tests: [unique, not_null]
+      - name: vendor_id
+        data_tests: [not_null]
+      - name: canonical_name
+        data_tests: [not_null]
+
+  - name: fx_rates_usd
+    description: >
+      FIXED ILLUSTRATIVE FX RATES for this synthetic project (as of 2025-12-31), used only to show
+      all spend in one currency. AED and SAR use their USD pegs; EUR and EGP are round numbers,
+      not market rates.
+    columns:
+      - name: currency
+        data_tests: [unique, not_null]
+      - name: usd_per_unit
+        data_tests: [not_null]
+      - name: as_of_date
+        data_tests: [not_null]

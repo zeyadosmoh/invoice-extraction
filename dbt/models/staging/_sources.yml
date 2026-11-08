@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Loaded by src/load.py from cached extraction results (one row per invoice, inbox "scan" view).
+    schema: raw
+    tables:
+      - name: invoices
+      - name: invoice_lines
+      - name: review_queue

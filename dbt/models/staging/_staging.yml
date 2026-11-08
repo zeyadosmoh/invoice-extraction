@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: stg_invoices
+    description: One row per invoice as extracted (scan where one exists, else PDF), normalised values.
+    columns:
+      - name: doc_id
+        data_tests: [unique, not_null]
+      - name: vendor_name_printed
+        description: Vendor name exactly as printed (may be upper case on receipts).
+        data_tests: [not_null]
+      - name: currency
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments: {values: [AED, EGP, EUR, SAR, USD]}
+      - name: total
+        data_tests: [not_null]
+      - name: file_type
+        data_tests:
+          - accepted_values:
+              arguments: {values: [pdf, png]}
+      - name: status
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments: {values: [auto_approved, needs_review]}
+
+  - name: stg_invoice_lines
+    columns:
+      - name: line_id
+        data_tests: [unique, not_null]
+      - name: doc_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('stg_invoices'), field: doc_id}
+
+  - name: stg_review_queue
+    description: One row per failed validation rule.
+    columns:
+      - name: review_item_id
+        data_tests: [unique, not_null]
+      - name: doc_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('stg_invoices'), field: doc_id}
+      - name: rule
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [line_totals, subtotal, tax, total, required_fields, due_date, future_date, duplicate, date_sequence]

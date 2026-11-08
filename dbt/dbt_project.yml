@@ -1,0 +1,28 @@
+name: invoice_extraction
+version: "1.0.0"
+config-version: 2
+profile: invoice_extraction
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+target-path: target
+clean-targets: [target, dbt_packages, logs]
+
+models:
+  invoice_extraction:
+    staging:
+      +schema: staging
+      +materialized: view
+    marts:
+      +schema: marts
+      +materialized: table
+
+seeds:
+  invoice_extraction:
+    +schema: seeds
+    vendor_aliases:
+      +column_types: {printed_name: text, vendor_id: text, canonical_name: text}
+    fx_rates_usd:
+      +column_types: {currency: text, usd_per_unit: numeric, as_of_date: date, note: text}

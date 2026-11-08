@@ -1,0 +1,6 @@
+currency,usd_per_unit,as_of_date,note
+USD,1.000000,2025-12-31,base currency
+AED,0.272300,2025-12-31,FIXED ILLUSTRATIVE RATE (synthetic project) - AED is pegged to USD at 3.6725
+SAR,0.266700,2025-12-31,FIXED ILLUSTRATIVE RATE (synthetic project) - SAR is pegged to USD at 3.75
+EUR,1.080000,2025-12-31,FIXED ILLUSTRATIVE RATE (synthetic project) - round number; not a market rate
+EGP,0.020500,2025-12-31,FIXED ILLUSTRATIVE RATE (synthetic project) - round number; not a market rate

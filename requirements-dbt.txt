@@ -1,0 +1,3 @@
+# dbt (separate venv: .venv-dbt, Python 3.14)
+dbt-core==1.12.6
+dbt-postgres==1.11.0

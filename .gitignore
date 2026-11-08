@@ -4,6 +4,7 @@ CLAUDE.md
 
 # Python
 .venv/
+.venv-dbt/
 __pycache__/
 *.pyc
 .pytest_cache/
@@ -23,3 +24,9 @@ data/review/
 .vscode/
 .idea/
 .DS_Store
+
+# dbt build artifacts
+dbt/target/
+dbt/logs/
+dbt/dbt_packages/
+dbt/.user.yml

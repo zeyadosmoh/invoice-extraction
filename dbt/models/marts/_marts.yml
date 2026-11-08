@@ -1,0 +1,68 @@
+version: 2
+
+models:
+  - name: dim_vendors
+    description: One row per real vendor (vendor_id from the synthetic ground truth) and its canonical name.
+    columns:
+      - name: vendor_id
+        data_tests: [unique, not_null]
+      - name: canonical_name
+        data_tests: [unique, not_null]
+
+  - name: fct_invoices
+    description: One row per invoice. USD amounts use FIXED ILLUSTRATIVE rates (seeds/fx_rates_usd.csv).
+    columns:
+      - name: doc_id
+        data_tests: [unique, not_null]
+      - name: vendor_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_vendors'), field: vendor_id}
+      - name: currency
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('fx_rates_usd'), field: currency}
+      - name: total_usd
+        data_tests: [not_null]
+      - name: status
+        data_tests:
+          - accepted_values:
+              arguments: {values: [auto_approved, needs_review]}
+
+  - name: fct_invoice_lines
+    columns:
+      - name: line_id
+        data_tests: [unique, not_null]
+      - name: doc_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('fct_invoices'), field: doc_id}
+
+  - name: mart_spend_monthly
+    description: Approved spend only, by month x vendor x currency, in original currency and USD.
+    columns:
+      - name: spend_key
+        data_tests: [unique, not_null]
+      - name: invoice_month
+        data_tests: [not_null]
+      - name: vendor_id
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_vendors'), field: vendor_id}
+      - name: spend_usd
+        data_tests: [not_null]
+
+  - name: mart_review_queue
+    description: Open review items, one row per invoice with all failed rules and the amount at stake.
+    columns:
+      - name: doc_id
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments: {to: ref('fct_invoices'), field: doc_id}
+      - name: reasons
+        data_tests: [not_null]

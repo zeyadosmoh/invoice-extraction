@@ -17,7 +17,7 @@ PDF / scanned image
  accuracy report: extracted JSON vs. ground truth          n8n workflow wraps the whole flow
 ```
 
-So far: a **reproducible synthetic dataset with ground truth** and a provider-agnostic **LLM extraction module** (Gemini), tested on the samples. See [Status](#status).
+Done so far: a **reproducible synthetic dataset with ground truth**, a provider-agnostic **LLM extraction module** (Gemini), **validation rules with a review queue** and an **accuracy report**. Results are **loaded to PostgreSQL**, modeled with **dbt** and shown in a **Metabase spend dashboard**. See [Status](#status).
 
 ## Sample invoices
 
@@ -113,6 +113,8 @@ The tests run offline (no API calls). They check that:
 - the ratios and coverage are as expected
 - the samples are complete
 - the generator is byte-for-byte reproducible
+- the dbt vendor seed maps every printed vendor name to its ground-truth vendor_id, one-to-one
+- loading twice into Postgres gives the same row counts (skipped when `invoice_pg` is not running)
 
 ### LLM extraction
 
@@ -148,13 +150,71 @@ python src/report.py        # docs/accuracy_report.md (committed)
 - Duplicate and sequence rules compare a document with the rest of its batch in doc_id order. Scans are checked in a batch where those invoices arrive as scans, so a scan is never compared with its own PDF. Invoices that fail the duplicate rule are left out of the sequence comparison.
 - [`docs/accuracy_report.md`](docs/accuracy_report.md): field accuracy (before/after normalisation fixes, per field, template, PDF vs scan, digits), review-queue recall and false alarms, cost per 1,000 invoices from the official price page, latency, limitations.
 
-### Database (for later phases)
+### Database: load to PostgreSQL
 
-`docker-compose.yml` defines PostgreSQL 16 as the container `invoice_pg`, bound to `127.0.0.1:5434`, with credentials from `.env`:
+`docker-compose.yml` defines PostgreSQL 16 as the container `invoice_pg`, bound to `127.0.0.1:5434`, with credentials from `.env`.
 
 ```bash
 docker compose up -d
+python src/load.py                       # cached results only, no API calls
+bash scripts/create_metabase_ro.sh       # read-only role for Metabase (once; idempotent)
 ```
+
+`src/load.py` uses the same code path as `src/validate.py` and loads the validator's "inbox" view: one row per invoice, the scan where one exists, otherwise the PDF (120 invoices: 36 scans, 84 PDFs). Values are the normalised ones. Every re-run truncates and refills the tables in one transaction, so data is replaced, never duplicated, and dbt's staging views on top keep working. After changing a table definition, run it once with `--recreate`: that drops the raw tables CASCADE, and the next `dbt build` recreates the views.
+
+| table | grain | notes |
+|---|---|---|
+| `raw.invoices` | one per invoice | header fields, `status` (`auto_approved` / `needs_review`), `failed_reasons`, `skipped_rules`, `source_file`, `model`, `prompt_version`, `validated_as_of`, `loaded_at` |
+| `raw.invoice_lines` | one per line item | `doc_id`, `line_no`, description, quantity, unit price, line total |
+| `raw.review_queue` | one per failed rule | `doc_id`, `rule`, `reason` (only invoices that need review) |
+
+`scripts/create_metabase_ro.sh` creates the role `metabase_ro` (password `METABASE_RO_PASSWORD` in `.env`). It can only read the `marts` schema.
+
+### dbt models
+
+dbt runs in its own venv so its pinned dependencies can't clash with the main one. dbt-core 1.12 and dbt-postgres 1.11 support Python 3.14, so it uses the same Python:
+
+```bash
+python3.14 -m venv .venv-dbt
+.venv-dbt/bin/pip install -r requirements-dbt.txt
+set -a; source .env; set +a              # dbt/profiles.yml reads connection settings from env vars
+cd dbt && ../.venv-dbt/bin/dbt build --profiles-dir .
+```
+
+| layer | schema | models |
+|---|---|---|
+| seeds | `seeds` | `vendor_aliases` (20 printed names -> 15 vendors), `fx_rates_usd` (5 currencies) |
+| staging (views) | `staging` | `stg_invoices`, `stg_invoice_lines`, `stg_review_queue` |
+| marts (tables) | `marts` | `dim_vendors`, `fct_invoices`, `fct_invoice_lines`, `mart_spend_monthly` (approved invoices only; month x vendor x currency, original and USD), `mart_review_queue` (open items: all reasons and amount at stake) |
+
+- **Vendors.** Names are extracted as printed, so `ATELIER SOLENNE SARL` (receipt template) and `Atelier Solenne SARL` are the same vendor. `seeds/vendor_aliases.csv` maps each printed name to the ground-truth `vendor_id` and one canonical name. All 15 vendors in the generator appear in the 120 invoices; 5 of them have an upper-case variant. Tests fail if any printed name has no mapping, or if a canonical name covers more than one `vendor_id` (or the reverse). `tests/test_dbt_seeds.py` checks the seed against the ground truth.
+- **Currency.** `seeds/fx_rates_usd.csv` holds **fixed illustrative rates as of 2025-12-31**, used only so all spend can be shown in USD. This is a synthetic project, so these are not market rates. AED and SAR use their USD pegs; EUR (1.08) and EGP (0.0205) are round numbers. Original-currency amounts are always kept alongside USD.
+- **Tests** (66 in total, including seeds): unique / not_null / relationships / accepted_values on keys and statuses, plus reconciliation tests:
+  - per currency, invoice count and sum of totals in `fct_invoices` = `raw.invoices`
+  - every raw invoice is exactly one of: approved, or in `mart_review_queue`
+
+### Metabase spend dashboard
+
+The dashboard reuses the Metabase from the sibling olist-analytics project (`olist_metabase`, `http://localhost:3000`) without changing that project's files. Metabase runs in Docker Desktop and reaches this database at `host.docker.internal:5434` as `metabase_ro`.
+
+```bash
+docker start olist_metabase
+python scripts/metabase/build_spend_dashboard.py
+```
+
+The script is idempotent: it creates or updates the database connection "Invoice Extraction (invoices)", the collection "Invoice Extraction", 7 native-SQL cards and the dashboard **Invoice Spend**. It then runs every card as a check. It needs `MB_API_KEY` (Metabase admin API key) and `METABASE_RO_PASSWORD` in `.env`; neither is ever printed. Edit the script, not the UI.
+
+Cards:
+- intro text
+- open review items
+- amount at stake in review (USD)
+- spend by currency (original currency)
+- approved spend by month (USD)
+- top 10 vendors by approved spend (USD)
+- tax collected by currency
+- review queue table (invoice, vendor, amount, reasons)
+
+"Spend" = invoice total incl. tax, approved invoices only.
 
 ## Repository layout
 
@@ -164,8 +224,10 @@ data/samples/        curated, committed examples
 data/synthetic/      generated dataset (pdf/ and scans/ are gitignored)
 data/extracted/      LLM extraction results + runs.csv per model (gitignored)
 data/review/         review queue, queue.csv (gitignored, rebuilt by src/validate.py)
+dbt/                 dbt project: seeds/, models/staging, models/marts, tests/ (singular + reconciliation)
 docs/                accuracy_report.md (generated), run_notes.md
-src/                 code: generate_invoices.py, run_extraction.py, compare_samples.py, validate.py, report.py
+scripts/             create_metabase_ro.sh; metabase/build_spend_dashboard.py
+src/                 code: generate_invoices.py, run_extraction.py, compare_samples.py, validate.py, report.py, load.py
 src/extract/         extractor interface, Gemini implementation, schema, normalisation
 src/prompts/         versioned prompts
 tests/               pytest suite
@@ -179,9 +241,9 @@ tests/               pytest suite
 - [x] LLM extraction to structured JSON (Gemini, provider-agnostic interface; full run done: 120 PDFs + 36 scans)
 - [x] Validation rules and human review queue (`data/review/queue.csv`)
 - [x] Accuracy report against ground truth ([`docs/accuracy_report.md`](docs/accuracy_report.md))
-- [ ] Load to PostgreSQL
-- [ ] dbt models
-- [ ] Metabase spend dashboard
+- [x] Load to PostgreSQL (`src/load.py`: `raw.invoices`, `raw.invoice_lines`, `raw.review_queue`; idempotent)
+- [x] dbt models: staging, vendor + FX seeds, marts, 66 tests incl. reconciliation (all passing)
+- [x] Metabase spend dashboard (`scripts/metabase/build_spend_dashboard.py`, reuses the olist-analytics Metabase)
 - [ ] n8n workflow wrapping the pipeline
 
 ## Licences
