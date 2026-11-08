@@ -1,0 +1,56 @@
+{
+  "doc_id": "doc_0008",
+  "invoice": {
+    "vendor_name": "Wahat Digital Solutions",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "302117735400003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "WDS/2025/0500",
+    "invoice_date": "2025-02-22",
+    "due_date": "2025-03-09",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Cat6 patch cables (10 pcs)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "87.00",
+        "line_total": "87.00"
+      },
+      {
+        "description": "UPS 1500VA",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "668.08",
+        "line_total": "2004.24"
+      },
+      {
+        "description": "Laptop 14in, 16GB RAM",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "3620.54",
+        "line_total": "10861.62"
+      }
+    ],
+    "subtotal": "12952.86",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "1942.93",
+    "total": "14895.79"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V09",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0008.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

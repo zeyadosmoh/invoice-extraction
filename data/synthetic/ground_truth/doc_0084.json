@@ -1,0 +1,84 @@
+{
+  "doc_id": "doc_0084",
+  "invoice": {
+    "vendor_name": "Saqr Horizon Facilities",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "100572168300003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "SHF2026-0390",
+    "invoice_date": "2026-03-06",
+    "due_date": "2026-04-20",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "AC maintenance per unit",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "204.00",
+        "line_total": "612.00"
+      },
+      {
+        "description": "Office cleaning, monthly",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "5852.00",
+        "line_total": "5852.00"
+      },
+      {
+        "description": "Plumbing repair (h)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "167.94",
+        "line_total": "167.94"
+      },
+      {
+        "description": "Pest control visit",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "503.00",
+        "line_total": "503.00"
+      },
+      {
+        "description": "Waste collection",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "325.00",
+        "line_total": "325.00"
+      },
+      {
+        "description": "Security guard shift",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "316.16",
+        "line_total": "1264.64"
+      },
+      {
+        "description": "Administrative fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "73.55",
+        "line_total": "73.55"
+      }
+    ],
+    "subtotal": "8798.13",
+    "discount": null,
+    "tax_rate": "5",
+    "tax_amount": "439.91",
+    "total": "9238.04"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V11",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0084.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

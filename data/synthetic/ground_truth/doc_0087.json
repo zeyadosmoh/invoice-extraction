@@ -1,0 +1,91 @@
+{
+  "doc_id": "doc_0087",
+  "invoice": {
+    "vendor_name": "Harborlight Print Works",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "26-7730419",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "HPW-0755",
+    "invoice_date": "2026-03-25",
+    "due_date": "2026-04-24",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Design proof revision (h)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "39.77",
+        "line_total": "39.77"
+      },
+      {
+        "description": "Roll-up stand",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "75.06",
+        "line_total": "75.06"
+      },
+      {
+        "description": "Vinyl banner 2x1 m",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "73.04",
+        "line_total": "292.16"
+      },
+      {
+        "description": "Tri-fold brochures (100 pcs)",
+        "description_ar": null,
+        "quantity": "8",
+        "unit_price": "65.17",
+        "line_total": "521.36"
+      },
+      {
+        "description": "Sticker labels (roll)",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "22.76",
+        "line_total": "136.56"
+      },
+      {
+        "description": "Letterhead paper (500 sheets)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "64.60",
+        "line_total": "64.60"
+      },
+      {
+        "description": "Business cards (box of 250)",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "47.64",
+        "line_total": "95.28"
+      },
+      {
+        "description": "Delivery charge",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "39.51",
+        "line_total": "39.51"
+      }
+    ],
+    "subtotal": "1264.30",
+    "discount": null,
+    "tax_rate": "7",
+    "tax_amount": "88.50",
+    "total": "1352.80"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V03",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0087.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

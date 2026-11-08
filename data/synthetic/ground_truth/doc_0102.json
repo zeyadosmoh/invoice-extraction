@@ -1,0 +1,42 @@
+{
+  "doc_id": "doc_0102",
+  "invoice": {
+    "vendor_name": "Qasr Al Nakheel Trading Est.",
+    "vendor_name_ar": "مؤسسة قصر النخيل التجارية",
+    "vendor_tax_id": "310245678900003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "QN-2026-0671",
+    "invoice_date": "2026-06-21",
+    "due_date": "2026-07-21",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Desk organizer",
+        "description_ar": "منظم مكتب",
+        "quantity": "1",
+        "unit_price": "73.00",
+        "line_total": "73.00"
+      }
+    ],
+    "subtotal": "73.00",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "10.95",
+    "total": "83.95"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V07",
+    "template": "T5_bilingual_ar_en",
+    "language": "ar-en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0102.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

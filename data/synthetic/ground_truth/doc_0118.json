@@ -1,0 +1,55 @@
+{
+  "doc_id": "doc_0118",
+  "invoice": {
+    "vendor_name": "Delta Papyrus Supplies",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "498-226-150",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "DPS/0895/2026",
+    "invoice_date": "2026-09-18",
+    "due_date": "2026-09-18",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Sticky notes (pack of 24)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "565.00",
+        "line_total": "565.00"
+      },
+      {
+        "description": "Spiral notebooks A5 (pack of 10)",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "653.97",
+        "line_total": "2615.88"
+      }
+    ],
+    "subtotal": "3180.88",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "445.32",
+    "total": "3626.20"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V14",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 0,
+    "files": {
+      "pdf": "pdf/doc_0118.pdf",
+      "png": "scans/doc_0118.png"
+    },
+    "scan": {
+      "dpi": 141,
+      "rotation_deg": 2.27,
+      "blur_radius": 0.61,
+      "noise_sigma": 8.33,
+      "jpeg_quality": 51
+    },
+    "generator_seed": 42
+  }
+}

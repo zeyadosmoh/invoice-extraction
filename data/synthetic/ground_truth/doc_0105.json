@@ -1,0 +1,83 @@
+{
+  "doc_id": "doc_0105",
+  "invoice": {
+    "vendor_name": "Wahat Digital Solutions",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "302117735400003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "WDS/2026/0508",
+    "invoice_date": "2026-07-09",
+    "due_date": "2026-07-09",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Installation and setup (h)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "299.00",
+        "line_total": "299.00"
+      },
+      {
+        "description": "Laptop 14in, 16GB RAM",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "3596.92",
+        "line_total": "7193.84"
+      },
+      {
+        "description": "Wireless keyboard and mouse",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "227.00",
+        "line_total": "908.00"
+      },
+      {
+        "description": "Cat6 patch cables (10 pcs)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "121.56",
+        "line_total": "121.56"
+      },
+      {
+        "description": "Network switch, 24-port",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "2297.00",
+        "line_total": "2297.00"
+      },
+      {
+        "description": "UPS 1500VA",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "752.00",
+        "line_total": "752.00"
+      }
+    ],
+    "subtotal": "11571.40",
+    "discount": "1735.71",
+    "tax_rate": "15",
+    "tax_amount": "1475.35",
+    "total": "11311.04"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V09",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 0,
+    "files": {
+      "pdf": "pdf/doc_0105.pdf",
+      "png": "scans/doc_0105.png"
+    },
+    "scan": {
+      "dpi": 107,
+      "rotation_deg": 0.08,
+      "blur_radius": 0.45,
+      "noise_sigma": 11.47,
+      "jpeg_quality": 58
+    },
+    "generator_seed": 42
+  }
+}

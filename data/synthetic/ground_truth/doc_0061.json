@@ -1,0 +1,94 @@
+{
+  "doc_id": "doc_0061",
+  "invoice": {
+    "vendor_name": "Dunecrest Interiors FZ-LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "100649027700003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "DCI-0530",
+    "invoice_date": "2025-11-17",
+    "due_date": "2025-12-02",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "Ergonomic office chair",
+        "description_ar": null,
+        "quantity": "25",
+        "unit_price": "874.00",
+        "line_total": "21850.00"
+      },
+      {
+        "description": "Glass partition panel",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "1497.58",
+        "line_total": "1497.58"
+      },
+      {
+        "description": "Height-adjustable desk",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "2234.38",
+        "line_total": "13406.28"
+      },
+      {
+        "description": "Installation labour (h)",
+        "description_ar": null,
+        "quantity": "7",
+        "unit_price": "207.26",
+        "line_total": "1450.82"
+      },
+      {
+        "description": "Meeting table, 8-seat",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "5317.00",
+        "line_total": "10634.00"
+      },
+      {
+        "description": "Carpet tiles (sqm)",
+        "description_ar": null,
+        "quantity": "59.5",
+        "unit_price": "102.00",
+        "line_total": "6069.00"
+      },
+      {
+        "description": "Administrative fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "51.41",
+        "line_total": "51.41"
+      }
+    ],
+    "subtotal": "54959.09",
+    "discount": null,
+    "tax_rate": "5",
+    "tax_amount": "2747.95",
+    "total": "57707.04"
+  },
+  "is_anomaly": true,
+  "anomaly": {
+    "type": "duplicate_invoice_number",
+    "reason": "Invoice number DCI-0530 was already used by doc_0003 from the same vendor (Dunecrest Interiors FZ-LLC).",
+    "duplicate_of": "doc_0003"
+  },
+  "meta": {
+    "vendor_id": "V12",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0061.pdf",
+      "png": "scans/doc_0061.png"
+    },
+    "scan": {
+      "dpi": 148,
+      "rotation_deg": -2.26,
+      "blur_radius": 1.05,
+      "noise_sigma": 9.92,
+      "jpeg_quality": 71
+    },
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "doc_id": "doc_0026",
+  "invoice": {
+    "vendor_name": "Lulua Marine Services LLC",
+    "vendor_name_ar": "لؤلؤة للخدمات البحرية ذ.م.م",
+    "vendor_tax_id": "100384920500003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "LMS-00701",
+    "invoice_date": "2025-05-16",
+    "due_date": "2025-07-15",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "Antifouling paint (litre)",
+        "description_ar": "طلاء مانع للحشف (لتر)",
+        "quantity": "8.5",
+        "unit_price": "151.70",
+        "line_total": "1289.45"
+      },
+      {
+        "description": "Safety equipment inspection",
+        "description_ar": "فحص معدات السلامة",
+        "quantity": "2",
+        "unit_price": "703.00",
+        "line_total": "1406.00"
+      }
+    ],
+    "subtotal": "2695.45",
+    "discount": null,
+    "tax_rate": "5",
+    "tax_amount": "134.77",
+    "total": "2830.22"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V10",
+    "template": "T5_bilingual_ar_en",
+    "language": "ar-en",
+    "digits": "arabic_indic",
+    "payment_terms_days": 60,
+    "files": {
+      "pdf": "pdf/doc_0026.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

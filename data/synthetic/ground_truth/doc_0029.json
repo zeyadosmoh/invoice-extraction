@@ -1,0 +1,111 @@
+{
+  "doc_id": "doc_0029",
+  "invoice": {
+    "vendor_name": "Wahat Digital Solutions",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "302117735400003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "WDS/2025/0503",
+    "invoice_date": "2025-06-03",
+    "due_date": "2025-06-18",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Network switch, 24-port",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "1017.53",
+        "line_total": "1017.53"
+      },
+      {
+        "description": "27in monitor",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "842.39",
+        "line_total": "842.39"
+      },
+      {
+        "description": "UPS 1500VA",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "840.55",
+        "line_total": "840.55"
+      },
+      {
+        "description": "Installation and setup (h)",
+        "description_ar": null,
+        "quantity": "9",
+        "unit_price": "208.00",
+        "line_total": "1872.00"
+      },
+      {
+        "description": "Wireless keyboard and mouse",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "156.00",
+        "line_total": "468.00"
+      },
+      {
+        "description": "Laptop 14in, 16GB RAM",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "5268.00",
+        "line_total": "21072.00"
+      },
+      {
+        "description": "Cat6 patch cables (10 pcs)",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "129.14",
+        "line_total": "258.28"
+      },
+      {
+        "description": "Site visit",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "342.27",
+        "line_total": "684.54"
+      },
+      {
+        "description": "Delivery charge",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "54.44",
+        "line_total": "54.44"
+      },
+      {
+        "description": "Administrative fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "59.37",
+        "line_total": "59.37"
+      }
+    ],
+    "subtotal": "27169.10",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "4075.37",
+    "total": "31244.47"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V09",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0029.pdf",
+      "png": "scans/doc_0029.png"
+    },
+    "scan": {
+      "dpi": 148,
+      "rotation_deg": -0.47,
+      "blur_radius": 0.87,
+      "noise_sigma": 9.95,
+      "jpeg_quality": 68
+    },
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "doc_id": "doc_0049",
+  "invoice": {
+    "vendor_name": "Nile Lotus Printing House",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "512-904-337",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "NLP-00326",
+    "invoice_date": "2025-09-06",
+    "due_date": "2025-10-21",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Business cards (box of 250)",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "2034.00",
+        "line_total": "4068.00"
+      },
+      {
+        "description": "Vinyl banner 2x1 m",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "2355.28",
+        "line_total": "2355.28"
+      },
+      {
+        "description": "Design proof revision (h)",
+        "description_ar": null,
+        "quantity": "2.5",
+        "unit_price": "1283.00",
+        "line_total": "3207.50"
+      },
+      {
+        "description": "Roll-up stand",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "3621.83",
+        "line_total": "3621.83"
+      },
+      {
+        "description": "Tri-fold brochures (100 pcs)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "4867.00",
+        "line_total": "14601.00"
+      }
+    ],
+    "subtotal": "27853.61",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "3899.51",
+    "total": "31753.12"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V13",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0049.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

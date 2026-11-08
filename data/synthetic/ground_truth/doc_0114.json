@@ -1,0 +1,84 @@
+{
+  "doc_id": "doc_0114",
+  "invoice": {
+    "vendor_name": "Wahat Digital Solutions",
+    "vendor_name_ar": "حلول الواحة الرقمية",
+    "vendor_tax_id": "302117735400003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "WDS/2026/0510",
+    "invoice_date": "2026-08-29",
+    "due_date": "2026-08-29",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Installation and setup (h)",
+        "description_ar": "تركيب وإعداد (ساعة)",
+        "quantity": "2.5",
+        "unit_price": "194.00",
+        "line_total": "485.00"
+      },
+      {
+        "description": "Laptop 14in, 16GB RAM",
+        "description_ar": "حاسب محمول 14 بوصة",
+        "quantity": "2",
+        "unit_price": "3189.42",
+        "line_total": "6378.84"
+      },
+      {
+        "description": "Cat6 patch cables (10 pcs)",
+        "description_ar": "كابلات شبكة Cat6 (10 قطع)",
+        "quantity": "1",
+        "unit_price": "66.04",
+        "line_total": "66.04"
+      },
+      {
+        "description": "27in monitor",
+        "description_ar": "شاشة 27 بوصة",
+        "quantity": "7",
+        "unit_price": "1308.00",
+        "line_total": "9156.00"
+      },
+      {
+        "description": "UPS 1500VA",
+        "description_ar": "مزود طاقة احتياطي 1500VA",
+        "quantity": "1",
+        "unit_price": "951.97",
+        "line_total": "951.97"
+      },
+      {
+        "description": "Wireless keyboard and mouse",
+        "description_ar": "لوحة مفاتيح وفأرة لاسلكية",
+        "quantity": "8",
+        "unit_price": "236.59",
+        "line_total": "1892.72"
+      },
+      {
+        "description": "Network switch, 24-port",
+        "description_ar": "محول شبكة 24 منفذ",
+        "quantity": "4",
+        "unit_price": "1427.42",
+        "line_total": "5709.68"
+      }
+    ],
+    "subtotal": "24640.25",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "3696.04",
+    "total": "28336.29"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V09",
+    "template": "T5_bilingual_ar_en",
+    "language": "ar-en",
+    "digits": "arabic_indic",
+    "payment_terms_days": 0,
+    "files": {
+      "pdf": "pdf/doc_0114.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

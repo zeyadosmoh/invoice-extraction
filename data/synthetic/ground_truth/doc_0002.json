@@ -1,0 +1,63 @@
+{
+  "doc_id": "doc_0002",
+  "invoice": {
+    "vendor_name": "Bluefinch Office Supply Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "47-2918365",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "BOS-2025-00364",
+    "invoice_date": "2025-02-02",
+    "due_date": "2025-04-03",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Ballpoint pens (box of 50)",
+        "description_ar": null,
+        "quantity": "7",
+        "unit_price": "12.21",
+        "line_total": "85.47"
+      },
+      {
+        "description": "Archive box files",
+        "description_ar": null,
+        "quantity": "7",
+        "unit_price": "7.97",
+        "line_total": "55.79"
+      },
+      {
+        "description": "Whiteboard markers (set of 12)",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "14.33",
+        "line_total": "28.66"
+      },
+      {
+        "description": "Desk organizer",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "18.24",
+        "line_total": "72.96"
+      }
+    ],
+    "subtotal": "242.88",
+    "discount": null,
+    "tax_rate": "8.25",
+    "tax_amount": "20.04",
+    "total": "262.92"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V01",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 60,
+    "files": {
+      "pdf": "pdf/doc_0002.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

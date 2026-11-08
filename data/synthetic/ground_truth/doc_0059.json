@@ -1,0 +1,48 @@
+{
+  "doc_id": "doc_0059",
+  "invoice": {
+    "vendor_name": "Bluefinch Office Supply Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "47-2918365",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "BOS-2025-00377",
+    "invoice_date": "2025-11-13",
+    "due_date": "2025-12-13",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Toner cartridge, black",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "64.27",
+        "line_total": "257.08"
+      }
+    ],
+    "subtotal": "257.08",
+    "discount": null,
+    "tax_rate": "8.25",
+    "tax_amount": "21.21",
+    "total": "278.29"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V01",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0059.pdf",
+      "png": "scans/doc_0059.png"
+    },
+    "scan": {
+      "dpi": 137,
+      "rotation_deg": -0.41,
+      "blur_radius": 0.85,
+      "noise_sigma": 10.37,
+      "jpeg_quality": 58
+    },
+    "generator_seed": 42
+  }
+}

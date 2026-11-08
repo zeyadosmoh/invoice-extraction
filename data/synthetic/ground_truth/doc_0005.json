@@ -1,0 +1,70 @@
+{
+  "doc_id": "doc_0005",
+  "invoice": {
+    "vendor_name": "Rimal Catering Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "311908452100003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "RC00814",
+    "invoice_date": "2025-02-07",
+    "due_date": "2025-02-22",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Dessert platter",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "95.00",
+        "line_total": "285.00"
+      },
+      {
+        "description": "Bottled water (carton)",
+        "description_ar": null,
+        "quantity": "70",
+        "unit_price": "11.31",
+        "line_total": "791.70"
+      },
+      {
+        "description": "Coffee break service per person",
+        "description_ar": null,
+        "quantity": "51",
+        "unit_price": "23.43",
+        "line_total": "1194.93"
+      },
+      {
+        "description": "Lunch boxes",
+        "description_ar": null,
+        "quantity": "100",
+        "unit_price": "48.07",
+        "line_total": "4807.00"
+      },
+      {
+        "description": "Event buffet per guest",
+        "description_ar": null,
+        "quantity": "69",
+        "unit_price": "92.00",
+        "line_total": "6348.00"
+      }
+    ],
+    "subtotal": "13426.63",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "2013.99",
+    "total": "15440.62"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V08",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0005.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

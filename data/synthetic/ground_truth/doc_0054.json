@@ -1,0 +1,91 @@
+{
+  "doc_id": "doc_0054",
+  "invoice": {
+    "vendor_name": "Delta Papyrus Supplies",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "498-226-150",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "DPS/0888/2025",
+    "invoice_date": "2025-10-07",
+    "due_date": "2025-11-06",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Heavy-duty stapler",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "842.64",
+        "line_total": "842.64"
+      },
+      {
+        "description": "Ballpoint pens (box of 50)",
+        "description_ar": null,
+        "quantity": "20",
+        "unit_price": "481.00",
+        "line_total": "9620.00"
+      },
+      {
+        "description": "Copy paper A4 (box of 5 reams)",
+        "description_ar": null,
+        "quantity": "8",
+        "unit_price": "1107.34",
+        "line_total": "8858.72"
+      },
+      {
+        "description": "Whiteboard markers (set of 12)",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "516.00",
+        "line_total": "2064.00"
+      },
+      {
+        "description": "Toner cartridge, black",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "4719.65",
+        "line_total": "4719.65"
+      },
+      {
+        "description": "Desk organizer",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "1038.00",
+        "line_total": "1038.00"
+      },
+      {
+        "description": "Sticky notes (pack of 24)",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "895.44",
+        "line_total": "3581.76"
+      },
+      {
+        "description": "Spiral notebooks A5 (pack of 10)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "774.27",
+        "line_total": "2322.81"
+      }
+    ],
+    "subtotal": "33047.58",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "4626.66",
+    "total": "37674.24"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V14",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0054.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "doc_id": "doc_0106",
+  "invoice": {
+    "vendor_name": "Gruenfeld Maschinentechnik GmbH",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "DE298104473",
+    "buyer_name": "Orchard Peak Europe B.V.",
+    "invoice_number": "RE-2026-0247",
+    "invoice_date": "2026-07-14",
+    "due_date": "2026-07-29",
+    "currency": "EUR",
+    "line_items": [
+      {
+        "description": "Bearing set 6204-2RS",
+        "description_ar": null,
+        "quantity": "40",
+        "unit_price": "20.71",
+        "line_total": "828.40"
+      }
+    ],
+    "subtotal": "828.40",
+    "discount": "124.26",
+    "tax_rate": "19",
+    "tax_amount": "133.79",
+    "total": "837.93"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V04",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0106.pdf",
+      "png": "scans/doc_0106.png"
+    },
+    "scan": {
+      "dpi": 147,
+      "rotation_deg": 2.4,
+      "blur_radius": 0.77,
+      "noise_sigma": 8.66,
+      "jpeg_quality": 67
+    },
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "doc_id": "doc_0050",
+  "invoice": {
+    "vendor_name": "Qasr Al Nakheel Trading Est.",
+    "vendor_name_ar": "مؤسسة قصر النخيل التجارية",
+    "vendor_tax_id": "310245678900003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "QN-2025-0665",
+    "invoice_date": "2025-09-26",
+    "due_date": "2025-10-11",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Sticky notes (pack of 24)",
+        "description_ar": "أوراق لاصقة (24 رزمة)",
+        "quantity": "2",
+        "unit_price": "61.00",
+        "line_total": "122.00"
+      }
+    ],
+    "subtotal": "122.00",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "21.96",
+    "total": "143.96"
+  },
+  "is_anomaly": true,
+  "anomaly": {
+    "type": "tax_amount_mismatch",
+    "reason": "Printed tax 21.96 != 15% of 122.00 = 18.30."
+  },
+  "meta": {
+    "vendor_id": "V07",
+    "template": "T5_bilingual_ar_en",
+    "language": "ar-en",
+    "digits": "arabic_indic",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0050.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

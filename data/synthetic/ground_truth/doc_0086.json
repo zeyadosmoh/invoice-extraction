@@ -1,0 +1,94 @@
+{
+  "doc_id": "doc_0086",
+  "invoice": {
+    "vendor_name": "Copperline Freight LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "83-5521047",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "CF000765",
+    "invoice_date": "2026-03-24",
+    "due_date": "2026-04-08",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Shrink wrapping per pallet",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "8.65",
+        "line_total": "25.95"
+      },
+      {
+        "description": "Linehaul freight per pallet",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "175.16",
+        "line_total": "700.64"
+      },
+      {
+        "description": "Customs clearance handling",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "134.23",
+        "line_total": "134.23"
+      },
+      {
+        "description": "Last-mile delivery",
+        "description_ar": null,
+        "quantity": "13",
+        "unit_price": "14.30",
+        "line_total": "185.90"
+      },
+      {
+        "description": "Fuel surcharge",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "47.03",
+        "line_total": "47.03"
+      },
+      {
+        "description": "Warehouse storage per pallet-day",
+        "description_ar": null,
+        "quantity": "82",
+        "unit_price": "3.22",
+        "line_total": "264.04"
+      },
+      {
+        "description": "Site visit",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "47.46",
+        "line_total": "47.46"
+      },
+      {
+        "description": "Delivery charge",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "19.25",
+        "line_total": "19.25"
+      }
+    ],
+    "subtotal": "1424.50",
+    "discount": null,
+    "tax_rate": "6",
+    "tax_amount": "99.72",
+    "total": "1524.22"
+  },
+  "is_anomaly": true,
+  "anomaly": {
+    "type": "tax_amount_mismatch",
+    "reason": "Printed tax 99.72 != 6% of 1424.50 = 85.47."
+  },
+  "meta": {
+    "vendor_id": "V02",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0086.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

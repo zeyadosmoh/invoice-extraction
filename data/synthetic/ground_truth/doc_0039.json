@@ -1,0 +1,49 @@
+{
+  "doc_id": "doc_0039",
+  "invoice": {
+    "vendor_name": "Copperline Freight LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "83-5521047",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "CF000757",
+    "invoice_date": "2025-07-18",
+    "due_date": "2025-08-17",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Shrink wrapping per pallet",
+        "description_ar": null,
+        "quantity": "7",
+        "unit_price": "3.76",
+        "line_total": "26.32"
+      },
+      {
+        "description": "Last-mile delivery",
+        "description_ar": null,
+        "quantity": "20",
+        "unit_price": "25.74",
+        "line_total": "514.80"
+      }
+    ],
+    "subtotal": "541.12",
+    "discount": null,
+    "tax_rate": "6",
+    "tax_amount": "32.47",
+    "total": "573.59"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V02",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0039.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

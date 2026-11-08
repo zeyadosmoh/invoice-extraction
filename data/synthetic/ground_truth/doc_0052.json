@@ -1,0 +1,49 @@
+{
+  "doc_id": "doc_0052",
+  "invoice": {
+    "vendor_name": "Delta Papyrus Supplies",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "498-226-150",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "DPS/0887/2025",
+    "invoice_date": "2025-09-29",
+    "due_date": "2025-11-28",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Archive box files",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "160.00",
+        "line_total": "960.00"
+      },
+      {
+        "description": "Toner cartridge, black",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "2924.63",
+        "line_total": "5849.26"
+      }
+    ],
+    "subtotal": "6809.26",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "953.30",
+    "total": "7762.56"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V14",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 60,
+    "files": {
+      "pdf": "pdf/doc_0052.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "doc_id": "doc_0044",
+  "invoice": {
+    "vendor_name": "Nile Lotus Printing House",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "512-904-337",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "NLP-00325",
+    "invoice_date": "2025-08-15",
+    "due_date": "2025-10-14",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Tri-fold brochures (100 pcs)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "4952.00",
+        "line_total": "4952.00"
+      }
+    ],
+    "subtotal": "4952.00",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "693.28",
+    "total": "5645.28"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V13",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 60,
+    "files": {
+      "pdf": "pdf/doc_0044.pdf",
+      "png": "scans/doc_0044.png"
+    },
+    "scan": {
+      "dpi": 144,
+      "rotation_deg": 1.11,
+      "blur_radius": 0.47,
+      "noise_sigma": 10.47,
+      "jpeg_quality": 64
+    },
+    "generator_seed": 42
+  }
+}

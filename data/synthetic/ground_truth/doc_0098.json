@@ -1,0 +1,90 @@
+{
+  "doc_id": "doc_0098",
+  "invoice": {
+    "vendor_name": "Lulua Marine Services LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "100384920500003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "LMS-00709",
+    "invoice_date": "2026-05-16",
+    "due_date": "2026-06-30",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "Marine diesel (litre)",
+        "description_ar": null,
+        "quantity": "273",
+        "unit_price": "4.43",
+        "line_total": "1209.39"
+      },
+      {
+        "description": "Hull cleaning",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "1794.00",
+        "line_total": "1794.00"
+      },
+      {
+        "description": "Engine service",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "2439.20",
+        "line_total": "4878.40"
+      },
+      {
+        "description": "Safety equipment inspection",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "606.00",
+        "line_total": "606.00"
+      },
+      {
+        "description": "Mooring fee per day",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "136.43",
+        "line_total": "272.86"
+      },
+      {
+        "description": "Antifouling paint (litre)",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "120.00",
+        "line_total": "240.00"
+      },
+      {
+        "description": "Site visit",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "397.69",
+        "line_total": "795.38"
+      }
+    ],
+    "subtotal": "9796.03",
+    "discount": null,
+    "tax_rate": "5",
+    "tax_amount": "489.80",
+    "total": "10285.83"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V10",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0098.pdf",
+      "png": "scans/doc_0098.png"
+    },
+    "scan": {
+      "dpi": 122,
+      "rotation_deg": -1.42,
+      "blur_radius": 1.1,
+      "noise_sigma": 9.22,
+      "jpeg_quality": 73
+    },
+    "generator_seed": 42
+  }
+}

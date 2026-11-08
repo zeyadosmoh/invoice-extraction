@@ -1,0 +1,84 @@
+{
+  "doc_id": "doc_0066",
+  "invoice": {
+    "vendor_name": "Bluefinch Office Supply Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "47-2918365",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "BOS-2025-00378",
+    "invoice_date": "2025-12-10",
+    "due_date": "2025-12-10",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Sticky notes (pack of 24)",
+        "description_ar": null,
+        "quantity": "7",
+        "unit_price": "16.24",
+        "line_total": "113.68"
+      },
+      {
+        "description": "Ballpoint pens (box of 50)",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "8.98",
+        "line_total": "53.88"
+      },
+      {
+        "description": "Spiral notebooks A5 (pack of 10)",
+        "description_ar": null,
+        "quantity": "23",
+        "unit_price": "9.02",
+        "line_total": "207.46"
+      },
+      {
+        "description": "Heavy-duty stapler",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "14.40",
+        "line_total": "14.40"
+      },
+      {
+        "description": "Archive box files",
+        "description_ar": null,
+        "quantity": "28",
+        "unit_price": "3.37",
+        "line_total": "94.36"
+      },
+      {
+        "description": "Toner cartridge, black",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "77.62",
+        "line_total": "155.24"
+      },
+      {
+        "description": "Copy paper A4 (box of 5 reams)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "21.65",
+        "line_total": "64.95"
+      }
+    ],
+    "subtotal": "703.97",
+    "discount": null,
+    "tax_rate": "8.25",
+    "tax_amount": "58.08",
+    "total": "762.05"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V01",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 0,
+    "files": {
+      "pdf": "pdf/doc_0066.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

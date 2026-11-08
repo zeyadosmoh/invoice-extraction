@@ -1,0 +1,63 @@
+{
+  "doc_id": "doc_0051",
+  "invoice": {
+    "vendor_name": "Kemet Cables & Wiring",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "603-781-492",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "KCW-2025-190",
+    "invoice_date": "2025-09-28",
+    "due_date": "2025-11-12",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "PVC conduit 25mm (3 m)",
+        "description_ar": null,
+        "quantity": "138",
+        "unit_price": "169.00",
+        "line_total": "23322.00"
+      },
+      {
+        "description": "Circuit breaker 32A",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "1060.00",
+        "line_total": "3180.00"
+      },
+      {
+        "description": "Copper cable 3x2.5mm (100 m roll)",
+        "description_ar": null,
+        "quantity": "29",
+        "unit_price": "6482.22",
+        "line_total": "187984.38"
+      },
+      {
+        "description": "Junction box IP65",
+        "description_ar": null,
+        "quantity": "25",
+        "unit_price": "383.00",
+        "line_total": "9575.00"
+      }
+    ],
+    "subtotal": "224061.38",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "31368.59",
+    "total": "255429.97"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V15",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0051.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "doc_id": "doc_0085",
+  "invoice": {
+    "vendor_name": "Nile Lotus Printing House",
+    "vendor_name_ar": "مطبعة لوتس النيل",
+    "vendor_tax_id": "512-904-337",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "NLP-00329",
+    "invoice_date": "2026-03-11",
+    "due_date": "2026-04-10",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Design proof revision (h)",
+        "description_ar": "مراجعة تصميم (ساعة)",
+        "quantity": "5.5",
+        "unit_price": "794.00",
+        "line_total": "4367.00"
+      },
+      {
+        "description": "Sticker labels (roll)",
+        "description_ar": "ملصقات (لفة)",
+        "quantity": "22",
+        "unit_price": "1229.33",
+        "line_total": "27045.26"
+      },
+      {
+        "description": "Roll-up stand",
+        "description_ar": "ستاند رول أب",
+        "quantity": "1",
+        "unit_price": "2619.00",
+        "line_total": "2619.00"
+      },
+      {
+        "description": "Business cards (box of 250)",
+        "description_ar": "بطاقات أعمال (250 بطاقة)",
+        "quantity": "2",
+        "unit_price": "1431.79",
+        "line_total": "2863.58"
+      },
+      {
+        "description": "Administrative fee",
+        "description_ar": "رسوم إدارية",
+        "quantity": "1",
+        "unit_price": "784.46",
+        "line_total": "784.46"
+      }
+    ],
+    "subtotal": "37679.30",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "5275.10",
+    "total": "42954.40"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V13",
+    "template": "T5_bilingual_ar_en",
+    "language": "ar-en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0085.pdf",
+      "png": "scans/doc_0085.png"
+    },
+    "scan": {
+      "dpi": 128,
+      "rotation_deg": -1.5,
+      "blur_radius": 0.86,
+      "noise_sigma": 6.69,
+      "jpeg_quality": 62
+    },
+    "generator_seed": 42
+  }
+}

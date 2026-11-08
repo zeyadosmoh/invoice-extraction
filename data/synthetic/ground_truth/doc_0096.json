@@ -1,0 +1,49 @@
+{
+  "doc_id": "doc_0096",
+  "invoice": {
+    "vendor_name": "Rimal Catering Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "311908452100003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "RC00826",
+    "invoice_date": "2026-05-04",
+    "due_date": "2026-07-03",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Coffee break service per person",
+        "description_ar": null,
+        "quantity": "95",
+        "unit_price": "14.53",
+        "line_total": "1380.35"
+      },
+      {
+        "description": "Lunch boxes",
+        "description_ar": null,
+        "quantity": "111",
+        "unit_price": "27.77",
+        "line_total": "3082.47"
+      }
+    ],
+    "subtotal": "4462.82",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "669.42",
+    "total": "5132.24"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V08",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 60,
+    "files": {
+      "pdf": "pdf/doc_0096.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "doc_id": "doc_0042",
+  "invoice": {
+    "vendor_name": "Lulua Marine Services LLC",
+    "vendor_name_ar": "لؤلؤة للخدمات البحرية ذ.م.م",
+    "vendor_tax_id": "100384920500003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "LMS-00703",
+    "invoice_date": "2025-08-08",
+    "due_date": "2025-09-22",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "Marine diesel (litre)",
+        "description_ar": "ديزل بحري (لتر)",
+        "quantity": "307",
+        "unit_price": "3.99",
+        "line_total": "1224.93"
+      },
+      {
+        "description": "Engine service",
+        "description_ar": "صيانة المحرك",
+        "quantity": "2",
+        "unit_price": "1627.05",
+        "line_total": "3254.10"
+      }
+    ],
+    "subtotal": "4479.03",
+    "discount": null,
+    "tax_rate": "5",
+    "tax_amount": "223.95",
+    "total": "4702.98"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V10",
+    "template": "T5_bilingual_ar_en",
+    "language": "ar-en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0042.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "doc_id": "doc_0120",
+  "invoice": {
+    "vendor_name": "Saqr Horizon Facilities",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "100572168300003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "SHF2026-0393",
+    "invoice_date": "2026-09-30",
+    "due_date": "2026-10-30",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "Pest control visit",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "326.00",
+        "line_total": "326.00"
+      }
+    ],
+    "subtotal": "326.00",
+    "discount": null,
+    "tax_rate": "5",
+    "tax_amount": "16.30",
+    "total": "342.30"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V11",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0120.pdf",
+      "png": "scans/doc_0120.png"
+    },
+    "scan": {
+      "dpi": 144,
+      "rotation_deg": 0.52,
+      "blur_radius": 1.0,
+      "noise_sigma": 8.79,
+      "jpeg_quality": 56
+    },
+    "generator_seed": 42
+  }
+}

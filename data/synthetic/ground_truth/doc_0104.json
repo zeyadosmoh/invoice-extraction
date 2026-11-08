@@ -1,0 +1,70 @@
+{
+  "doc_id": "doc_0104",
+  "invoice": {
+    "vendor_name": "Kemet Cables & Wiring",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "603-781-492",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "KCW-2026-203",
+    "invoice_date": "2026-07-08",
+    "due_date": "2026-08-07",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Junction box IP65",
+        "description_ar": null,
+        "quantity": "5",
+        "unit_price": "458.00",
+        "line_total": "2290.00"
+      },
+      {
+        "description": "Copper cable 3x2.5mm (100 m roll)",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "7192.00",
+        "line_total": "28768.00"
+      },
+      {
+        "description": "Cable lugs (pack of 100)",
+        "description_ar": null,
+        "quantity": "12",
+        "unit_price": "1110.00",
+        "line_total": "13320.00"
+      },
+      {
+        "description": "PVC conduit 25mm (3 m)",
+        "description_ar": null,
+        "quantity": "25",
+        "unit_price": "190.15",
+        "line_total": "4753.75"
+      },
+      {
+        "description": "Armoured cable 4x16mm (m)",
+        "description_ar": null,
+        "quantity": "16",
+        "unit_price": "511.45",
+        "line_total": "8183.20"
+      }
+    ],
+    "subtotal": "57314.95",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "8024.09",
+    "total": "65339.04"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V15",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0104.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

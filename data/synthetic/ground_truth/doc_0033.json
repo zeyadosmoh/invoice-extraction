@@ -1,0 +1,63 @@
+{
+  "doc_id": "doc_0033",
+  "invoice": {
+    "vendor_name": "Harborlight Print Works",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "26-7730419",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "HPW-0746",
+    "invoice_date": "2025-06-20",
+    "due_date": "2025-07-20",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Vinyl banner 2x1 m",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "78.08",
+        "line_total": "156.16"
+      },
+      {
+        "description": "Roll-up stand",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "59.00",
+        "line_total": "59.00"
+      },
+      {
+        "description": "Sticker labels (roll)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "24.71",
+        "line_total": "24.71"
+      },
+      {
+        "description": "Design proof revision (h)",
+        "description_ar": null,
+        "quantity": "3.5",
+        "unit_price": "16.43",
+        "line_total": "57.51"
+      }
+    ],
+    "subtotal": "297.38",
+    "discount": null,
+    "tax_rate": "7",
+    "tax_amount": "20.82",
+    "total": "318.20"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V03",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0033.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "doc_id": "doc_0067",
+  "invoice": {
+    "vendor_name": "Copperline Freight LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "83-5521047",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "CF000762",
+    "invoice_date": "2025-12-11",
+    "due_date": "2026-01-10",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Linehaul freight per pallet",
+        "description_ar": null,
+        "quantity": "8",
+        "unit_price": "121.00",
+        "line_total": "968.00"
+      },
+      {
+        "description": "Shrink wrapping per pallet",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "7.21",
+        "line_total": "7.21"
+      },
+      {
+        "description": "Warehouse storage per pallet-day",
+        "description_ar": null,
+        "quantity": "71",
+        "unit_price": "3.55",
+        "line_total": "252.05"
+      }
+    ],
+    "subtotal": "1227.26",
+    "discount": null,
+    "tax_rate": "6",
+    "tax_amount": "73.64",
+    "total": "1300.90"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V02",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0067.pdf",
+      "png": "scans/doc_0067.png"
+    },
+    "scan": {
+      "dpi": 105,
+      "rotation_deg": 0.21,
+      "blur_radius": 0.79,
+      "noise_sigma": 5.93,
+      "jpeg_quality": 71
+    },
+    "generator_seed": 42
+  }
+}

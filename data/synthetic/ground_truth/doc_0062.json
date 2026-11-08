@@ -1,0 +1,52 @@
+{
+  "doc_id": "doc_0062",
+  "invoice": {
+    "vendor_name": "Delta Papyrus Supplies",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "498-226-150",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "DPS/0889/2025",
+    "invoice_date": "2025-11-20",
+    "due_date": "2025-12-20",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Copy paper A4 (box of 5 reams)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "1018.00",
+        "line_total": "1018.00"
+      },
+      {
+        "description": "Sticky notes (pack of 24)",
+        "description_ar": null,
+        "quantity": "8",
+        "unit_price": "997.66",
+        "line_total": "7981.28"
+      }
+    ],
+    "subtotal": "8999.28",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "1529.88",
+    "total": "10529.16"
+  },
+  "is_anomaly": true,
+  "anomaly": {
+    "type": "tax_amount_mismatch",
+    "reason": "Printed tax 1529.88 != 14% of 8999.28 = 1259.90."
+  },
+  "meta": {
+    "vendor_id": "V14",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0062.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

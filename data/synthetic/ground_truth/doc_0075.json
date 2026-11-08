@@ -1,0 +1,56 @@
+{
+  "doc_id": "doc_0075",
+  "invoice": {
+    "vendor_name": "Harborlight Print Works",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "26-7730419",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "HPW-0749",
+    "invoice_date": "2026-01-15",
+    "due_date": "2026-02-14",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Sticker labels (roll)",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "20.83",
+        "line_total": "83.32"
+      },
+      {
+        "description": "Roll-up stand",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "89.23",
+        "line_total": "356.92"
+      },
+      {
+        "description": "Administrative fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "21.37",
+        "line_total": "21.37"
+      }
+    ],
+    "subtotal": "461.61",
+    "discount": null,
+    "tax_rate": "7",
+    "tax_amount": "32.31",
+    "total": "493.92"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V03",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0075.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

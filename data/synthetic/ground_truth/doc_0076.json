@@ -1,0 +1,49 @@
+{
+  "doc_id": "doc_0076",
+  "invoice": {
+    "vendor_name": "Harborlight Print Works",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "26-7730419",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "HPW-0752",
+    "invoice_date": "2026-01-18",
+    "due_date": "2026-03-19",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Business cards (box of 250)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "42.14",
+        "line_total": "126.42"
+      },
+      {
+        "description": "Sticker labels (roll)",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "16.29",
+        "line_total": "32.58"
+      }
+    ],
+    "subtotal": "159.00",
+    "discount": null,
+    "tax_rate": "7",
+    "tax_amount": "11.13",
+    "total": "170.13"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V03",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 60,
+    "files": {
+      "pdf": "pdf/doc_0076.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

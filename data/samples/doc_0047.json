@@ -1,0 +1,107 @@
+{
+  "doc_id": "doc_0047",
+  "invoice": {
+    "vendor_name": "Atelier Solenne SARL",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "FR32845219036",
+    "buyer_name": "Orchard Peak Europe B.V.",
+    "invoice_number": "F20250718",
+    "invoice_date": null,
+    "due_date": "2025-09-30",
+    "currency": "EUR",
+    "line_items": [
+      {
+        "description": "Brand identity workshop (h)",
+        "description_ar": null,
+        "quantity": "2.5",
+        "unit_price": "145.42",
+        "line_total": "363.55"
+      },
+      {
+        "description": "Packaging mockups",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "277.00",
+        "line_total": "554.00"
+      },
+      {
+        "description": "Product photography, half day",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "430.00",
+        "line_total": "430.00"
+      },
+      {
+        "description": "Logo concept round",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "537.38",
+        "line_total": "1074.76"
+      },
+      {
+        "description": "Illustration set",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "444.39",
+        "line_total": "444.39"
+      },
+      {
+        "description": "Revision hours (h)",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "108.92",
+        "line_total": "217.84"
+      },
+      {
+        "description": "Site visit",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "52.00",
+        "line_total": "52.00"
+      },
+      {
+        "description": "Extended warranty (12 months)",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "103.96",
+        "line_total": "207.92"
+      },
+      {
+        "description": "Administrative fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "17.93",
+        "line_total": "17.93"
+      }
+    ],
+    "subtotal": "3362.39",
+    "discount": "120.00",
+    "tax_rate": "20",
+    "tax_amount": "648.48",
+    "total": "3890.87"
+  },
+  "is_anomaly": true,
+  "anomaly": {
+    "type": "missing_invoice_date",
+    "reason": "Invoice date is not printed on the document."
+  },
+  "meta": {
+    "vendor_id": "V05",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0047.pdf",
+      "png": "scans/doc_0047.png"
+    },
+    "scan": {
+      "dpi": 127,
+      "rotation_deg": -1.26,
+      "blur_radius": 0.81,
+      "noise_sigma": 10.26,
+      "jpeg_quality": 71
+    },
+    "generator_seed": 42
+  }
+}

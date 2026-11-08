@@ -1,0 +1,97 @@
+{
+  "doc_id": "doc_0080",
+  "invoice": {
+    "vendor_name": "Kemet Cables & Wiring",
+    "vendor_name_ar": "كيميت للكابلات والأسلاك",
+    "vendor_tax_id": "603-781-492",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "KCW-2026-197",
+    "invoice_date": "2026-02-07",
+    "due_date": "2026-04-08",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Junction box IP65",
+        "description_ar": "علبة توصيل IP65",
+        "quantity": "4",
+        "unit_price": "322.00",
+        "line_total": "1288.00"
+      },
+      {
+        "description": "Copper cable 3x2.5mm (100 m roll)",
+        "description_ar": "كابل نحاس 3×2.5 مم (لفة 100 م)",
+        "quantity": "4",
+        "unit_price": "5249.31",
+        "line_total": "20997.24"
+      },
+      {
+        "description": "Armoured cable 4x16mm (m)",
+        "description_ar": "كابل مسلح 4×16 مم (متر)",
+        "quantity": "167.5",
+        "unit_price": "657.67",
+        "line_total": "110159.73"
+      },
+      {
+        "description": "PVC conduit 25mm (3 m)",
+        "description_ar": "ماسورة PVC قطر 25 مم (3 م)",
+        "quantity": "14",
+        "unit_price": "171.00",
+        "line_total": "2394.00"
+      },
+      {
+        "description": "Circuit breaker 32A",
+        "description_ar": "قاطع كهربائي 32 أمبير",
+        "quantity": "13",
+        "unit_price": "992.00",
+        "line_total": "12896.00"
+      },
+      {
+        "description": "Cable lugs (pack of 100)",
+        "description_ar": "كوسات كابلات (100 قطعة)",
+        "quantity": "10",
+        "unit_price": "628.87",
+        "line_total": "6288.70"
+      },
+      {
+        "description": "Extended warranty (12 months)",
+        "description_ar": "ضمان ممتد (12 شهر)",
+        "quantity": "4",
+        "unit_price": "3185.00",
+        "line_total": "12740.00"
+      },
+      {
+        "description": "Administrative fee",
+        "description_ar": "رسوم إدارية",
+        "quantity": "1",
+        "unit_price": "1038.00",
+        "line_total": "1038.00"
+      }
+    ],
+    "subtotal": "167801.67",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "23492.23",
+    "total": "191293.90"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V15",
+    "template": "T5_bilingual_ar_en",
+    "language": "ar-en",
+    "digits": "western",
+    "payment_terms_days": 60,
+    "files": {
+      "pdf": "pdf/doc_0080.pdf",
+      "png": "scans/doc_0080.png"
+    },
+    "scan": {
+      "dpi": 133,
+      "rotation_deg": -2.39,
+      "blur_radius": 1.08,
+      "noise_sigma": 7.67,
+      "jpeg_quality": 75
+    },
+    "generator_seed": 42
+  }
+}

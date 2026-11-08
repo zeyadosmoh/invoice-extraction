@@ -1,0 +1,48 @@
+{
+  "doc_id": "doc_0006",
+  "invoice": {
+    "vendor_name": "Rimal Catering Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "311908452100003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "RC00816",
+    "invoice_date": "2025-02-13",
+    "due_date": "2025-03-15",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Dessert platter",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "117.63",
+        "line_total": "117.63"
+      }
+    ],
+    "subtotal": "117.63",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "17.64",
+    "total": "135.27"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V08",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0006.pdf",
+      "png": "scans/doc_0006.png"
+    },
+    "scan": {
+      "dpi": 137,
+      "rotation_deg": -1.25,
+      "blur_radius": 0.54,
+      "noise_sigma": 7.61,
+      "jpeg_quality": 54
+    },
+    "generator_seed": 42
+  }
+}

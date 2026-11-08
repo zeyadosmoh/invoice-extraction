@@ -1,0 +1,63 @@
+{
+  "doc_id": "doc_0036",
+  "invoice": {
+    "vendor_name": "Bluefinch Office Supply Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "47-2918365",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "BOS-2025-00370",
+    "invoice_date": "2025-07-01",
+    "due_date": "2025-08-30",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Desk organizer",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "16.39",
+        "line_total": "16.39"
+      },
+      {
+        "description": "Copy paper A4 (box of 5 reams)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "23.16",
+        "line_total": "23.16"
+      },
+      {
+        "description": "Spiral notebooks A5 (pack of 10)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "15.74",
+        "line_total": "47.22"
+      },
+      {
+        "description": "Toner cartridge, black",
+        "description_ar": null,
+        "quantity": "7",
+        "unit_price": "51.77",
+        "line_total": "362.39"
+      }
+    ],
+    "subtotal": "449.16",
+    "discount": null,
+    "tax_rate": "8.25",
+    "tax_amount": "37.06",
+    "total": "486.22"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V01",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 60,
+    "files": {
+      "pdf": "pdf/doc_0036.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

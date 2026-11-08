@@ -1,0 +1,42 @@
+{
+  "doc_id": "doc_0107",
+  "invoice": {
+    "vendor_name": "Velatra Software B.V.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "NL861204593B01",
+    "buyer_name": "Orchard Peak Europe B.V.",
+    "invoice_number": "VS-INV-00566",
+    "invoice_date": "2026-07-14",
+    "due_date": "2026-08-13",
+    "currency": "EUR",
+    "line_items": [
+      {
+        "description": "Cloud hosting, monthly",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "132.00",
+        "line_total": "132.00"
+      }
+    ],
+    "subtotal": "132.00",
+    "discount": null,
+    "tax_rate": "21",
+    "tax_amount": "27.72",
+    "total": "159.72"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V06",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0107.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

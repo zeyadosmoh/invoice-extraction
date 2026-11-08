@@ -1,0 +1,90 @@
+{
+  "doc_id": "doc_0092",
+  "invoice": {
+    "vendor_name": "Kemet Cables & Wiring",
+    "vendor_name_ar": "كيميت للكابلات والأسلاك",
+    "vendor_tax_id": "603-781-492",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "KCW-2026-202",
+    "invoice_date": "2026-04-09",
+    "due_date": "2026-05-24",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Circuit breaker 32A",
+        "description_ar": "قاطع كهربائي 32 أمبير",
+        "quantity": "4",
+        "unit_price": "805.64",
+        "line_total": "3222.56"
+      },
+      {
+        "description": "Cable lugs (pack of 100)",
+        "description_ar": "كوسات كابلات (100 قطعة)",
+        "quantity": "14",
+        "unit_price": "566.52",
+        "line_total": "7931.28"
+      },
+      {
+        "description": "Junction box IP65",
+        "description_ar": "علبة توصيل IP65",
+        "quantity": "38",
+        "unit_price": "278.87",
+        "line_total": "10597.06"
+      },
+      {
+        "description": "PVC conduit 25mm (3 m)",
+        "description_ar": "ماسورة PVC قطر 25 مم (3 م)",
+        "quantity": "20",
+        "unit_price": "151.08",
+        "line_total": "3021.60"
+      },
+      {
+        "description": "Copper cable 3x2.5mm (100 m roll)",
+        "description_ar": "كابل نحاس 3×2.5 مم (لفة 100 م)",
+        "quantity": "1",
+        "unit_price": "6608.36",
+        "line_total": "6608.36"
+      },
+      {
+        "description": "Armoured cable 4x16mm (m)",
+        "description_ar": "كابل مسلح 4×16 مم (متر)",
+        "quantity": "246",
+        "unit_price": "417.47",
+        "line_total": "102697.62"
+      },
+      {
+        "description": "Express handling fee",
+        "description_ar": "رسوم معالجة عاجلة",
+        "quantity": "1",
+        "unit_price": "1957.00",
+        "line_total": "1957.00"
+      }
+    ],
+    "subtotal": "136035.48",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "19044.97",
+    "total": "155080.45"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V15",
+    "template": "T5_bilingual_ar_en",
+    "language": "ar-en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0092.pdf",
+      "png": "scans/doc_0092.png"
+    },
+    "scan": {
+      "dpi": 141,
+      "rotation_deg": -1.82,
+      "blur_radius": 0.83,
+      "noise_sigma": 7.83,
+      "jpeg_quality": 72
+    },
+    "generator_seed": 42
+  }
+}

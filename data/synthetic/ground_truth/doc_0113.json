@@ -1,0 +1,84 @@
+{
+  "doc_id": "doc_0113",
+  "invoice": {
+    "vendor_name": "Dunecrest Interiors FZ-LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "100649027700003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "DCI-0557",
+    "invoice_date": "2026-08-25",
+    "due_date": "2026-09-09",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "Installation labour (h)",
+        "description_ar": null,
+        "quantity": "35",
+        "unit_price": "208.63",
+        "line_total": "7302.05"
+      },
+      {
+        "description": "Glass partition panel",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "1693.05",
+        "line_total": "1693.05"
+      },
+      {
+        "description": "Meeting table, 8-seat",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "4970.05",
+        "line_total": "4970.05"
+      },
+      {
+        "description": "Ergonomic office chair",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "827.70",
+        "line_total": "4966.20"
+      },
+      {
+        "description": "Carpet tiles (sqm)",
+        "description_ar": null,
+        "quantity": "178.5",
+        "unit_price": "127.94",
+        "line_total": "22837.29"
+      },
+      {
+        "description": "Height-adjustable desk",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "3149.00",
+        "line_total": "6298.00"
+      },
+      {
+        "description": "Administrative fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "24.31",
+        "line_total": "24.31"
+      }
+    ],
+    "subtotal": "48090.95",
+    "discount": null,
+    "tax_rate": "5",
+    "tax_amount": "2404.55",
+    "total": "50495.50"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V12",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0113.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

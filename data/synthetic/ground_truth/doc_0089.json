@@ -1,0 +1,59 @@
+{
+  "doc_id": "doc_0089",
+  "invoice": {
+    "vendor_name": "Atelier Solenne SARL",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "FR32845219036",
+    "buyer_name": "Orchard Peak Europe B.V.",
+    "invoice_number": "F20260726",
+    "invoice_date": null,
+    "due_date": "2026-05-28",
+    "currency": "EUR",
+    "line_items": [
+      {
+        "description": "Brand identity workshop (h)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "124.00",
+        "line_total": "372.00"
+      },
+      {
+        "description": "Revision hours (h)",
+        "description_ar": null,
+        "quantity": "8.5",
+        "unit_price": "69.03",
+        "line_total": "586.76"
+      },
+      {
+        "description": "Extended warranty (12 months)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "73.17",
+        "line_total": "73.17"
+      }
+    ],
+    "subtotal": "1031.93",
+    "discount": null,
+    "tax_rate": "20",
+    "tax_amount": "206.39",
+    "total": "1238.32"
+  },
+  "is_anomaly": true,
+  "anomaly": {
+    "type": "missing_invoice_date",
+    "reason": "Invoice date is not printed on the document."
+  },
+  "meta": {
+    "vendor_id": "V05",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 60,
+    "files": {
+      "pdf": "pdf/doc_0089.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

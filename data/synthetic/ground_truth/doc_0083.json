@@ -1,0 +1,119 @@
+{
+  "doc_id": "doc_0083",
+  "invoice": {
+    "vendor_name": "Atelier Solenne SARL",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "FR32845219036",
+    "buyer_name": "Orchard Peak Europe B.V.",
+    "invoice_number": "F20260721",
+    "invoice_date": "2026-02-26",
+    "due_date": "2026-02-26",
+    "currency": "EUR",
+    "line_items": [
+      {
+        "description": "Product photography, half day",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "607.00",
+        "line_total": "607.00"
+      },
+      {
+        "description": "Packaging mockups",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "206.04",
+        "line_total": "206.04"
+      },
+      {
+        "description": "Brand identity workshop (h)",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "116.00",
+        "line_total": "232.00"
+      },
+      {
+        "description": "Illustration set",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "319.82",
+        "line_total": "959.46"
+      },
+      {
+        "description": "Logo concept round",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "277.37",
+        "line_total": "277.37"
+      },
+      {
+        "description": "Revision hours (h)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "85.49",
+        "line_total": "256.47"
+      },
+      {
+        "description": "Delivery charge",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "10.95",
+        "line_total": "10.95"
+      },
+      {
+        "description": "Extended warranty (12 months)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "45.64",
+        "line_total": "45.64"
+      },
+      {
+        "description": "Site visit",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "50.00",
+        "line_total": "50.00"
+      },
+      {
+        "description": "Express handling fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "24.68",
+        "line_total": "24.68"
+      },
+      {
+        "description": "Packaging and crating",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "21.42",
+        "line_total": "21.42"
+      },
+      {
+        "description": "Administrative fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "10.92",
+        "line_total": "10.92"
+      }
+    ],
+    "subtotal": "2701.95",
+    "discount": null,
+    "tax_rate": "20",
+    "tax_amount": "540.39",
+    "total": "3242.34"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V05",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 0,
+    "files": {
+      "pdf": "pdf/doc_0083.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

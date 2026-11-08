@@ -1,0 +1,87 @@
+{
+  "doc_id": "doc_0091",
+  "invoice": {
+    "vendor_name": "Dunecrest Interiors FZ-LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "100649027700003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "DCI-0544",
+    "invoice_date": "2026-04-02",
+    "due_date": "2026-04-17",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "Meeting table, 8-seat",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "4876.00",
+        "line_total": "4876.00"
+      },
+      {
+        "description": "Height-adjustable desk",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "2375.00",
+        "line_total": "4750.00"
+      },
+      {
+        "description": "Ergonomic office chair",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "1348.23",
+        "line_total": "2696.46"
+      },
+      {
+        "description": "Glass partition panel",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "1375.84",
+        "line_total": "1375.84"
+      },
+      {
+        "description": "Installation labour (h)",
+        "description_ar": null,
+        "quantity": "15",
+        "unit_price": "202.00",
+        "line_total": "3030.00"
+      },
+      {
+        "description": "Carpet tiles (sqm)",
+        "description_ar": null,
+        "quantity": "148",
+        "unit_price": "68.00",
+        "line_total": "10064.00"
+      },
+      {
+        "description": "Delivery charge",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "89.22",
+        "line_total": "89.22"
+      }
+    ],
+    "subtotal": "26881.52",
+    "discount": null,
+    "tax_rate": "5",
+    "tax_amount": "1344.08",
+    "total": "30266.53"
+  },
+  "is_anomaly": true,
+  "anomaly": {
+    "type": "total_mismatch",
+    "reason": "Printed total 30266.53 != subtotal - discount + tax = 28225.60."
+  },
+  "meta": {
+    "vendor_id": "V12",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0091.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

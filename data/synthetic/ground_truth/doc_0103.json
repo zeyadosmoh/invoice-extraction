@@ -1,0 +1,42 @@
+{
+  "doc_id": "doc_0103",
+  "invoice": {
+    "vendor_name": "Dunecrest Interiors FZ-LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "100649027700003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "DCI-0549",
+    "invoice_date": "2026-06-28",
+    "due_date": "2026-07-13",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "Carpet tiles (sqm)",
+        "description_ar": null,
+        "quantity": "20",
+        "unit_price": "127.00",
+        "line_total": "2540.00"
+      }
+    ],
+    "subtotal": "2540.00",
+    "discount": null,
+    "tax_rate": "5",
+    "tax_amount": "127.00",
+    "total": "2667.00"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V12",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0103.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "doc_id": "doc_0082",
+  "invoice": {
+    "vendor_name": "Bluefinch Office Supply Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "47-2918365",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "BOS-2026-00380",
+    "invoice_date": "2026-02-17",
+    "due_date": "2026-04-18",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Ballpoint pens (box of 50)",
+        "description_ar": null,
+        "quantity": "10",
+        "unit_price": "10.40",
+        "line_total": "104.00"
+      },
+      {
+        "description": "Heavy-duty stapler",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "29.99",
+        "line_total": "29.99"
+      },
+      {
+        "description": "Copy paper A4 (box of 5 reams)",
+        "description_ar": null,
+        "quantity": "18",
+        "unit_price": "31.57",
+        "line_total": "568.26"
+      }
+    ],
+    "subtotal": "702.25",
+    "discount": null,
+    "tax_rate": "8.25",
+    "tax_amount": "57.94",
+    "total": "760.19"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V01",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 60,
+    "files": {
+      "pdf": "pdf/doc_0082.pdf",
+      "png": "scans/doc_0082.png"
+    },
+    "scan": {
+      "dpi": 100,
+      "rotation_deg": -0.05,
+      "blur_radius": 0.55,
+      "noise_sigma": 8.9,
+      "jpeg_quality": 57
+    },
+    "generator_seed": 42
+  }
+}

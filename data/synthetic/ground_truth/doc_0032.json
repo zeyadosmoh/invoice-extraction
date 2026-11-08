@@ -1,0 +1,56 @@
+{
+  "doc_id": "doc_0032",
+  "invoice": {
+    "vendor_name": "Delta Papyrus Supplies",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "498-226-150",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "DPS/0881/2025",
+    "invoice_date": "2025-06-18",
+    "due_date": "2025-08-17",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Whiteboard markers (set of 12)",
+        "description_ar": null,
+        "quantity": "7",
+        "unit_price": "682.00",
+        "line_total": "4774.00"
+      },
+      {
+        "description": "Toner cartridge, black",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "2199.00",
+        "line_total": "2199.00"
+      },
+      {
+        "description": "Copy paper A4 (box of 5 reams)",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "1350.85",
+        "line_total": "5403.40"
+      }
+    ],
+    "subtotal": "12376.40",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "1732.70",
+    "total": "14109.10"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V14",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 60,
+    "files": {
+      "pdf": "pdf/doc_0032.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

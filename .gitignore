@@ -1,0 +1,19 @@
+# Secrets / local config
+.env
+CLAUDE.md
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Generated binaries (reproducible via src/generate_invoices.py).
+# Ground truth + manifest are committed; curated examples live in data/samples/.
+data/synthetic/pdf/
+data/synthetic/scans/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store

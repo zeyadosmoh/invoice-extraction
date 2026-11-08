@@ -1,0 +1,70 @@
+{
+  "doc_id": "doc_0003",
+  "invoice": {
+    "vendor_name": "Dunecrest Interiors FZ-LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "100649027700003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "DCI-0530",
+    "invoice_date": "2025-02-03",
+    "due_date": "2025-02-18",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "Glass partition panel",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "931.14",
+        "line_total": "5586.84"
+      },
+      {
+        "description": "Carpet tiles (sqm)",
+        "description_ar": null,
+        "quantity": "113",
+        "unit_price": "110.00",
+        "line_total": "12430.00"
+      },
+      {
+        "description": "Installation labour (h)",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "148.69",
+        "line_total": "892.14"
+      },
+      {
+        "description": "Ergonomic office chair",
+        "description_ar": null,
+        "quantity": "10",
+        "unit_price": "708.00",
+        "line_total": "7080.00"
+      },
+      {
+        "description": "Site visit",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "190.00",
+        "line_total": "190.00"
+      }
+    ],
+    "subtotal": "26178.98",
+    "discount": null,
+    "tax_rate": "5",
+    "tax_amount": "1308.95",
+    "total": "27487.93"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V12",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0003.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

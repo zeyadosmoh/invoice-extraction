@@ -1,0 +1,56 @@
+{
+  "doc_id": "doc_0010",
+  "invoice": {
+    "vendor_name": "Saqr Horizon Facilities",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "100572168300003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "SHF2025-0385",
+    "invoice_date": "2025-03-17",
+    "due_date": "2025-03-17",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "Security guard shift",
+        "description_ar": null,
+        "quantity": "18",
+        "unit_price": "470.58",
+        "line_total": "8470.44"
+      },
+      {
+        "description": "AC maintenance per unit",
+        "description_ar": null,
+        "quantity": "11",
+        "unit_price": "211.00",
+        "line_total": "2321.00"
+      },
+      {
+        "description": "Delivery charge",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "62.00",
+        "line_total": "62.00"
+      }
+    ],
+    "subtotal": "10853.44",
+    "discount": null,
+    "tax_rate": "5",
+    "tax_amount": "542.67",
+    "total": "11396.11"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V11",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 0,
+    "files": {
+      "pdf": "pdf/doc_0010.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

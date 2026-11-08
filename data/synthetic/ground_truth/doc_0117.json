@@ -1,0 +1,42 @@
+{
+  "doc_id": "doc_0117",
+  "invoice": {
+    "vendor_name": "Delta Papyrus Supplies",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "498-226-150",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "DPS/0892/2026",
+    "invoice_date": "2026-09-12",
+    "due_date": "2026-10-27",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Ballpoint pens (box of 50)",
+        "description_ar": null,
+        "quantity": "16",
+        "unit_price": "336.52",
+        "line_total": "5384.32"
+      }
+    ],
+    "subtotal": "5384.32",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "753.80",
+    "total": "6138.12"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V14",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0117.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

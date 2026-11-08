@@ -1,0 +1,83 @@
+{
+  "doc_id": "doc_0109",
+  "invoice": {
+    "vendor_name": "Dunecrest Interiors FZ-LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "100649027700003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "DCI-0554",
+    "invoice_date": "2026-07-25",
+    "due_date": "2026-07-25",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "Meeting table, 8-seat",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "4091.60",
+        "line_total": "4091.60"
+      },
+      {
+        "description": "Height-adjustable desk",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "2780.15",
+        "line_total": "2780.15"
+      },
+      {
+        "description": "Carpet tiles (sqm)",
+        "description_ar": null,
+        "quantity": "145.5",
+        "unit_price": "87.00",
+        "line_total": "12658.50"
+      },
+      {
+        "description": "Ergonomic office chair",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "1027.29",
+        "line_total": "4109.16"
+      },
+      {
+        "description": "Glass partition panel",
+        "description_ar": null,
+        "quantity": "5",
+        "unit_price": "1599.00",
+        "line_total": "7995.00"
+      },
+      {
+        "description": "Installation labour (h)",
+        "description_ar": null,
+        "quantity": "12",
+        "unit_price": "193.00",
+        "line_total": "2316.00"
+      }
+    ],
+    "subtotal": "33950.41",
+    "discount": "5092.56",
+    "tax_rate": "5",
+    "tax_amount": "1442.89",
+    "total": "30300.74"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V12",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 0,
+    "files": {
+      "pdf": "pdf/doc_0109.pdf",
+      "png": "scans/doc_0109.png"
+    },
+    "scan": {
+      "dpi": 130,
+      "rotation_deg": -0.42,
+      "blur_radius": 0.72,
+      "noise_sigma": 5.91,
+      "jpeg_quality": 74
+    },
+    "generator_seed": 42
+  }
+}

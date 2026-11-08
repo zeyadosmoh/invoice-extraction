@@ -1,0 +1,69 @@
+{
+  "doc_id": "doc_0014",
+  "invoice": {
+    "vendor_name": "Nile Lotus Printing House",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "512-904-337",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "NLP-00319",
+    "invoice_date": "2025-03-25",
+    "due_date": "2025-05-09",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Tri-fold brochures (100 pcs)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "4249.60",
+        "line_total": "12748.80"
+      },
+      {
+        "description": "Design proof revision (h)",
+        "description_ar": null,
+        "quantity": "5",
+        "unit_price": "1268.00",
+        "line_total": "6340.00"
+      },
+      {
+        "description": "Letterhead paper (500 sheets)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "2361.66",
+        "line_total": "2361.66"
+      },
+      {
+        "description": "Roll-up stand",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "4630.00",
+        "line_total": "4630.00"
+      }
+    ],
+    "subtotal": "26080.46",
+    "discount": "2608.05",
+    "tax_rate": "14",
+    "tax_amount": "3286.14",
+    "total": "26758.55"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V13",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0014.pdf",
+      "png": "scans/doc_0014.png"
+    },
+    "scan": {
+      "dpi": 146,
+      "rotation_deg": 0.85,
+      "blur_radius": 0.73,
+      "noise_sigma": 6.68,
+      "jpeg_quality": 66
+    },
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "doc_id": "doc_0073",
+  "invoice": {
+    "vendor_name": "Kemet Cables & Wiring",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "603-781-492",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "KCW-2026-192",
+    "invoice_date": "2026-01-06",
+    "due_date": "2026-01-06",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Circuit breaker 32A",
+        "description_ar": null,
+        "quantity": "16",
+        "unit_price": "506.88",
+        "line_total": "8110.08"
+      },
+      {
+        "description": "Junction box IP65",
+        "description_ar": null,
+        "quantity": "12",
+        "unit_price": "336.54",
+        "line_total": "4038.48"
+      },
+      {
+        "description": "Cable lugs (pack of 100)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "1414.48",
+        "line_total": "4243.44"
+      },
+      {
+        "description": "Administrative fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "342.00",
+        "line_total": "342.00"
+      }
+    ],
+    "subtotal": "16734.00",
+    "discount": "490.00",
+    "tax_rate": "14",
+    "tax_amount": "2274.16",
+    "total": "18518.16"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V15",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 0,
+    "files": {
+      "pdf": "pdf/doc_0073.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

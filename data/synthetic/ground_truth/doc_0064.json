@@ -1,0 +1,48 @@
+{
+  "doc_id": "doc_0064",
+  "invoice": {
+    "vendor_name": "Rimal Catering Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "311908452100003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "RC00825",
+    "invoice_date": "2025-12-06",
+    "due_date": "2026-01-05",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Bottled water (carton)",
+        "description_ar": null,
+        "quantity": "12",
+        "unit_price": "7.78",
+        "line_total": "93.36"
+      }
+    ],
+    "subtotal": "93.36",
+    "discount": "14.00",
+    "tax_rate": "15",
+    "tax_amount": "11.90",
+    "total": "91.26"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V08",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0064.pdf",
+      "png": "scans/doc_0064.png"
+    },
+    "scan": {
+      "dpi": 143,
+      "rotation_deg": 2.37,
+      "blur_radius": 0.41,
+      "noise_sigma": 5.17,
+      "jpeg_quality": 59
+    },
+    "generator_seed": 42
+  }
+}

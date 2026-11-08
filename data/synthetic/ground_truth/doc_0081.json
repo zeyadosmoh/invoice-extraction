@@ -1,0 +1,49 @@
+{
+  "doc_id": "doc_0081",
+  "invoice": {
+    "vendor_name": "Kemet Cables & Wiring",
+    "vendor_name_ar": "كيميت للكابلات والأسلاك",
+    "vendor_tax_id": "603-781-492",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "KCW-2026-199",
+    "invoice_date": "2026-02-11",
+    "due_date": "2026-03-13",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Junction box IP65",
+        "description_ar": "علبة توصيل IP65",
+        "quantity": "10",
+        "unit_price": "553.54",
+        "line_total": "5535.40"
+      },
+      {
+        "description": "Armoured cable 4x16mm (m)",
+        "description_ar": "كابل مسلح 4×16 مم (متر)",
+        "quantity": "20",
+        "unit_price": "681.00",
+        "line_total": "13620.00"
+      }
+    ],
+    "subtotal": "19155.40",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "2681.76",
+    "total": "21837.16"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V15",
+    "template": "T5_bilingual_ar_en",
+    "language": "ar-en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0081.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "doc_id": "doc_0024",
+  "invoice": {
+    "vendor_name": "Nile Lotus Printing House",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "512-904-337",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "NLP-00321",
+    "invoice_date": null,
+    "due_date": "2025-06-07",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Sticker labels (roll)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "972.00",
+        "line_total": "972.00"
+      }
+    ],
+    "subtotal": "972.00",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "136.08",
+    "total": "1108.08"
+  },
+  "is_anomaly": true,
+  "anomaly": {
+    "type": "missing_invoice_date",
+    "reason": "Invoice date is not printed on the document."
+  },
+  "meta": {
+    "vendor_id": "V13",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0024.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "doc_id": "doc_0057",
+  "invoice": {
+    "vendor_name": "Velatra Software B.V.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "NL861204593B01",
+    "buyer_name": "Orchard Peak Europe B.V.",
+    "invoice_number": "VS-INV-00560",
+    "invoice_date": "2025-11-06",
+    "due_date": "2025-12-21",
+    "currency": "EUR",
+    "line_items": [
+      {
+        "description": "Premium support (h)",
+        "description_ar": null,
+        "quantity": "17",
+        "unit_price": "133.05",
+        "line_total": "2261.85"
+      },
+      {
+        "description": "Data migration service",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "1066.57",
+        "line_total": "1066.57"
+      },
+      {
+        "description": "Onboarding and training",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "580.00",
+        "line_total": "1160.00"
+      },
+      {
+        "description": "API usage block (1M calls)",
+        "description_ar": null,
+        "quantity": "8",
+        "unit_price": "134.00",
+        "line_total": "1072.00"
+      },
+      {
+        "description": "Cloud hosting, monthly",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "258.10",
+        "line_total": "774.30"
+      },
+      {
+        "description": "Annual licence per seat",
+        "description_ar": null,
+        "quantity": "30",
+        "unit_price": "361.23",
+        "line_total": "10836.90"
+      },
+      {
+        "description": "Packaging and crating",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "26.28",
+        "line_total": "52.56"
+      }
+    ],
+    "subtotal": "17224.18",
+    "discount": null,
+    "tax_rate": "21",
+    "tax_amount": "3617.08",
+    "total": "20841.26"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V06",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0057.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

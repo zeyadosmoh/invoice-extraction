@@ -1,0 +1,42 @@
+{
+  "doc_id": "doc_0012",
+  "invoice": {
+    "vendor_name": "Kemet Cables & Wiring",
+    "vendor_name_ar": "كيميت للكابلات والأسلاك",
+    "vendor_tax_id": "603-781-492",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "KCW-2025-185",
+    "invoice_date": "2025-03-18",
+    "due_date": "2025-05-17",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Junction box IP65",
+        "description_ar": "علبة توصيل IP65",
+        "quantity": "8",
+        "unit_price": "542.15",
+        "line_total": "4337.20"
+      }
+    ],
+    "subtotal": "4337.20",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "607.21",
+    "total": "4944.41"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V15",
+    "template": "T5_bilingual_ar_en",
+    "language": "ar-en",
+    "digits": "western",
+    "payment_terms_days": 60,
+    "files": {
+      "pdf": "pdf/doc_0012.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

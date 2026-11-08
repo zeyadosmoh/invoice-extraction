@@ -1,0 +1,84 @@
+{
+  "doc_id": "doc_0023",
+  "invoice": {
+    "vendor_name": "Dunecrest Interiors FZ-LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "100649027700003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "DCI-0532",
+    "invoice_date": "2025-05-01",
+    "due_date": "2025-05-31",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "Ergonomic office chair",
+        "description_ar": null,
+        "quantity": "14",
+        "unit_price": "1108.53",
+        "line_total": "15519.42"
+      },
+      {
+        "description": "Meeting table, 8-seat",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "3786.29",
+        "line_total": "3786.29"
+      },
+      {
+        "description": "Glass partition panel",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "1253.00",
+        "line_total": "7518.00"
+      },
+      {
+        "description": "Height-adjustable desk",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "2378.87",
+        "line_total": "2378.87"
+      },
+      {
+        "description": "Carpet tiles (sqm)",
+        "description_ar": null,
+        "quantity": "69",
+        "unit_price": "157.95",
+        "line_total": "10898.55"
+      },
+      {
+        "description": "Installation labour (h)",
+        "description_ar": null,
+        "quantity": "8",
+        "unit_price": "123.00",
+        "line_total": "984.00"
+      },
+      {
+        "description": "Site visit",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "350.00",
+        "line_total": "350.00"
+      }
+    ],
+    "subtotal": "41435.13",
+    "discount": null,
+    "tax_rate": "5",
+    "tax_amount": "2071.76",
+    "total": "43506.89"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V12",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0023.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

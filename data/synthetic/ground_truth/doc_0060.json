@@ -1,0 +1,42 @@
+{
+  "doc_id": "doc_0060",
+  "invoice": {
+    "vendor_name": "Nile Lotus Printing House",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "512-904-337",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "NLP-00328",
+    "invoice_date": "2025-11-16",
+    "due_date": "2025-12-16",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Design proof revision (h)",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "1752.25",
+        "line_total": "7009.00"
+      }
+    ],
+    "subtotal": "7009.00",
+    "discount": null,
+    "tax_rate": "14",
+    "tax_amount": "981.26",
+    "total": "7990.26"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V13",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0060.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

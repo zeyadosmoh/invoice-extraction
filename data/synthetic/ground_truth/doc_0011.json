@@ -1,0 +1,105 @@
+{
+  "doc_id": "doc_0011",
+  "invoice": {
+    "vendor_name": "Atelier Solenne SARL",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "FR32845219036",
+    "buyer_name": "Orchard Peak Europe B.V.",
+    "invoice_number": "F20250715",
+    "invoice_date": "2025-03-18",
+    "due_date": "2025-05-02",
+    "currency": "EUR",
+    "line_items": [
+      {
+        "description": "Logo concept round",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "389.00",
+        "line_total": "389.00"
+      },
+      {
+        "description": "Revision hours (h)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "98.00",
+        "line_total": "294.00"
+      },
+      {
+        "description": "Illustration set",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "271.00",
+        "line_total": "271.00"
+      },
+      {
+        "description": "Product photography, half day",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "716.00",
+        "line_total": "716.00"
+      },
+      {
+        "description": "Packaging mockups",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "201.00",
+        "line_total": "201.00"
+      },
+      {
+        "description": "Brand identity workshop (h)",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "96.00",
+        "line_total": "384.00"
+      },
+      {
+        "description": "Site visit",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "56.00",
+        "line_total": "56.00"
+      },
+      {
+        "description": "Packaging and crating",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "15.02",
+        "line_total": "30.04"
+      },
+      {
+        "description": "Delivery charge",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "22.70",
+        "line_total": "22.70"
+      },
+      {
+        "description": "Administrative fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "6.28",
+        "line_total": "6.28"
+      }
+    ],
+    "subtotal": "2370.02",
+    "discount": null,
+    "tax_rate": "20",
+    "tax_amount": "474.00",
+    "total": "2844.02"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V05",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0011.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "doc_id": "doc_0013",
+  "invoice": {
+    "vendor_name": "Harborlight Print Works",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "26-7730419",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "HPW-0743",
+    "invoice_date": "2025-03-19",
+    "due_date": "2025-05-03",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Design proof revision (h)",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "23.53",
+        "line_total": "141.18"
+      },
+      {
+        "description": "Roll-up stand",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "107.00",
+        "line_total": "214.00"
+      },
+      {
+        "description": "Letterhead paper (500 sheets)",
+        "description_ar": null,
+        "quantity": "8",
+        "unit_price": "58.60",
+        "line_total": "468.80"
+      },
+      {
+        "description": "Vinyl banner 2x1 m",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "58.95",
+        "line_total": "117.90"
+      },
+      {
+        "description": "Business cards (box of 250)",
+        "description_ar": null,
+        "quantity": "10",
+        "unit_price": "34.45",
+        "line_total": "344.50"
+      },
+      {
+        "description": "Tri-fold brochures (100 pcs)",
+        "description_ar": null,
+        "quantity": "8",
+        "unit_price": "78.00",
+        "line_total": "624.00"
+      }
+    ],
+    "subtotal": "1910.38",
+    "discount": null,
+    "tax_rate": "7",
+    "tax_amount": "133.73",
+    "total": "2044.11"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V03",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0013.pdf",
+      "png": "scans/doc_0013.png"
+    },
+    "scan": {
+      "dpi": 132,
+      "rotation_deg": 0.42,
+      "blur_radius": 0.47,
+      "noise_sigma": 11.55,
+      "jpeg_quality": 51
+    },
+    "generator_seed": 42
+  }
+}

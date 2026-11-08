@@ -1,0 +1,77 @@
+{
+  "doc_id": "doc_0078",
+  "invoice": {
+    "vendor_name": "Kemet Cables & Wiring",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "603-781-492",
+    "buyer_name": "Orchard Peak Egypt S.A.E.",
+    "invoice_number": "KCW-2026-195",
+    "invoice_date": "2026-01-19",
+    "due_date": "2026-03-05",
+    "currency": "EGP",
+    "line_items": [
+      {
+        "description": "Armoured cable 4x16mm (m)",
+        "description_ar": null,
+        "quantity": "31",
+        "unit_price": "801.86",
+        "line_total": "24857.66"
+      },
+      {
+        "description": "Copper cable 3x2.5mm (100 m roll)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "3564.44",
+        "line_total": "10693.32"
+      },
+      {
+        "description": "PVC conduit 25mm (3 m)",
+        "description_ar": null,
+        "quantity": "119",
+        "unit_price": "170.41",
+        "line_total": "20278.79"
+      },
+      {
+        "description": "Circuit breaker 32A",
+        "description_ar": null,
+        "quantity": "10",
+        "unit_price": "1045.18",
+        "line_total": "10451.80"
+      },
+      {
+        "description": "Cable lugs (pack of 100)",
+        "description_ar": null,
+        "quantity": "7",
+        "unit_price": "1120.74",
+        "line_total": "7845.18"
+      },
+      {
+        "description": "Junction box IP65",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "446.00",
+        "line_total": "2676.00"
+      }
+    ],
+    "subtotal": "76802.75",
+    "discount": "3840.14",
+    "tax_rate": "14",
+    "tax_amount": "10214.77",
+    "total": "83177.38"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V15",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0078.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

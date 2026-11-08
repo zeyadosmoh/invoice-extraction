@@ -1,0 +1,119 @@
+{
+  "doc_id": "doc_0065",
+  "invoice": {
+    "vendor_name": "Qasr Al Nakheel Trading Est.",
+    "vendor_name_ar": "مؤسسة قصر النخيل التجارية",
+    "vendor_tax_id": "310245678900003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "QN-2025-0666",
+    "invoice_date": "2025-12-08",
+    "due_date": "2025-12-23",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Ballpoint pens (box of 50)",
+        "description_ar": "أقلام حبر جاف (علبة 50)",
+        "quantity": "20",
+        "unit_price": "38.71",
+        "line_total": "774.20"
+      },
+      {
+        "description": "Sticky notes (pack of 24)",
+        "description_ar": "أوراق لاصقة (24 رزمة)",
+        "quantity": "5",
+        "unit_price": "42.45",
+        "line_total": "212.25"
+      },
+      {
+        "description": "Copy paper A4 (box of 5 reams)",
+        "description_ar": "ورق تصوير A4 (كرتون 5 رزم)",
+        "quantity": "20",
+        "unit_price": "74.00",
+        "line_total": "1480.00"
+      },
+      {
+        "description": "Heavy-duty stapler",
+        "description_ar": "دباسة كبيرة",
+        "quantity": "2",
+        "unit_price": "85.00",
+        "line_total": "170.00"
+      },
+      {
+        "description": "Archive box files",
+        "description_ar": "ملفات أرشيف",
+        "quantity": "9",
+        "unit_price": "13.63",
+        "line_total": "122.67"
+      },
+      {
+        "description": "Desk organizer",
+        "description_ar": "منظم مكتب",
+        "quantity": "2",
+        "unit_price": "40.57",
+        "line_total": "81.14"
+      },
+      {
+        "description": "Whiteboard markers (set of 12)",
+        "description_ar": "أقلام سبورة (12 قلم)",
+        "quantity": "1",
+        "unit_price": "39.70",
+        "line_total": "39.70"
+      },
+      {
+        "description": "Toner cartridge, black",
+        "description_ar": "حبر طابعة أسود",
+        "quantity": "1",
+        "unit_price": "336.00",
+        "line_total": "336.00"
+      },
+      {
+        "description": "Spiral notebooks A5 (pack of 10)",
+        "description_ar": "دفاتر سلك A5 (10 حبات)",
+        "quantity": "2",
+        "unit_price": "57.68",
+        "line_total": "115.36"
+      },
+      {
+        "description": "Packaging and crating",
+        "description_ar": "تغليف وتعبئة",
+        "quantity": "3",
+        "unit_price": "97.00",
+        "line_total": "291.00"
+      },
+      {
+        "description": "Extended warranty (12 months)",
+        "description_ar": "ضمان ممتد (12 شهر)",
+        "quantity": "2",
+        "unit_price": "123.01",
+        "line_total": "246.02"
+      },
+      {
+        "description": "Administrative fee",
+        "description_ar": "رسوم إدارية",
+        "quantity": "1",
+        "unit_price": "51.00",
+        "line_total": "51.00"
+      }
+    ],
+    "subtotal": "3919.34",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "587.90",
+    "total": "4507.24"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V07",
+    "template": "T5_bilingual_ar_en",
+    "language": "ar-en",
+    "digits": "arabic_indic",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0065.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

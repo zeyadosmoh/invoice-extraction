@@ -1,0 +1,62 @@
+{
+  "doc_id": "doc_0099",
+  "invoice": {
+    "vendor_name": "Saqr Horizon Facilities",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "100572168300003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "SHF2026-0391",
+    "invoice_date": "2026-05-22",
+    "due_date": "2026-06-21",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "AC maintenance per unit",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "114.00",
+        "line_total": "114.00"
+      },
+      {
+        "description": "Plumbing repair (h)",
+        "description_ar": null,
+        "quantity": "9.5",
+        "unit_price": "197.51",
+        "line_total": "1876.35"
+      },
+      {
+        "description": "Pest control visit",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "490.01",
+        "line_total": "1470.03"
+      }
+    ],
+    "subtotal": "3460.38",
+    "discount": null,
+    "tax_rate": "5",
+    "tax_amount": "173.02",
+    "total": "3633.40"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V11",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0099.pdf",
+      "png": "scans/doc_0099.png"
+    },
+    "scan": {
+      "dpi": 128,
+      "rotation_deg": 2.47,
+      "blur_radius": 0.77,
+      "noise_sigma": 10.24,
+      "jpeg_quality": 48
+    },
+    "generator_seed": 42
+  }
+}

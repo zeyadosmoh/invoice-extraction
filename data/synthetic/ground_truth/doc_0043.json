@@ -1,0 +1,48 @@
+{
+  "doc_id": "doc_0043",
+  "invoice": {
+    "vendor_name": "Copperline Freight LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "83-5521047",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "CF000760",
+    "invoice_date": "2025-08-12",
+    "due_date": "2025-09-26",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Customs clearance handling",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "76.25",
+        "line_total": "76.25"
+      }
+    ],
+    "subtotal": "76.25",
+    "discount": null,
+    "tax_rate": "6",
+    "tax_amount": "4.58",
+    "total": "80.83"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V02",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0043.pdf",
+      "png": "scans/doc_0043.png"
+    },
+    "scan": {
+      "dpi": 101,
+      "rotation_deg": 0.93,
+      "blur_radius": 0.77,
+      "noise_sigma": 7.71,
+      "jpeg_quality": 45
+    },
+    "generator_seed": 42
+  }
+}

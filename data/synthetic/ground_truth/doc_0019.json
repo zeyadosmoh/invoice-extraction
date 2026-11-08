@@ -1,0 +1,84 @@
+{
+  "doc_id": "doc_0019",
+  "invoice": {
+    "vendor_name": "Copperline Freight LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "83-5521047",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "CF000754",
+    "invoice_date": "2025-04-19",
+    "due_date": "2025-06-03",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Linehaul freight per pallet",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "100.14",
+        "line_total": "200.28"
+      },
+      {
+        "description": "Last-mile delivery",
+        "description_ar": null,
+        "quantity": "12",
+        "unit_price": "13.09",
+        "line_total": "157.08"
+      },
+      {
+        "description": "Customs clearance handling",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "100.00",
+        "line_total": "300.00"
+      },
+      {
+        "description": "Shrink wrapping per pallet",
+        "description_ar": null,
+        "quantity": "8",
+        "unit_price": "8.53",
+        "line_total": "68.24"
+      },
+      {
+        "description": "Fuel surcharge",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "15.91",
+        "line_total": "47.73"
+      },
+      {
+        "description": "Warehouse storage per pallet-day",
+        "description_ar": null,
+        "quantity": "133",
+        "unit_price": "1.91",
+        "line_total": "254.03"
+      },
+      {
+        "description": "Express handling fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "32.21",
+        "line_total": "32.21"
+      }
+    ],
+    "subtotal": "1059.57",
+    "discount": null,
+    "tax_rate": "6",
+    "tax_amount": "63.57",
+    "total": "1123.14"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V02",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0019.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

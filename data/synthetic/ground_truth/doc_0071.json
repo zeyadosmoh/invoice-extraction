@@ -1,0 +1,69 @@
+{
+  "doc_id": "doc_0071",
+  "invoice": {
+    "vendor_name": "Qasr Al Nakheel Trading Est.",
+    "vendor_name_ar": "مؤسسة قصر النخيل التجارية",
+    "vendor_tax_id": "310245678900003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "QN-2026-0669",
+    "invoice_date": "2026-01-03",
+    "due_date": "2026-01-03",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Copy paper A4 (box of 5 reams)",
+        "description_ar": "ورق تصوير A4 (كرتون 5 رزم)",
+        "quantity": "16",
+        "unit_price": "79.00",
+        "line_total": "1264.00"
+      },
+      {
+        "description": "Toner cartridge, black",
+        "description_ar": "حبر طابعة أسود",
+        "quantity": "1",
+        "unit_price": "249.94",
+        "line_total": "249.94"
+      },
+      {
+        "description": "Ballpoint pens (box of 50)",
+        "description_ar": "أقلام حبر جاف (علبة 50)",
+        "quantity": "4",
+        "unit_price": "45.68",
+        "line_total": "182.72"
+      },
+      {
+        "description": "Heavy-duty stapler",
+        "description_ar": "دباسة كبيرة",
+        "quantity": "1",
+        "unit_price": "79.48",
+        "line_total": "79.48"
+      }
+    ],
+    "subtotal": "1776.14",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "266.42",
+    "total": "2042.56"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V07",
+    "template": "T5_bilingual_ar_en",
+    "language": "ar-en",
+    "digits": "western",
+    "payment_terms_days": 0,
+    "files": {
+      "pdf": "pdf/doc_0071.pdf",
+      "png": "scans/doc_0071.png"
+    },
+    "scan": {
+      "dpi": 114,
+      "rotation_deg": -0.23,
+      "blur_radius": 0.54,
+      "noise_sigma": 10.19,
+      "jpeg_quality": 45
+    },
+    "generator_seed": 42
+  }
+}

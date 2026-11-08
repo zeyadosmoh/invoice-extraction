@@ -1,0 +1,88 @@
+{
+  "doc_id": "doc_0025",
+  "invoice": {
+    "vendor_name": "Rimal Catering Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "311908452100003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "RC00814",
+    "invoice_date": "2025-05-13",
+    "due_date": "2025-06-27",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Dessert platter",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "77.00",
+        "line_total": "154.00"
+      },
+      {
+        "description": "Coffee break service per person",
+        "description_ar": null,
+        "quantity": "115",
+        "unit_price": "17.66",
+        "line_total": "2030.90"
+      },
+      {
+        "description": "Fresh juice (litre)",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "26.25",
+        "line_total": "157.50"
+      },
+      {
+        "description": "Bottled water (carton)",
+        "description_ar": null,
+        "quantity": "8",
+        "unit_price": "10.83",
+        "line_total": "86.64"
+      },
+      {
+        "description": "Event buffet per guest",
+        "description_ar": null,
+        "quantity": "58",
+        "unit_price": "103.85",
+        "line_total": "6023.30"
+      },
+      {
+        "description": "Lunch boxes",
+        "description_ar": null,
+        "quantity": "73",
+        "unit_price": "38.30",
+        "line_total": "2795.90"
+      },
+      {
+        "description": "Extended warranty (12 months)",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "408.28",
+        "line_total": "816.56"
+      }
+    ],
+    "subtotal": "12064.80",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "1809.72",
+    "total": "13874.52"
+  },
+  "is_anomaly": true,
+  "anomaly": {
+    "type": "duplicate_invoice_number",
+    "reason": "Invoice number RC00814 was already used by doc_0005 from the same vendor (Rimal Catering Co.).",
+    "duplicate_of": "doc_0005"
+  },
+  "meta": {
+    "vendor_id": "V08",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0025.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "doc_id": "doc_0070",
+  "invoice": {
+    "vendor_name": "Velatra Software B.V.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "NL861204593B01",
+    "buyer_name": "Orchard Peak Europe B.V.",
+    "invoice_number": "VS-INV-00563",
+    "invoice_date": "2026-01-01",
+    "due_date": "2026-01-01",
+    "currency": "EUR",
+    "line_items": [
+      {
+        "description": "Onboarding and training",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "687.95",
+        "line_total": "687.95"
+      },
+      {
+        "description": "API usage block (1M calls)",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "193.41",
+        "line_total": "386.82"
+      },
+      {
+        "description": "Premium support (h)",
+        "description_ar": null,
+        "quantity": "20",
+        "unit_price": "138.00",
+        "line_total": "2760.00"
+      },
+      {
+        "description": "Annual licence per seat",
+        "description_ar": null,
+        "quantity": "5",
+        "unit_price": "144.00",
+        "line_total": "720.00"
+      },
+      {
+        "description": "Data migration service",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "819.27",
+        "line_total": "819.27"
+      },
+      {
+        "description": "Cloud hosting, monthly",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "291.00",
+        "line_total": "291.00"
+      },
+      {
+        "description": "Packaging and crating",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "30.00",
+        "line_total": "60.00"
+      },
+      {
+        "description": "Delivery charge",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "21.20",
+        "line_total": "21.20"
+      },
+      {
+        "description": "Express handling fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "39.29",
+        "line_total": "39.29"
+      }
+    ],
+    "subtotal": "5785.53",
+    "discount": "867.83",
+    "tax_rate": "21",
+    "tax_amount": "1032.72",
+    "total": "5950.42"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V06",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 0,
+    "files": {
+      "pdf": "pdf/doc_0070.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

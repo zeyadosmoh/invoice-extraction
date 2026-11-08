@@ -1,0 +1,49 @@
+{
+  "doc_id": "doc_0035",
+  "invoice": {
+    "vendor_name": "Rimal Catering Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "311908452100003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "RC00821",
+    "invoice_date": "2025-06-26",
+    "due_date": "2025-07-26",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Bottled water (carton)",
+        "description_ar": null,
+        "quantity": "17",
+        "unit_price": "17.43",
+        "line_total": "296.31"
+      },
+      {
+        "description": "Lunch boxes",
+        "description_ar": null,
+        "quantity": "40",
+        "unit_price": "25.13",
+        "line_total": "1005.20"
+      }
+    ],
+    "subtotal": "1301.51",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "195.23",
+    "total": "1496.74"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V08",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 30,
+    "files": {
+      "pdf": "pdf/doc_0035.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

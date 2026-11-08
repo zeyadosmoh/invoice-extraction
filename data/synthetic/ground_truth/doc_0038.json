@@ -1,0 +1,76 @@
+{
+  "doc_id": "doc_0038",
+  "invoice": {
+    "vendor_name": "Rimal Catering Co.",
+    "vendor_name_ar": "شركة رمال للإعاشة",
+    "vendor_tax_id": "311908452100003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "RC00822",
+    "invoice_date": "2025-07-16",
+    "due_date": "2025-08-30",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Fresh juice (litre)",
+        "description_ar": "عصير طازج (لتر)",
+        "quantity": "5",
+        "unit_price": "26.13",
+        "line_total": "130.65"
+      },
+      {
+        "description": "Coffee break service per person",
+        "description_ar": "استراحة قهوة للشخص",
+        "quantity": "46",
+        "unit_price": "11.84",
+        "line_total": "544.64"
+      },
+      {
+        "description": "Lunch boxes",
+        "description_ar": "وجبات غداء",
+        "quantity": "34",
+        "unit_price": "33.82",
+        "line_total": "1149.88"
+      },
+      {
+        "description": "Bottled water (carton)",
+        "description_ar": "مياه معبأة (كرتون)",
+        "quantity": "17",
+        "unit_price": "14.66",
+        "line_total": "249.22"
+      },
+      {
+        "description": "Site visit",
+        "description_ar": "زيارة موقع",
+        "quantity": "2",
+        "unit_price": "171.71",
+        "line_total": "343.42"
+      }
+    ],
+    "subtotal": "2417.81",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "362.67",
+    "total": "2780.48"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V08",
+    "template": "T5_bilingual_ar_en",
+    "language": "ar-en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0038.pdf",
+      "png": "scans/doc_0038.png"
+    },
+    "scan": {
+      "dpi": 137,
+      "rotation_deg": 2.12,
+      "blur_radius": 0.7,
+      "noise_sigma": 10.1,
+      "jpeg_quality": 65
+    },
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "doc_id": "doc_0079",
+  "invoice": {
+    "vendor_name": "Harborlight Print Works",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "26-7730419",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "HPW-0754",
+    "invoice_date": "2026-01-27",
+    "due_date": "2026-02-11",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Design proof revision (h)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "20.43",
+        "line_total": "20.43"
+      },
+      {
+        "description": "Letterhead paper (500 sheets)",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "36.30",
+        "line_total": "217.80"
+      },
+      {
+        "description": "Vinyl banner 2x1 m",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "75.00",
+        "line_total": "75.00"
+      },
+      {
+        "description": "Roll-up stand",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "104.00",
+        "line_total": "104.00"
+      },
+      {
+        "description": "Business cards (box of 250)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "33.69",
+        "line_total": "101.07"
+      },
+      {
+        "description": "Tri-fold brochures (100 pcs)",
+        "description_ar": null,
+        "quantity": "5",
+        "unit_price": "90.00",
+        "line_total": "450.00"
+      }
+    ],
+    "subtotal": "968.30",
+    "discount": null,
+    "tax_rate": "7",
+    "tax_amount": "67.78",
+    "total": "1036.08"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V03",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0079.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

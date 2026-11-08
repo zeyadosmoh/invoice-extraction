@@ -1,0 +1,91 @@
+{
+  "doc_id": "doc_0030",
+  "invoice": {
+    "vendor_name": "Gruenfeld Maschinentechnik GmbH",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "DE298104473",
+    "buyer_name": "Orchard Peak Europe B.V.",
+    "invoice_number": "RE-2025-0241",
+    "invoice_date": "2025-06-16",
+    "due_date": "2025-07-01",
+    "currency": "EUR",
+    "line_items": [
+      {
+        "description": "Preventive maintenance labour (h)",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "59.00",
+        "line_total": "354.00"
+      },
+      {
+        "description": "Gearbox seal kit",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "54.48",
+        "line_total": "326.88"
+      },
+      {
+        "description": "Bearing set 6204-2RS",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "17.97",
+        "line_total": "71.88"
+      },
+      {
+        "description": "Drive belt",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "24.42",
+        "line_total": "73.26"
+      },
+      {
+        "description": "Hydraulic hose assembly",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "106.35",
+        "line_total": "425.40"
+      },
+      {
+        "description": "Calibration service",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "175.00",
+        "line_total": "175.00"
+      },
+      {
+        "description": "Delivery charge",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "33.29",
+        "line_total": "33.29"
+      },
+      {
+        "description": "Site visit",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "68.00",
+        "line_total": "68.00"
+      }
+    ],
+    "subtotal": "1527.71",
+    "discount": null,
+    "tax_rate": "19",
+    "tax_amount": "290.26",
+    "total": "1817.97"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V04",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0030.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

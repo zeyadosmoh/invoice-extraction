@@ -1,0 +1,62 @@
+{
+  "doc_id": "doc_0022",
+  "invoice": {
+    "vendor_name": "Atelier Solenne SARL",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "FR32845219036",
+    "buyer_name": "Orchard Peak Europe B.V.",
+    "invoice_number": "F20250717",
+    "invoice_date": "2025-05-01",
+    "due_date": "2025-05-01",
+    "currency": "EUR",
+    "line_items": [
+      {
+        "description": "Illustration set",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "241.89",
+        "line_total": "241.89"
+      },
+      {
+        "description": "Revision hours (h)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "69.71",
+        "line_total": "209.13"
+      },
+      {
+        "description": "Logo concept round",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "750.00",
+        "line_total": "750.00"
+      }
+    ],
+    "subtotal": "1201.02",
+    "discount": "120.10",
+    "tax_rate": "20",
+    "tax_amount": "216.18",
+    "total": "1297.10"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V05",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 0,
+    "files": {
+      "pdf": "pdf/doc_0022.pdf",
+      "png": "scans/doc_0022.png"
+    },
+    "scan": {
+      "dpi": 128,
+      "rotation_deg": -1.89,
+      "blur_radius": 0.73,
+      "noise_sigma": 7.68,
+      "jpeg_quality": 65
+    },
+    "generator_seed": 42
+  }
+}

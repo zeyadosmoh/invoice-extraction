@@ -1,0 +1,62 @@
+{
+  "doc_id": "doc_0072",
+  "invoice": {
+    "vendor_name": "Dunecrest Interiors FZ-LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "100649027700003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "DCI-0540",
+    "invoice_date": "2026-01-03",
+    "due_date": "2026-02-17",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "Carpet tiles (sqm)",
+        "description_ar": null,
+        "quantity": "81",
+        "unit_price": "88.86",
+        "line_total": "7197.66"
+      },
+      {
+        "description": "Height-adjustable desk",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "1668.00",
+        "line_total": "3336.00"
+      },
+      {
+        "description": "Meeting table, 8-seat",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "7527.93",
+        "line_total": "15055.86"
+      }
+    ],
+    "subtotal": "25589.52",
+    "discount": "639.74",
+    "tax_rate": "5",
+    "tax_amount": "1247.49",
+    "total": "26197.27"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V12",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0072.pdf",
+      "png": "scans/doc_0072.png"
+    },
+    "scan": {
+      "dpi": 102,
+      "rotation_deg": 1.62,
+      "blur_radius": 0.55,
+      "noise_sigma": 11.04,
+      "jpeg_quality": 48
+    },
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "doc_id": "doc_0016",
+  "invoice": {
+    "vendor_name": "Bluefinch Office Supply Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "47-2918365",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "BOS-2025-00366",
+    "invoice_date": "2025-04-04",
+    "due_date": "2025-04-19",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Heavy-duty stapler",
+        "description_ar": null,
+        "quantity": "5",
+        "unit_price": "20.46",
+        "line_total": "102.30"
+      },
+      {
+        "description": "Whiteboard markers (set of 12)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "9.57",
+        "line_total": "28.71"
+      },
+      {
+        "description": "Ballpoint pens (box of 50)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "7.29",
+        "line_total": "7.29"
+      },
+      {
+        "description": "Spiral notebooks A5 (pack of 10)",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "13.95",
+        "line_total": "55.80"
+      },
+      {
+        "description": "Toner cartridge, black",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "75.03",
+        "line_total": "150.06"
+      },
+      {
+        "description": "Sticky notes (pack of 24)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "11.06",
+        "line_total": "11.06"
+      },
+      {
+        "description": "Archive box files",
+        "description_ar": null,
+        "quantity": "8",
+        "unit_price": "3.58",
+        "line_total": "28.64"
+      },
+      {
+        "description": "Desk organizer",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "22.84",
+        "line_total": "137.04"
+      },
+      {
+        "description": "Copy paper A4 (box of 5 reams)",
+        "description_ar": null,
+        "quantity": "17",
+        "unit_price": "18.02",
+        "line_total": "306.34"
+      },
+      {
+        "description": "Delivery charge",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "23.86",
+        "line_total": "23.86"
+      },
+      {
+        "description": "Site visit",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "76.29",
+        "line_total": "76.29"
+      }
+    ],
+    "subtotal": "927.39",
+    "discount": null,
+    "tax_rate": "8.25",
+    "tax_amount": "76.51",
+    "total": "1003.90"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V01",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0016.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

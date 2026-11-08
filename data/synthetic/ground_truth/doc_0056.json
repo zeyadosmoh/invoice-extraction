@@ -1,0 +1,70 @@
+{
+  "doc_id": "doc_0056",
+  "invoice": {
+    "vendor_name": "Bluefinch Office Supply Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "47-2918365",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "BOS-2025-00375",
+    "invoice_date": "2025-11-05",
+    "due_date": "2025-11-20",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Desk organizer",
+        "description_ar": null,
+        "quantity": "14",
+        "unit_price": "24.79",
+        "line_total": "347.06"
+      },
+      {
+        "description": "Toner cartridge, black",
+        "description_ar": null,
+        "quantity": "5",
+        "unit_price": "54.90",
+        "line_total": "274.50"
+      },
+      {
+        "description": "Whiteboard markers (set of 12)",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "9.92",
+        "line_total": "39.68"
+      },
+      {
+        "description": "Copy paper A4 (box of 5 reams)",
+        "description_ar": null,
+        "quantity": "12",
+        "unit_price": "28.68",
+        "line_total": "344.16"
+      },
+      {
+        "description": "Ballpoint pens (box of 50)",
+        "description_ar": null,
+        "quantity": "15",
+        "unit_price": "12.16",
+        "line_total": "182.40"
+      }
+    ],
+    "subtotal": "1187.80",
+    "discount": "29.70",
+    "tax_rate": "8.25",
+    "tax_amount": "95.54",
+    "total": "1253.64"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V01",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0056.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

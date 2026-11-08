@@ -1,0 +1,67 @@
+{
+  "doc_id": "doc_0068",
+  "invoice": {
+    "vendor_name": "Velatra Software B.V.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "NL861204593B01",
+    "buyer_name": "Orchard Peak Europe B.V.",
+    "invoice_number": "VS-INV-00559",
+    "invoice_date": "2025-12-13",
+    "due_date": "2025-12-13",
+    "currency": "EUR",
+    "line_items": [
+      {
+        "description": "Data migration service",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "741.01",
+        "line_total": "741.01"
+      },
+      {
+        "description": "Onboarding and training",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "591.49",
+        "line_total": "591.49"
+      },
+      {
+        "description": "Cloud hosting, monthly",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "399.00",
+        "line_total": "399.00"
+      },
+      {
+        "description": "Administrative fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "21.95",
+        "line_total": "21.95"
+      }
+    ],
+    "subtotal": "1753.45",
+    "discount": null,
+    "tax_rate": "21",
+    "tax_amount": "368.22",
+    "total": "2121.67"
+  },
+  "is_anomaly": true,
+  "anomaly": {
+    "type": "duplicate_invoice_number",
+    "reason": "Invoice number VS-INV-00559 was already used by doc_0027 from the same vendor (Velatra Software B.V.).",
+    "duplicate_of": "doc_0027"
+  },
+  "meta": {
+    "vendor_id": "V06",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 0,
+    "files": {
+      "pdf": "pdf/doc_0068.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

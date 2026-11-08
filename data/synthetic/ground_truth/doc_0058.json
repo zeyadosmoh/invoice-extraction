@@ -1,0 +1,83 @@
+{
+  "doc_id": "doc_0058",
+  "invoice": {
+    "vendor_name": "Lulua Marine Services LLC",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "100384920500003",
+    "buyer_name": "Orchard Peak Middle East LLC",
+    "invoice_number": "LMS-00704",
+    "invoice_date": "2025-11-09",
+    "due_date": "2025-12-24",
+    "currency": "AED",
+    "line_items": [
+      {
+        "description": "Mooring fee per day",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "145.00",
+        "line_total": "870.00"
+      },
+      {
+        "description": "Antifouling paint (litre)",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "96.00",
+        "line_total": "384.00"
+      },
+      {
+        "description": "Marine diesel (litre)",
+        "description_ar": null,
+        "quantity": "257",
+        "unit_price": "5.14",
+        "line_total": "1320.98"
+      },
+      {
+        "description": "Engine service",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "2153.00",
+        "line_total": "2153.00"
+      },
+      {
+        "description": "Hull cleaning",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "1891.54",
+        "line_total": "3783.08"
+      },
+      {
+        "description": "Safety equipment inspection",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "516.00",
+        "line_total": "516.00"
+      }
+    ],
+    "subtotal": "9027.06",
+    "discount": "902.71",
+    "tax_rate": "5",
+    "tax_amount": "406.22",
+    "total": "8530.57"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V10",
+    "template": "T4_two_column",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0058.pdf",
+      "png": "scans/doc_0058.png"
+    },
+    "scan": {
+      "dpi": 124,
+      "rotation_deg": 1.6,
+      "blur_radius": 0.47,
+      "noise_sigma": 11.83,
+      "jpeg_quality": 48
+    },
+    "generator_seed": 42
+  }
+}

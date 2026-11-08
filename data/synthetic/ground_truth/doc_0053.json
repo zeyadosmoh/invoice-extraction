@@ -1,0 +1,91 @@
+{
+  "doc_id": "doc_0053",
+  "invoice": {
+    "vendor_name": "Harborlight Print Works",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "26-7730419",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "HPW-0748",
+    "invoice_date": "2025-10-01",
+    "due_date": "2025-10-16",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Tri-fold brochures (100 pcs)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "54.00",
+        "line_total": "54.00"
+      },
+      {
+        "description": "Vinyl banner 2x1 m",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "88.00",
+        "line_total": "264.00"
+      },
+      {
+        "description": "Roll-up stand",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "74.98",
+        "line_total": "149.96"
+      },
+      {
+        "description": "Sticker labels (roll)",
+        "description_ar": null,
+        "quantity": "6",
+        "unit_price": "28.78",
+        "line_total": "172.68"
+      },
+      {
+        "description": "Design proof revision (h)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "19.46",
+        "line_total": "58.38"
+      },
+      {
+        "description": "Letterhead paper (500 sheets)",
+        "description_ar": null,
+        "quantity": "8",
+        "unit_price": "41.95",
+        "line_total": "335.60"
+      },
+      {
+        "description": "Business cards (box of 250)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "40.21",
+        "line_total": "40.21"
+      },
+      {
+        "description": "Express handling fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "25.98",
+        "line_total": "25.98"
+      }
+    ],
+    "subtotal": "1100.81",
+    "discount": null,
+    "tax_rate": "7",
+    "tax_amount": "77.06",
+    "total": "1177.87"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V03",
+    "template": "T3_receipt",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 15,
+    "files": {
+      "pdf": "pdf/doc_0053.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "doc_id": "doc_0040",
+  "invoice": {
+    "vendor_name": "Wahat Digital Solutions",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "302117735400003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "WDS/2025/0504",
+    "invoice_date": "2025-07-24",
+    "due_date": "2025-09-22",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Installation and setup (h)",
+        "description_ar": null,
+        "quantity": "6.5",
+        "unit_price": "154.89",
+        "line_total": "1006.79"
+      },
+      {
+        "description": "Network switch, 24-port",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "2132.00",
+        "line_total": "2132.00"
+      },
+      {
+        "description": "UPS 1500VA",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "883.00",
+        "line_total": "2649.00"
+      },
+      {
+        "description": "Laptop 14in, 16GB RAM",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "3842.00",
+        "line_total": "7684.00"
+      },
+      {
+        "description": "Cat6 patch cables (10 pcs)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "74.34",
+        "line_total": "74.34"
+      },
+      {
+        "description": "27in monitor",
+        "description_ar": null,
+        "quantity": "5",
+        "unit_price": "1227.80",
+        "line_total": "6139.00"
+      },
+      {
+        "description": "Wireless keyboard and mouse",
+        "description_ar": null,
+        "quantity": "15",
+        "unit_price": "190.90",
+        "line_total": "2863.50"
+      },
+      {
+        "description": "Delivery charge",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "142.71",
+        "line_total": "142.71"
+      },
+      {
+        "description": "Packaging and crating",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "54.00",
+        "line_total": "54.00"
+      }
+    ],
+    "subtotal": "22745.34",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "3411.80",
+    "total": "26157.14"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V09",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 60,
+    "files": {
+      "pdf": "pdf/doc_0040.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "doc_id": "doc_0048",
+  "invoice": {
+    "vendor_name": "Bluefinch Office Supply Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "47-2918365",
+    "buyer_name": "Orchard Peak Holdings Inc.",
+    "invoice_number": "BOS-2025-00372",
+    "invoice_date": "2025-09-04",
+    "due_date": "2025-10-19",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Ballpoint pens (box of 50)",
+        "description_ar": null,
+        "quantity": "16",
+        "unit_price": "13.43",
+        "line_total": "214.88"
+      },
+      {
+        "description": "Spiral notebooks A5 (pack of 10)",
+        "description_ar": null,
+        "quantity": "9",
+        "unit_price": "16.28",
+        "line_total": "146.52"
+      },
+      {
+        "description": "Heavy-duty stapler",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "19.18",
+        "line_total": "38.36"
+      },
+      {
+        "description": "Sticky notes (pack of 24)",
+        "description_ar": null,
+        "quantity": "4",
+        "unit_price": "14.48",
+        "line_total": "57.92"
+      },
+      {
+        "description": "Desk organizer",
+        "description_ar": null,
+        "quantity": "9",
+        "unit_price": "16.22",
+        "line_total": "145.98"
+      },
+      {
+        "description": "Copy paper A4 (box of 5 reams)",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "18.90",
+        "line_total": "56.70"
+      },
+      {
+        "description": "Whiteboard markers (set of 12)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "11.43",
+        "line_total": "11.43"
+      },
+      {
+        "description": "Archive box files",
+        "description_ar": null,
+        "quantity": "17",
+        "unit_price": "3.04",
+        "line_total": "51.68"
+      },
+      {
+        "description": "Toner cartridge, black",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "49.42",
+        "line_total": "148.26"
+      },
+      {
+        "description": "Delivery charge",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "10.94",
+        "line_total": "10.94"
+      },
+      {
+        "description": "Administrative fee",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "15.28",
+        "line_total": "15.28"
+      }
+    ],
+    "subtotal": "897.95",
+    "discount": null,
+    "tax_rate": "8.25",
+    "tax_amount": "74.08",
+    "total": "972.03"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V01",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0048.pdf",
+      "png": "scans/doc_0048.png"
+    },
+    "scan": {
+      "dpi": 102,
+      "rotation_deg": 1.97,
+      "blur_radius": 0.85,
+      "noise_sigma": 5.59,
+      "jpeg_quality": 50
+    },
+    "generator_seed": 42
+  }
+}

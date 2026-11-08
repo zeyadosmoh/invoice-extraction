@@ -1,0 +1,84 @@
+{
+  "doc_id": "doc_0088",
+  "invoice": {
+    "vendor_name": "Atelier Solenne SARL",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "FR32845219036",
+    "buyer_name": "Orchard Peak Europe B.V.",
+    "invoice_number": "F20260724",
+    "invoice_date": "2026-03-25",
+    "due_date": "2026-05-09",
+    "currency": "EUR",
+    "line_items": [
+      {
+        "description": "Product photography, half day",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "675.00",
+        "line_total": "1350.00"
+      },
+      {
+        "description": "Logo concept round",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "392.00",
+        "line_total": "392.00"
+      },
+      {
+        "description": "Packaging mockups",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "290.88",
+        "line_total": "581.76"
+      },
+      {
+        "description": "Brand identity workshop (h)",
+        "description_ar": null,
+        "quantity": "2.5",
+        "unit_price": "89.00",
+        "line_total": "222.50"
+      },
+      {
+        "description": "Revision hours (h)",
+        "description_ar": null,
+        "quantity": "1",
+        "unit_price": "80.00",
+        "line_total": "80.00"
+      },
+      {
+        "description": "Illustration set",
+        "description_ar": null,
+        "quantity": "3",
+        "unit_price": "243.00",
+        "line_total": "729.00"
+      },
+      {
+        "description": "Packaging and crating",
+        "description_ar": null,
+        "quantity": "2",
+        "unit_price": "21.29",
+        "line_total": "42.58"
+      }
+    ],
+    "subtotal": "3397.84",
+    "discount": "169.89",
+    "tax_rate": "20",
+    "tax_amount": "645.59",
+    "total": "3873.54"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V05",
+    "template": "T2_modern",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0088.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

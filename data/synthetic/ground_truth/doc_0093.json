@@ -1,0 +1,49 @@
+{
+  "doc_id": "doc_0093",
+  "invoice": {
+    "vendor_name": "Wahat Digital Solutions",
+    "vendor_name_ar": "حلول الواحة الرقمية",
+    "vendor_tax_id": "302117735400003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "WDS/2026/0507",
+    "invoice_date": "2026-04-24",
+    "due_date": "2026-06-08",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "UPS 1500VA",
+        "description_ar": "مزود طاقة احتياطي 1500VA",
+        "quantity": "1",
+        "unit_price": "790.00",
+        "line_total": "790.00"
+      },
+      {
+        "description": "27in monitor",
+        "description_ar": "شاشة 27 بوصة",
+        "quantity": "2",
+        "unit_price": "1063.00",
+        "line_total": "2126.00"
+      }
+    ],
+    "subtotal": "2916.00",
+    "discount": null,
+    "tax_rate": "15",
+    "tax_amount": "437.40",
+    "total": "3353.40"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V09",
+    "template": "T5_bilingual_ar_en",
+    "language": "ar-en",
+    "digits": "western",
+    "payment_terms_days": 45,
+    "files": {
+      "pdf": "pdf/doc_0093.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "doc_id": "doc_0097",
+  "invoice": {
+    "vendor_name": "Rimal Catering Co.",
+    "vendor_name_ar": null,
+    "vendor_tax_id": "311908452100003",
+    "buyer_name": "Orchard Peak Arabia Co.",
+    "invoice_number": "RC00829",
+    "invoice_date": "2026-05-15",
+    "due_date": "2026-05-15",
+    "currency": "SAR",
+    "line_items": [
+      {
+        "description": "Event buffet per guest",
+        "description_ar": null,
+        "quantity": "61",
+        "unit_price": "142.00",
+        "line_total": "8662.00"
+      }
+    ],
+    "subtotal": "8662.00",
+    "discount": "433.10",
+    "tax_rate": "15",
+    "tax_amount": "1234.34",
+    "total": "9463.24"
+  },
+  "is_anomaly": false,
+  "anomaly": null,
+  "meta": {
+    "vendor_id": "V08",
+    "template": "T1_classic",
+    "language": "en",
+    "digits": "western",
+    "payment_terms_days": 0,
+    "files": {
+      "pdf": "pdf/doc_0097.pdf",
+      "png": null
+    },
+    "scan": null,
+    "generator_seed": 42
+  }
+}
